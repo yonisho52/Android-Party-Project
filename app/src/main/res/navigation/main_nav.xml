@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/homeMainFragment">
+
+    <fragment
+        android:id="@+id/homeMainFragment"
+        android:name="com.example.android_final_project.FragmentsMain.HomeMainFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home_main" />
+    <fragment
+        android:id="@+id/savedEventsMainFragment"
+        android:name="com.example.android_final_project.FragmentsMain.SavedEventsMainFragment"
+        android:label="Saved Events"
+        tools:layout="@layout/fragment_saved_events_main" />
+    <fragment
+        android:id="@+id/advertiseMainFragment"
+        android:name="com.example.android_final_project.FragmentsMain.AdvertiseFragment"
+        android:label="Advertisement"
+        tools:layout="@layout/fragment_advertise_main" />
+    <fragment
+        android:id="@+id/partyCodeMainFragment"
+        android:name="com.example.android_final_project.FragmentsMain.PartyCodeFragment"
+        android:label="Enter Party Code"
+        tools:layout="@layout/fragment_party_code_main" />
+    <fragment
+        android:id="@+id/editProfileMainFragment"
+        android:name="com.example.android_final_project.FragmentsMain.EditProfileMainFragment"
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit_profile_main" />
+    <fragment
+        android:id="@+id/eventSummaryMainFragment"
+        android:name="com.example.android_final_project.FragmentsMain.EventSummaryMainFragment"
+        android:label="Event Summary"
+        tools:layout="@layout/fragment_event_summary_main" />
+    <fragment
+        android:id="@+id/nowEventMainFragment"
+        android:name="com.example.android_final_project.FragmentsMain.NowEventMainFragment"
+        android:label="Now Event"
+        tools:layout="@layout/fragment_now_event_main" />
+</navigation>

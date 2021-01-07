@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Android-Final-Project</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="first_fragment">Advertise</string>
+    <string name="second_fragment">Saved Events</string>
+    <string name="home_calender">Home - calender</string>
 </resources>
