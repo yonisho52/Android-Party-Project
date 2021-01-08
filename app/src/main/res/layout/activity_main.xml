@@ -13,9 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.1"
-
         app:defaultNavHost="true"
-
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:navGraph="@navigation/main_nav" />
 
@@ -24,7 +22,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#fff"
-        app:menu="@menu/botton_menu" />
+        android:background="#fff" />
 
 </LinearLayout>
