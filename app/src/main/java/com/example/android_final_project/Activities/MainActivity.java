@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI;
 import android.os.Bundle;
 
 import com.example.android_final_project.R;
+import com.example.android_final_project.UserTypeClasses.userDJ;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        userDJ user1 = new userDJ();
 
 //        *****START - MAIN MENU VIEW*****
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
