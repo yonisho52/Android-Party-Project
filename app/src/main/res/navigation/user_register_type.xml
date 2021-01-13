@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/userregistertype"
+    app:startDestination="@id/regularRegFragment">
+
+    <fragment
+        android:id="@+id/regularRegFragment"
+        android:name="com.example.android_final_project.FragmentsRegLog.RegularRegisterFragment"
+        android:label="Regular User registration"
+        tools:layout="@layout/fragment_regular_register" />
+    <fragment
+        android:id="@+id/djRegFragment"
+        android:name="com.example.android_final_project.FragmentsRegLog.DJRegisterFragment"
+        android:label="DJ registration"
+        tools:layout="@layout/fragment_d_j_register" />
+    <fragment
+        android:id="@+id/placeOwnerRegFragment"
+        android:name="com.example.android_final_project.FragmentsRegLog.PlaceOwnerRegisterFragment"
+        android:label="Place owner registration"
+        tools:layout="@layout/fragment_place_owner_register" />
+</navigation>

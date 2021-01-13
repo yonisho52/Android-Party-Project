@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/regularRegFragment"
+        android:title="User"
+        android:icon="@drawable/ic_regular_user"/>
+
+    <item android:id="@+id/djRegFragment"
+        android:title="DJ"
+        android:icon="@drawable/ic_dj_user"/>
+
+    <item android:id="@+id/placeOwnerRegFragment"
+        android:title="placeOwner"
+        android:icon="@drawable/ic_place_owner_user"/>
+
+</menu>

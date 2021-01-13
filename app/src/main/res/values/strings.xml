@@ -5,4 +5,24 @@
     <string name="first_fragment">Advertise</string>
     <string name="second_fragment">Saved Events</string>
     <string name="home_calender">Home - calender</string>
+
+    <string-array name="djGenres">
+        <item>HipHop</item>
+        <item>Dance</item>
+        <item>Chill</item>
+        <item>Electronic</item>
+        <item>Techno</item>
+        <item>Trance</item>
+    </string-array>
+
+    <string-array name="placeTypes">
+        <item>Dance-bar</item>
+        <item>Dance club</item>
+        <item>Bar</item>
+        <item>Underground</item>
+        <item>Open sky</item>
+        <item>Hall</item>
+    </string-array>
+
+
 </resources>
