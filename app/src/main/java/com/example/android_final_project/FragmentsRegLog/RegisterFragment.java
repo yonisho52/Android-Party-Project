@@ -1,20 +1,22 @@
-package com.example.android_final_project.FragmentsMain;
+package com.example.android_final_project.FragmentsRegLog;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.Nullable;
+import androidx.core.app.SharedElementCallback;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.android_final_project.Activities.LoginActivity;
 import com.example.android_final_project.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -72,26 +74,31 @@ public class RegisterFragment extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
 
-        bottomNavigationView = view.findViewById(R.id.bottomNavigationView1);
-
-        navController = Navigation.findNavController(view.findViewById(R.id.fragment3));
-
-        //Titles for each page
-        //AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.regularRegFragment,R.id.djRegFragment,R.id.placeOwnerRegFragment).build();
-        //NavigationUI.setupActionBarWithNavController(, navController, appBarConfiguration);
-
-//        NavigationUI.setupWithNavController(bottomNavigationView,navController);
+        bottomNavigationView = view.findViewById(R.id.bottomNavigationViewRegister);
+        navController = Navigation.findNavController(view.findViewById(R.id.registerTypeFragment));
 
         //NAVIGATION CLICK
-        NavHostFragment navHostFragment = (NavHostFragment)getChildFragmentManager().findFragmentById(R.id.fragment3);
+        NavHostFragment navHostFragment = (NavHostFragment)getChildFragmentManager().findFragmentById(R.id.registerTypeFragment);
         NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.getNavController());
 
         // Inflate the layout for this fragment
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+
         return view;
     }
+
 }

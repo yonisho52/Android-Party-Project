@@ -1,13 +1,19 @@
-package com.example.android_final_project.FragmentsMain;
+package com.example.android_final_project.FragmentsRegLog;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Spinner;
 
+import com.example.android_final_project.Activities.LoginActivity;
 import com.example.android_final_project.R;
 
 /**
@@ -63,8 +69,15 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container,false );
 
-        return view;
 
-        //return inflater.inflate(R.layout.fragment_login, container, false);
+        Button goToReg = view.findViewById(R.id.buttonGotToReg);
+        goToReg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment);
+            }
+        });
+
+        return view;
     }
 }

@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".FragmentsMain.RegisterFragment">
+    tools:context=".FragmentsRegLog.RegisterFragment">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView1"
+        android:id="@+id/bottomNavigationViewRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:menu="@menu/user_type_menu">
@@ -92,14 +92,14 @@
     </LinearLayout>
 
     <fragment
-        android:id="@+id/fragment3"
+        android:id="@+id/registerTypeFragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView1"
-        app:navGraph="@navigation/user_register_type" />
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewRegister"
+        app:navGraph="@navigation/user_register_type_nav" />
 
     <Button
         android:id="@+id/buttonRegRegister"
