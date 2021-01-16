@@ -8,10 +8,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
-import android.view.ViewParent;
 
 import com.example.android_final_project.R;
-import com.example.android_final_project.UserTypeClasses.userDJ;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {

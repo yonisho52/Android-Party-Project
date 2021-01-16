@@ -25,6 +25,12 @@
     <Spinner
         android:id="@+id/regPlaceType"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/buttonRegOwner"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0" />
+        android:layout_gravity="bottom"
+        android:text="Register" />
 </LinearLayout>
