@@ -96,6 +96,7 @@ public class LoginActivity extends AppCompatActivity
         map.put("appleMusicLink",userDJ.getAppleMusicLink().toString());
         map.put("age",String.valueOf(userDJ.getAge()));
         map.put("placesCanBeFound",userDJ.getPlacesCanBeFound().stream().map(n -> String.valueOf(n)).collect(Collectors.joining(", ", "", "")).toString());
+        map.put("rating",String.valueOf(userDJ.getRating()));
 
         intoDataBase(map,"executeDjUser");
     }
@@ -111,6 +112,7 @@ public class LoginActivity extends AppCompatActivity
         map.put("placeName",placeOwner.getPlaceName());
         map.put("placeType",placeOwner.getPlaceType());
         map.put("placeAddress",placeOwner.getPlaceAddress());
+        map.put("rating",String.valueOf(placeOwner.getPlaceRating()));
 
         intoDataBase(map,"executeOwnerUser");
     }

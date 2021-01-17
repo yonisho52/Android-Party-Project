@@ -27,6 +27,10 @@ public class PlaceOwner extends GeneralUser
         return placeAddress;
     }
 
+    public String getPlaceRating() {
+        return placeAddress;
+    }
+
     public void setPlaceName(String placeName) {
         this.placeName = placeName;
     }

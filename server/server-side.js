@@ -16,6 +16,8 @@ mongoClient.connect(url, (err, db) => {
         const myDb = db.db('myDb') //If this DB doesnt exist, it will be create automatically
         const collection = myDb.collection('userTable') //Table name
 
+
+        // START REGISTER REGULAR
         app.post('/registerRegularUser', (req, res) => {
             const newUser = {
                 type:req.body.type,
@@ -26,23 +28,12 @@ mongoClient.connect(url, (err, db) => {
                 favouriteGenres:req.body.favouriteGenres,
                 age:req.body.age
             }
-
-            //Check if email is unique
-            const query = {email:newUser.email}
-            collection.findOne(query, (err, result) =>
-            {
-                if(result==null)
-                {
-                    collection.insertOne(newUser, (err, result) => {
-                        res.status(200).send() //If insertion was successful
-                    })
-                }
-                else{
-                    res.status(400).send() //Bad request, email already exists
-                }
-            })
+            
+            checkRegister(newUser,req,res)
         })
-
+        // END REGISTER REGULAR
+        
+        // START REGISTER DJ
         app.post('/registerDjUser', (req, res) => {
             const newUser = {
                 type:req.body.type,
@@ -57,24 +48,15 @@ mongoClient.connect(url, (err, db) => {
                 appleMusicLink:req.body.appleMusicLink,
                 age:req.body.age,
                 placesCanBeFound:req.body.placesCanBeFound,
+                rating:req.body.rating
             }
 
-            //Check if email is unique
-            const query = {email:newUser.email}
-            collection.findOne(query, (err, result) =>
-            {
-                if(result==null)
-                {
-                    collection.insertOne(newUser, (err, result) => {
-                        res.status(200).send() //If insertion was successful
-                    })
-                }
-                else{
-                    res.status(400).send() //Bad request, email already exists
-                }
-            })
+            checkRegister(newUser,req,res)
         })
+        // END REGISTER PLACE OWNER
 
+
+        // START REGISTER PLACE OWNER
         app.post('/registerPlaceOwnerUser', (req, res) => {
             const newUser = {
                 type:req.body.type,
@@ -85,9 +67,17 @@ mongoClient.connect(url, (err, db) => {
                 placeName:req.body.placeName,
                 placeType:req.body.placeType,
                 placeAddress:req.body.placeAddress,
+                rating:req.body.rating
             }
 
-            //Check if email is unique
+            checkRegister(newUser,req,res)
+        })
+        // END REGISTER PLACE OWNER
+
+
+/////// START check register and ***SEND*** result
+        function checkRegister(newUser,req,res)
+        {
             const query = {email:newUser.email}
             collection.findOne(query, (err, result) =>
             {
@@ -101,7 +91,8 @@ mongoClient.connect(url, (err, db) => {
                     res.status(400).send() //Bad request, email already exists
                 }
             })
-        })
+        }
+/////// END check register and ***SEND*** result
 
         app.post('/login',(req, res) => {
             const query = {
@@ -125,7 +116,6 @@ mongoClient.connect(url, (err, db) => {
                 }
             })
         })
-
     }
 })
 
