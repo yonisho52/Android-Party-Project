@@ -53,6 +53,7 @@ public class LoginActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //setContentView(R.layout.fragment_calendar); //Delete later, only for tests
 
 //        fragmentManager = getSupportFragmentManager();
 //        fragmentTransaction = fragmentManager.beginTransaction();

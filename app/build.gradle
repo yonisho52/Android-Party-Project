@@ -40,6 +40,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+<<<<<<< Updated upstream
+=======
+    //Calendar
+    compile 'com.applandeo:material-calendar-view:1.4.0'
     //data-base
     implementation 'com.squareup.retrofit2:retrofit:2.3.0' //Added for http connection
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0' //Json files converter
@@ -48,6 +52,7 @@ dependencies {
     //data-base
 
 
+>>>>>>> Stashed changes
 
     def nav_version = "2.3.0"
     //noinspection GradleDependency
