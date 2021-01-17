@@ -1,6 +1,4 @@
-package com.example.android_final_project.Events;
-
-import java.util.Date;
+package com.example.android_final_project.EventsClasses;
 
 public class EventResult
 {

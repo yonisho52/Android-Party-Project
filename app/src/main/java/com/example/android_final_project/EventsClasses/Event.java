@@ -1,7 +1,7 @@
-package com.example.android_final_project.Events;
+package com.example.android_final_project.EventsClasses;
 
-import com.example.android_final_project.UserTypeClasses.placeOwner;
-import com.example.android_final_project.UserTypeClasses.userDJ;
+import com.example.android_final_project.UserTypeClasses.PlaceOwner;
+import com.example.android_final_project.UserTypeClasses.UserDJ;
 
 import java.util.Date;
 import java.util.Random;
@@ -10,16 +10,16 @@ public class Event
 {
     private String eventID;
     private Date eventDate;
-    private placeOwner eventPlace;
+    private PlaceOwner eventPlace;
     private String placeName;
-    private userDJ playingDj;
+    private UserDJ playingDj;
     private String playingDjName;
     private double placeRating;
     private double djRating;
     private double eventRating;
     private static int numOfRates=0;
 
-    public Event(Date eventDate, placeOwner eventPlace, userDJ playingDj) {
+    public Event(Date eventDate, PlaceOwner eventPlace, UserDJ playingDj) {
         Random randObj = new Random();
         this.eventID = Integer.toString(randObj.nextInt(100000));
         //Check for last eventID value and add +1 to it
@@ -37,11 +37,11 @@ public class Event
 
     public Date getEventDate() { return eventDate; }
 
-    public placeOwner getEventPlace() { return eventPlace; }
+    public PlaceOwner getEventPlace() { return eventPlace; }
 
     public String getPlaceName() { return placeName; }
 
-    public userDJ getPlayingDj() { return playingDj; }
+    public UserDJ getPlayingDj() { return playingDj; }
 
     public String getPlayingDjName() { return playingDjName; }
 
@@ -53,9 +53,9 @@ public class Event
 
     public void setEventDate(Date eventDate) { this.eventDate = eventDate; }
 
-    public void setEventPlace(placeOwner eventPlace) { this.eventPlace = eventPlace; }
+    public void setEventPlace(PlaceOwner eventPlace) { this.eventPlace = eventPlace; }
 
-    public void setPlayingDj(userDJ playingDj) { this.playingDj = playingDj; }
+    public void setPlayingDj(UserDJ playingDj) { this.playingDj = playingDj; }
 
     public void addEventRating(double rate)
     {

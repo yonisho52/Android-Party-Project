@@ -1,6 +1,6 @@
 package com.example.android_final_project.UserTypeClasses;
 
-public class placeOwner extends GeneralUser
+public class PlaceOwner extends GeneralUser
 {
     private String placeName;
     private String placeType;
@@ -8,7 +8,7 @@ public class placeOwner extends GeneralUser
     private double placeRating;
     private static int numOfRates=0;
 
-    public placeOwner(String firstName, String lastName, String email, String password, String placeName, String placeType, String placeAddress) {
+    public PlaceOwner(String firstName, String lastName, String email, String password, String placeName, String placeType, String placeAddress) {
         super(firstName, lastName, email, password);
         this.placeName = placeName;
         this.placeType = placeType;

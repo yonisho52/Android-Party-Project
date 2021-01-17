@@ -1,6 +1,6 @@
 package com.example.android_final_project;
 
-import com.example.android_final_project.Events.EventResult;
+import com.example.android_final_project.EventsClasses.EventResult;
 
 import java.util.HashMap;
 
@@ -17,6 +17,14 @@ public interface RetrofitInterace {
     //Registration request, no data received except result code
     @POST("/registerRegularUser")
     Call<Void> executeRegUser(@Body HashMap<String, String> map);
+
+    //Registration request, no data received except result code
+    @POST("/registerDjUser")
+    Call<Void> executeDjUser(@Body HashMap<String, String> map);
+
+    //Registration request, no data received except result code
+    @POST("/registerPlaceOwnerUser")
+    Call<Void> executeOwnerUser(@Body HashMap<String, String> map);
 
     //Add event request, no data received except result code
     @POST("/addEvent")
