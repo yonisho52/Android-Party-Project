@@ -5,13 +5,19 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.android_final_project.Activities.LoginActivity;
 import com.example.android_final_project.R;
+import com.example.android_final_project.UserTypeClasses.PlaceOwner;
+import com.example.android_final_project.UserTypeClasses.UserDJ;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +25,8 @@ import com.example.android_final_project.R;
  * create an instance of this fragment.
  */
 public class PlaceOwnerRegisterFragment extends Fragment {
+
+    private String[] profile;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -79,8 +87,25 @@ public class PlaceOwnerRegisterFragment extends Fragment {
         // Apply the adapter to the spinner
         placeTypeSpinner.setAdapter(staticAdapter);
 
+        LoginActivity loginActivity = (LoginActivity) getActivity();
 
+        EditText editTextTextRegPlacePlaceName = view.findViewById(R.id.editTextTextRegPlacePlaceName);
+        EditText editTextTextRegPlacePlaceAddress = view.findViewById(R.id.editTextTextRegPlacePlaceAddress);
+        Spinner spinnerRegPlaceType = view.findViewById(R.id.regPlaceType);
 
+        Button buttonRegOwner = view.findViewById(R.id.buttonRegOwner);
+        buttonRegOwner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                profile = loginActivity.getRegisterProfile();
+
+                PlaceOwner placeOwner = new PlaceOwner(profile[0],profile[1],profile[2],profile[3],editTextTextRegPlacePlaceName.getText().toString(),
+                        spinnerRegPlaceType.getSelectedItem().toString(),editTextTextRegPlacePlaceAddress.getText().toString());
+
+                loginActivity.registerPlaceOwnerUser(placeOwner);
+            }
+        });
         return view;
     }
 }

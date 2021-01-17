@@ -3,19 +3,19 @@ package com.example.android_final_project.UserTypeClasses;
 import java.net.URL;
 import java.util.List;
 
-public class userDJ extends GeneralUser
+public class UserDJ extends GeneralUser
 {
     private String stageName;
     private String playingGenre;
-    private URL youtubeLink;
-    private URL spotifyLink;
-    private URL appleMusicLink;
+    private String youtubeLink; // change from url
+    private String spotifyLink; // change from url
+    private String appleMusicLink; // change from url
     private int age;
     private List<String> placesCanBeFound;
     private double rating;
 
-    public userDJ(String firstName, String lastName, String email, String password, String stageName, String playingGenre, URL youtubeLink,
-                  URL spotifyLink, URL appleMusicLink, int age, List<String> placesCanBeFound) {
+    public UserDJ(String firstName, String lastName, String email, String password, String stageName, String playingGenre, String youtubeLink,
+                  String spotifyLink, String appleMusicLink, int age, List<String> placesCanBeFound) {
         super(firstName, lastName, email, password);
         this.stageName = stageName;
         this.playingGenre = playingGenre;
@@ -31,13 +31,14 @@ public class userDJ extends GeneralUser
     public String getStageName() {
         return stageName;
     }
-    public URL getYoutubeLink() {
+    public String getPlayingGenre() { return playingGenre; }
+    public String getYoutubeLink() {
         return youtubeLink;
     }
-    public URL getSpotifyLink() {
+    public String getSpotifyLink() {
         return spotifyLink;
     }
-    public URL getAppleMusicLink() {
+    public String getAppleMusicLink() {
         return appleMusicLink;
     }
     public int getAge() {
@@ -57,13 +58,13 @@ public class userDJ extends GeneralUser
     public void setPlayingGenre(String playingGenre) {
         this.playingGenre = playingGenre;
     }
-    public void setYoutubeLink(URL youtubeLink) {
+    public void setYoutubeLink(String youtubeLink) {
         this.youtubeLink = youtubeLink;
     }
-    public void setSpotifyLink(URL spotifyLink) {
+    public void setSpotifyLink(String spotifyLink) {
         this.spotifyLink = spotifyLink;
     }
-    public void setAppleMusicLink(URL appleMusicLink) {
+    public void setAppleMusicLink(String appleMusicLink) {
         this.appleMusicLink = appleMusicLink;
     }
     public void setPlacesCanBeFound(List<String> placesCanBeFound) {

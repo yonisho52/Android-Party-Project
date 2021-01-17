@@ -2,13 +2,13 @@ package com.example.android_final_project.UserTypeClasses;
 
 import java.util.List;
 
-public class regularUser extends GeneralUser
+public class RegularUser extends GeneralUser
 {
     private List<String> favouriteGenres;
     private int age;
 
 
-    public regularUser(String firstName, String lastName, String email, String password, List<String> favouriteGenres, int age) {
+    public RegularUser(String firstName, String lastName, String email, String password, List<String> favouriteGenres, int age) {
         super(firstName, lastName, email, password);
         this.favouriteGenres = favouriteGenres;
         this.age = age;

@@ -20,6 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.005"
+        android:focusable="true"
+        android:clickable="true"
         android:orientation="vertical"
         android:paddingTop="20px"
         android:weightSum="1">
@@ -100,11 +102,5 @@
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewRegister"
         app:navGraph="@navigation/user_register_type_nav" />
-
-    <Button
-        android:id="@+id/buttonRegRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Register" />
 
 </LinearLayout>

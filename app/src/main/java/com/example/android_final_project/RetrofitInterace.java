@@ -13,4 +13,10 @@ public interface RetrofitInterace {
 
     @POST("/registerRegularUser")
     Call<Void> executeRegUser(@Body HashMap<String, String> map);
+
+    @POST("/registerDjUser")
+    Call<Void> executeDjUser(@Body HashMap<String, String> map);
+
+    @POST("/registerPlaceOwnerUser")
+    Call<Void> executeOwnerUser(@Body HashMap<String, String> map);
 }

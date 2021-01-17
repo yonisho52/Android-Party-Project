@@ -1,17 +1,28 @@
 package com.example.android_final_project.FragmentsRegLog;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.android_final_project.Activities.LoginActivity;
 import com.example.android_final_project.R;
+import com.example.android_final_project.UserTypeClasses.RegularUser;
+import com.example.android_final_project.UserTypeClasses.UserDJ;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +30,10 @@ import com.example.android_final_project.R;
  * create an instance of this fragment.
  */
 public class DJRegisterFragment extends Fragment {
+
+    private String[] profile;
+    private int dateOfBirth;
+    private List<String> placesCanBeFound = new ArrayList<String>();;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,6 +96,34 @@ public class DJRegisterFragment extends Fragment {
 
         // Apply the adapter to the spinner
         genreSpinner.setAdapter(staticAdapter);
+
+        LoginActivity loginActivity = (LoginActivity) getActivity();
+
+        EditText editTextStageName = view.findViewById(R.id.editTextRegDjStagename);
+        EditText editTextSpotify = view.findViewById(R.id.editTextRegDjSpotifyLink);
+        EditText editTextApple = view.findViewById(R.id.editTextRegDjAppleMusicLink);
+        EditText editTextYouTube = view.findViewById(R.id.editTextRegDjYoutubeLink);
+        Spinner  spinnerPlayingGenreList = view.findViewById(R.id.regDjPlayingGenreList);
+
+        dateOfBirth = Integer.parseInt("30");
+
+        placesCanBeFound.add("need to added places First");
+
+        Button register = view.findViewById(R.id.buttonRegDj);
+        register.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+
+                profile = loginActivity.getRegisterProfile();
+
+                UserDJ userDJ = new UserDJ(profile[0],profile[1],profile[2],profile[3],editTextStageName.getText().toString(),
+                        spinnerPlayingGenreList.getSelectedItem().toString(),editTextYouTube.getText().toString(),
+                        editTextSpotify.getText().toString(), editTextApple.getText().toString(), dateOfBirth, placesCanBeFound);
+
+                loginActivity.registerDjUser(userDJ);
+            }
+        });
 
         return view;
     }

@@ -4,8 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.Nullable;
-import androidx.core.app.SharedElementCallback;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
@@ -15,22 +13,18 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import com.example.android_final_project.Activities.LoginActivity;
 import com.example.android_final_project.R;
 import com.example.android_final_project.RetrofitInterace;
+import com.example.android_final_project.UserTypeClasses.GeneralUser;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.HashMap;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -42,9 +36,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RegisterFragment extends Fragment {
 
-    BottomNavigationView bottomNavigationView;
-    NavController navController;
-    FragmentManager fragmentManager;
+    private BottomNavigationView bottomNavigationView;
+    private NavController navController;
+    private FragmentManager fragmentManager;
+
+    private String email = null;
+    private String firstName = null;
+    private String lastName = null;
+    private String password = null;
+
+    String[] generalProfile;
+
+    private Boolean boolEmail = false;
+    private Boolean boolFirstName = false;
+    private Boolean boolLastName = false;
+    private Boolean boolPassword = false;
 
     private Retrofit retrofit;
     private RetrofitInterace retrofitInterace;
@@ -97,6 +103,9 @@ public class RegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
 
+        LoginActivity loginActivity = (LoginActivity) getActivity();
+
+
         bottomNavigationView = view.findViewById(R.id.bottomNavigationViewRegister);
         navController = Navigation.findNavController(view.findViewById(R.id.registerTypeFragment));
 
@@ -126,39 +135,81 @@ public class RegisterFragment extends Fragment {
         EditText editTextPassword = view.findViewById(R.id.editTextRegPW);
 
 
-        Button register = view.findViewById(R.id.buttonRegRegister);
-        register.setOnClickListener(new View.OnClickListener() {
+        editTextEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                HashMap<String,String> map = new HashMap<>();
-                map.put("email",editTextEmail.getText().toString());
-                map.put("firstName",editTextFirstName.getText().toString());
-                map.put("lastName",editTextLastName.getText().toString());
-                map.put("password",editTextPassword.getText().toString());
-
-
-
-                Call<Void> call = retrofitInterace.executeRegUser(map);
-                call.enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        if(response.code()==200)
-                        {
-                            Toast.makeText(currContext,"Register secusess",Toast.LENGTH_LONG).show();
-                        }
-                        else if(response.code()==400)
-                        {
-                            Toast.makeText(currContext,"allready regiester",Toast.LENGTH_LONG).show();
-                        }
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    email = editTextEmail.getText().toString();
+                    loginActivity.setEmail(email);
+                    if(email.equals(""))
+                    {
+                        editTextEmail.setHintTextColor(R.color.red);
+                        boolEmail=false;
                     }
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(currContext,t.getMessage(),Toast.LENGTH_LONG).show();
+                    else
+                    {
+                        boolEmail=true;
                     }
-                });
+                }
             }
         });
-        /// new
+
+        editTextFirstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    firstName = editTextFirstName.getText().toString();
+                    loginActivity.setFirstName(firstName);
+                    if(firstName.equals(""))
+                    {
+                        editTextFirstName.setHintTextColor(R.color.red);
+                        boolFirstName=false;
+                    }
+                    else
+                    {
+                        boolFirstName=true;
+                    }
+                }
+            }
+        });
+
+        editTextLastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    lastName = editTextLastName.getText().toString();
+                    loginActivity.setLastName(lastName);
+                    if(lastName.equals(""))
+                    {
+                        editTextLastName.setHintTextColor(R.color.red);
+                        boolLastName=false;
+                    }
+                    else
+                    {
+                        boolLastName=true;
+                    }
+                }
+            }
+        });
+
+        editTextPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    password = editTextPassword.getText().toString();
+                    loginActivity.setPass(password);
+                    if(password.equals(""))
+                    {
+                        editTextPassword.setHintTextColor(R.color.red);
+                        boolPassword=false;
+                    }
+                    else
+                    {
+                        boolPassword=true;
+                    }
+                }
+            }
+        });
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
