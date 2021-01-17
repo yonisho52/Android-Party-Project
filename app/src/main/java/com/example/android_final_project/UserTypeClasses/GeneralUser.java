@@ -14,23 +14,21 @@ public abstract class GeneralUser
         this.password = password;
     }
 
-    protected String getFirstName()
-    {
-        return this.firstName;
-    }
-    protected String getLastName()
+    public String getFirstName() { return this.firstName; }
+    public String getLastName()
     {
         return this.lastName;
     }
-    protected String getEmail()
+    public String getEmail()
     {
         return this.email;
     }
-    protected String getFullname()
+    public String getFullname()
     {
         String fullName = this.firstName + this.lastName;
         return fullName;
     }
+    public String getPassword() { return this.password; }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;

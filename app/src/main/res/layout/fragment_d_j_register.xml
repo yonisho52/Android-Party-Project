@@ -73,4 +73,11 @@
             android:layout_weight="1" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/buttonRegDj"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="Register" />
+
 </LinearLayout>
