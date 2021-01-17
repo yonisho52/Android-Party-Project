@@ -13,6 +13,7 @@ public class userDJ extends GeneralUser
     private int age;
     private List<String> placesCanBeFound;
     private double rating;
+    private static int numOfRates=0;
 
     public userDJ(String firstName, String lastName, String email, String password, String stageName, String playingGenre, URL youtubeLink,
                   URL spotifyLink, URL appleMusicLink, int age, List<String> placesCanBeFound) {
@@ -68,5 +69,10 @@ public class userDJ extends GeneralUser
     }
     public void setPlacesCanBeFound(List<String> placesCanBeFound) {
         this.placesCanBeFound = placesCanBeFound;
+    }
+    public void addRating(double rate)
+    {
+        this.rating = ((this.rating * this.numOfRates++)+rate)/(this.numOfRates);
+        //this.numOfRates++;
     }
 }

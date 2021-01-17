@@ -6,6 +6,7 @@ public class placeOwner extends GeneralUser
     private String placeType;
     private String placeAddress;
     private double placeRating;
+    private static int numOfRates=0;
 
     public placeOwner(String firstName, String lastName, String email, String password, String placeName, String placeType, String placeAddress) {
         super(firstName, lastName, email, password);
@@ -27,6 +28,8 @@ public class placeOwner extends GeneralUser
         return placeAddress;
     }
 
+    public double getPlaceRating() {return placeRating;}
+
     public void setPlaceName(String placeName) {
         this.placeName = placeName;
     }
@@ -37,5 +40,10 @@ public class placeOwner extends GeneralUser
 
     public void setPlaceAddress(String placeAddress) {
         this.placeAddress = placeAddress;
+    }
+    public void addRating(double rate)
+    {
+        this.placeRating = ((this.placeRating * this.numOfRates++)+rate)/(this.numOfRates);
+        //this.numOfRates++;
     }
 }
