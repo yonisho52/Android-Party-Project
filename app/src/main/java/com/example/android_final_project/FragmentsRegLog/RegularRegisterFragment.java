@@ -1,5 +1,6 @@
 package com.example.android_final_project.FragmentsRegLog;
 
+import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -11,13 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
-import com.example.android_final_project.Activities.LoginActivity;
+import com.example.android_final_project.Activities.RegisterActivity;
 import com.example.android_final_project.R;
-import com.example.android_final_project.UserTypeClasses.RegularUser;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,11 +33,10 @@ import java.util.List;
  */
 public class RegularRegisterFragment extends Fragment {
 
-    private int dateOfBirth;
-    private String[] date;
-    private String[] profile;
+    private int age;
     private List<String> favouriteGenres = new ArrayList<String>();;
-    //RegularUser regularUser = new RegularUser("1","2","2","3",favouriteGenres,24);
+
+    TextView regularUserDOB;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -74,15 +79,40 @@ public class RegularRegisterFragment extends Fragment {
         }
     }
 
+
+    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.YEAR, year);
+            c.set(Calendar.MONTH, month);
+            c.set(Calendar.DAY_OF_MONTH, day);
+            String format = new SimpleDateFormat("dd MMM YYYY").format(c.getTime());
+            regularUserDOB.setText(format);
+            age = calculateAge(c.getTimeInMillis());
+            //tvAge.setText(Integer.toString(calculateAge(c.getTimeInMillis())));
+        }
+    };
+    int calculateAge(long date){
+        Calendar dob = Calendar.getInstance();
+        dob.setTimeInMillis(date);
+        Calendar today = Calendar.getInstance();
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+        if(today.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)){
+            age--;
+        }
+        return age;
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_regular_register, container, false);
 
-        LoginActivity loginActivity = (LoginActivity) getActivity();
+        RegisterActivity registerActivity = (RegisterActivity) getActivity();
 
-        EditText editTextDateOfBirth = view.findViewById(R.id.editTextRegularUserDOB);
         CheckBox checkGenreHipHop = view.findViewById(R.id.checkGenreHipHop);
         CheckBox checkBoxElectronic = view.findViewById(R.id.checkBoxElectronic);
         CheckBox checkBoxTechno = view.findViewById(R.id.checkBoxTechno);
@@ -104,15 +134,27 @@ public class RegularRegisterFragment extends Fragment {
                 if(checkGenreChill.isChecked()) {favouriteGenres.add(checkGenreChill.getText().toString()); }
                 if(checkGenreDance.isChecked()) {favouriteGenres.add(checkGenreDance.getText().toString()); }
 
-                dateOfBirth = Integer.parseInt("30");
-
-                profile = loginActivity.getRegisterProfile();
-
-                RegularUser regularUser = new RegularUser(profile[0],profile[1],profile[2],profile[3],favouriteGenres,dateOfBirth);
-
-                loginActivity.registerRegularUser(regularUser);
+                registerActivity.registerRegularUser(favouriteGenres,age);
             }
         });
+
+
+
+        regularUserDOB = view.findViewById(R.id.editTextRegularUserDOB);
+        regularUserDOB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog dateDialog = new DatePickerDialog(view.getContext(), datePickerListener, mYear, mMonth, mDay);
+                dateDialog.getDatePicker().setMaxDate(new Date().getTime());
+                dateDialog.show();
+            }
+        });
+
+
         return view;
     }
 

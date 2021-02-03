@@ -34,4 +34,12 @@ public interface RetrofitInterace {
     @POST("/getEvents")
     Call<EventResult> executeGetEvents(@Body HashMap<String, String> map);
 
+    // Check if Dj Name is free
+    @POST("/checkDjName")
+    Call<Void> executeCheckDjName(@Body HashMap<String, String> map);
+
+    // Check if place Name is free
+    @POST("/checkPlaceName")
+    Call<Void> executeCheckPlaceName(@Body HashMap<String, String> map);
+
 }

@@ -1,27 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".FragmentsMain.HomeMainFragment">
 
+
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="homePageFragment" />
-
-    <fragment
-        android:id="@+id/fargmentHomeMain"
-        android:name="com.example.android_final_project.FragmentsMain.HomeMainFragment"
-        android:layout_width="match_parent"
-        android:layout_height="650dp" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/homepageNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Home Page"
+        android:textSize="25sp" />
 
 </LinearLayout>
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:orientation="vertical"-->
+<!--    tools:context=".FragmentsMain.HomeMainFragment">-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView7"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="homePageFragment" />-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/fargmentHomeMain"-->
+<!--        android:name="com.example.android_final_project.FragmentsMain.HomeMainFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="650dp" />-->
+
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/homepageNavigation"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content" />-->
+
+<!--</LinearLayout>-->

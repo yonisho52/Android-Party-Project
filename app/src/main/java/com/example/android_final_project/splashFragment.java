@@ -67,7 +67,7 @@ public class splashFragment extends Fragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_login_fragment);
+                //Navigation.findNavController(view).navigate(R.id.action_splashFragment_to_login_fragment);
             }
         }, 2000);
 

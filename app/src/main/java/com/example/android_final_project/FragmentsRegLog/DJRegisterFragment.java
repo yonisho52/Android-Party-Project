@@ -1,5 +1,6 @@
 package com.example.android_final_project.FragmentsRegLog;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,22 +8,26 @@ import android.os.Bundle;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
-import com.example.android_final_project.Activities.LoginActivity;
+import com.example.android_final_project.Activities.RegisterActivity;
 import com.example.android_final_project.R;
-import com.example.android_final_project.UserTypeClasses.RegularUser;
-import com.example.android_final_project.UserTypeClasses.UserDJ;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,9 +36,18 @@ import java.util.List;
  */
 public class DJRegisterFragment extends Fragment {
 
-    private String[] profile;
-    private int dateOfBirth;
+    private String stageName;
+    private String spotify;
+    private String apple;
+    private String youtube;
+    private String playingGenre;
     private List<String> placesCanBeFound = new ArrayList<String>();;
+    private Boolean boolDjName = false;
+
+    TextView regDjDOB;
+    private int age;
+
+    private HashMap<String,String> map;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -78,6 +92,31 @@ public class DJRegisterFragment extends Fragment {
 
     }
 
+    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.YEAR, year);
+            c.set(Calendar.MONTH, month);
+            c.set(Calendar.DAY_OF_MONTH, day);
+            String format = new SimpleDateFormat("dd MMM YYYY").format(c.getTime());
+            regDjDOB.setText(format);
+            age = calculateAge(c.getTimeInMillis());
+            //tvAge.setText(Integer.toString(calculateAge(c.getTimeInMillis())));
+        }
+    };
+    int calculateAge(long date){
+        Calendar dob = Calendar.getInstance();
+        dob.setTimeInMillis(date);
+        Calendar today = Calendar.getInstance();
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+        if(today.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)){
+            age--;
+        }
+        return age;
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -97,7 +136,7 @@ public class DJRegisterFragment extends Fragment {
         // Apply the adapter to the spinner
         genreSpinner.setAdapter(staticAdapter);
 
-        LoginActivity loginActivity = (LoginActivity) getActivity();
+        RegisterActivity registerActivity = (RegisterActivity) getActivity();
 
         EditText editTextStageName = view.findViewById(R.id.editTextRegDjStagename);
         EditText editTextSpotify = view.findViewById(R.id.editTextRegDjSpotifyLink);
@@ -105,9 +144,7 @@ public class DJRegisterFragment extends Fragment {
         EditText editTextYouTube = view.findViewById(R.id.editTextRegDjYoutubeLink);
         Spinner  spinnerPlayingGenreList = view.findViewById(R.id.regDjPlayingGenreList);
 
-        dateOfBirth = Integer.parseInt("30");
-
-        placesCanBeFound.add("need to added places First");
+        placesCanBeFound.add(null);
 
         Button register = view.findViewById(R.id.buttonRegDj);
         register.setOnClickListener(new View.OnClickListener() {
@@ -115,13 +152,43 @@ public class DJRegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                profile = loginActivity.getRegisterProfile();
+                stageName = editTextStageName.getText().toString();
+                playingGenre = spinnerPlayingGenreList.getSelectedItem().toString();
+                youtube = editTextYouTube.getText().toString();
+                spotify = editTextSpotify.getText().toString();
+                apple = editTextApple.getText().toString();
 
-                UserDJ userDJ = new UserDJ(profile[0],profile[1],profile[2],profile[3],editTextStageName.getText().toString(),
-                        spinnerPlayingGenreList.getSelectedItem().toString(),editTextYouTube.getText().toString(),
-                        editTextSpotify.getText().toString(), editTextApple.getText().toString(), dateOfBirth, placesCanBeFound);
+                registerActivity.registerDjUser(stageName,playingGenre,youtube,spotify,apple,age,placesCanBeFound);
+            }
+        });
 
-                loginActivity.registerDjUser(userDJ);
+        regDjDOB = view.findViewById(R.id.editTextRegDjDOB);
+        regDjDOB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog dateDialog = new DatePickerDialog(view.getContext(), datePickerListener, mYear, mMonth, mDay);
+                dateDialog.getDatePicker().setMaxDate(new Date().getTime());
+                dateDialog.show();
+            }
+        });
+
+
+        editTextStageName.setOnFocusChangeListener((v, hasFocus) -> {
+            if(!hasFocus) {
+                stageName = editTextStageName.getText().toString();
+                map = new HashMap<>();
+                map.put("stageName",stageName);
+
+                if (stageName.equals("") || !(registerActivity.checkFreeDjStageName(map))) {
+                    editTextStageName.setHintTextColor(R.color.red);
+                    boolDjName = false;
+                } else {
+                    boolDjName = true;
+                }
             }
         });
 

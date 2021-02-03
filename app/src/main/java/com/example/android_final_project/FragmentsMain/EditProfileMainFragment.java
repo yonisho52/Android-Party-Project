@@ -1,5 +1,8 @@
 package com.example.android_final_project.FragmentsMain;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +10,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.android_final_project.Activities.LoginActivity;
+import com.example.android_final_project.Activities.MainActivity;
 import com.example.android_final_project.R;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +24,8 @@ import com.example.android_final_project.R;
  * create an instance of this fragment.
  */
 public class EditProfileMainFragment extends Fragment {
+
+    private SharedPreferences sharedPreferences;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +71,27 @@ public class EditProfileMainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_profile_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_edit_profile_main, container, false);
+
+        Context context = container.getContext();
+
+        Button logout = (Button) view.findViewById(R.id.buttonLogOut);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //sharedPreferences = getSharedPreferences("Login",MODE_PRIVATE);
+
+                sharedPreferences = getActivity().getSharedPreferences("Login", Context.MODE_PRIVATE);
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.commit();
+
+                Intent intent = new Intent(context, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        return view;
     }
 }

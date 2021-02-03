@@ -76,6 +76,44 @@ mongoClient.connect(url, (err, db) => {
         // END REGISTER PLACE OWNER
 
 
+        ///NEWW
+        app.post('/checkDjName', (req, res) => {
+            const checkDjName = {
+                stageName:req.body.stageName
+            }
+
+            const query = {stageName:checkDjName.stageName}
+            collection.findOne(query, (err, result) =>
+            {
+                if(result==null)
+                {
+                    res.status(200).send() //If insertion was successful  
+                }
+                else{
+                    res.status(400).send() //Bad request, email already exists
+                }
+            })
+        })
+
+        app.post('/checkPlaceName', (req, res) => {
+            const checkPlaceName = {
+                placeName:req.body.placeName
+            }
+
+            const query = {placeName:checkPlaceName.placeName}
+            collection.findOne(query, (err, result) =>
+            {
+                if(result==null)
+                {
+                    res.status(200).send() //If insertion was successful  
+                }
+                else{
+                    res.status(400).send() //Bad request, email already exists
+                }
+            })
+        })
+
+
 /////// START check register and ***SEND*** result
         function checkRegister(newUser,req,res)
         {

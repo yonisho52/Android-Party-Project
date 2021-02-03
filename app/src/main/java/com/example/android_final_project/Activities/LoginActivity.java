@@ -1,44 +1,38 @@
 package com.example.android_final_project.Activities;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
-import android.os.Build;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.android_final_project.FragmentsRegLog.LoginFragment;
-import com.example.android_final_project.FragmentsRegLog.RegisterFragment;
+import com.example.android_final_project.LoginResult;
 import com.example.android_final_project.R;
 import com.example.android_final_project.RetrofitInterace;
-import com.example.android_final_project.UserTypeClasses.PlaceOwner;
-import com.example.android_final_project.UserTypeClasses.RegularUser;
-import com.example.android_final_project.UserTypeClasses.UserDJ;
 
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 import retrofit2.Call;
-import retrofit2.Retrofit;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static androidx.navigation.ui.NavigationUI.setupActionBarWithNavController;
+public class LoginActivity extends AppCompatActivity {
 
-public class LoginActivity extends AppCompatActivity
-{
     NavController navController;
     private FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+
+    public SharedPreferences sharedPreferences;
+    private EditText editTextEmail;
+    private EditText editTextPassword;
 
     private String[] profile = new String[4];
 
@@ -47,136 +41,83 @@ public class LoginActivity extends AppCompatActivity
     private RetrofitInterace retrofitInterace;
     private String BASEURL="http://10.0.2.2:3000";
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //setContentView(R.layout.fragment_calendar); //Delete later, only for tests
-
-//        fragmentManager = getSupportFragmentManager();
-//        fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.add(R.id.logRegFrame, new LoginFragment()).commit();
-
-        //navController = Navigation.findNavController(findViewById(R.id.logRegFrame));
-        getSupportActionBar().hide();
 
         retrofit = new Retrofit.Builder().baseUrl(BASEURL).addConverterFactory(GsonConverterFactory.create()).build();
         retrofitInterace = retrofit.create(RetrofitInterace.class);
-    }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public void registerRegularUser(RegularUser regularUser)
-    {
-        map = new HashMap<>();
-        map.put("type","REGULAR");
-        map.put("email",regularUser.getEmail());
-        map.put("firstName",regularUser.getFirstName());
-        map.put("lastName",regularUser.getLastName());
-        map.put("password",regularUser.getPassword());
-        map.put("favouriteGenres",regularUser.getFavouriteGenres().stream().map(n -> String.valueOf(n)).collect(Collectors.joining(", ", "", "")).toString());
-        map.put("age",String.valueOf(regularUser.getAge()));
+        getSupportActionBar().hide();
 
-        intoDataBase(map,"executeRegUser");
-    }
+        sharedPreferences = getSharedPreferences("Login", MODE_PRIVATE);
+        editTextEmail = findViewById(R.id.editTextLoginEmailNew);
+        editTextPassword = findViewById(R.id.editTextLoginPasswordNew);
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public void registerDjUser(UserDJ userDJ)
-    {
-        map = new HashMap<>();
-        map.put("type","DJ");
-        map.put("email",userDJ.getEmail());
-        map.put("firstName",userDJ.getFirstName());
-        map.put("lastName",userDJ.getLastName());
-        map.put("password",userDJ.getPassword());
-        map.put("stageName",userDJ.getStageName());
-        map.put("playingGenre",userDJ.getPlayingGenre());
-        map.put("youtubeLink",userDJ.getYoutubeLink().toString());
-        map.put("spotifyLink",userDJ.getSpotifyLink().toString());
-        map.put("appleMusicLink",userDJ.getAppleMusicLink().toString());
-        map.put("age",String.valueOf(userDJ.getAge()));
-        map.put("placesCanBeFound",userDJ.getPlacesCanBeFound().stream().map(n -> String.valueOf(n)).collect(Collectors.joining(", ", "", "")).toString());
-        map.put("rating",String.valueOf(userDJ.getRating()));
+        if(sharedPreferences.getString("keyUser", null) != null
+                && sharedPreferences.getString("keyPass", null) != null )
+        {
+            // write on the login page the details of the user
+            editTextEmail.setText(sharedPreferences.getString("keyUser",null));
+            editTextPassword.setText(sharedPreferences.getString("keyPass",null));
 
-        intoDataBase(map,"executeDjUser");
-    }
-
-    public void registerPlaceOwnerUser(PlaceOwner placeOwner)
-    {
-        map = new HashMap<>();
-        map.put("type","PLACE-OWNER");
-        map.put("email",placeOwner.getEmail());
-        map.put("firstName",placeOwner.getFirstName());
-        map.put("lastName",placeOwner.getLastName());
-        map.put("password",placeOwner.getPassword());
-        map.put("placeName",placeOwner.getPlaceName());
-        map.put("placeType",placeOwner.getPlaceType());
-        map.put("placeAddress",placeOwner.getPlaceAddress());
-        map.put("rating",String.valueOf(placeOwner.getPlaceRating()));
-
-        intoDataBase(map,"executeOwnerUser");
-    }
-
-    public void intoDataBase(HashMap<String,String> map, String type)
-    {
-        Call<Void> call = null;
-
-        if(type.equals("executeRegUser")) { call = retrofitInterace.executeRegUser(map); }
-        if(type.equals("executeDjUser")) { call = retrofitInterace.executeDjUser(map); }
-        if(type.equals("executeOwnerUser")) { call = retrofitInterace.executeOwnerUser(map); }
-        else {
-            ///Error SomeHow
+            //auto log-in
+            String email = sharedPreferences.getString("keyUser",null);
+            String pass = sharedPreferences.getString("keyPass",null);
         }
 
-        call.enqueue(new Callback<Void>() {
+
+    }
+
+    public void buttonLogin(View view) {
+
+//        EditText editTextEmail = findViewById(R.id.editTextLoginEmailNew);
+//        EditText editTextPassword = findViewById(R.id.editTextLoginPasswordNew);
+
+        String email = editTextEmail.getText().toString();
+        String pass = editTextPassword.getText().toString();
+
+        HashMap<String,String> map = new HashMap<>();
+        map.put("email",email);
+        map.put("password",pass);
+
+        Call<LoginResult> call = retrofitInterace.executeLogin(map);
+        call.enqueue(new Callback<LoginResult>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
                 if(response.code()==200)
                 {
-                    Toast.makeText(LoginActivity.this,"Register secusess",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,"Login secusess",Toast.LENGTH_LONG).show();
+
+                    // shared preferences
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("keyUser", email);
+                    editor.putString("keyPass", pass);
+                    editor.apply();
+                    /// end preferences
+
+                    //Intent to MainActivity ***
+                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    startActivity(intent);
+                    // ***
                 }
-                else if(response.code()==400)
+                else if(response.code()==404)
                 {
-                    Toast.makeText(LoginActivity.this,"allready regiester",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,"there is a problem",Toast.LENGTH_LONG).show();
                 }
             }
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<LoginResult> call, Throwable t) {
                 Toast.makeText(LoginActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
     }
 
+    public void buttonRegister(View view) {
 
-
-    public void setEmail(String email){
-        profile[2] = email;
-    }
-    public void setFirstName(String firstName){
-        profile[0] = firstName;
-    }
-    public void setLastName(String lastName){
-        profile[1] = lastName;
-    }
-    public void setPass(String pass){
-        profile[3] = pass;
+        Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+        startActivity(intent);
     }
 
-    public String[] getRegisterProfile(){
-        return profile;
-    }
-
-
-//    @Override
-//    public boolean onSupportNavigateUp() {
-//        navController = Navigation.findNavController(findViewById(R.id.logRegFrame));
-//        return navController.navigateUp() || super.onSupportNavigateUp();
-//    }
-
-//    public void goToRegister(View view)
-//    {
-//        fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.logRegFrame, new RegisterFragment()).addToBackStack(null).commit();
-//    }
 }

@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
-        setContentView(R.layout.fragment_calendar);
+        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.fragment_calendar);
 
 
 //        *****START - MAIN MENU VIEW*****

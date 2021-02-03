@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.android_final_project.Activities.LoginActivity;
+import com.example.android_final_project.Activities.RegisterActivity;
 import com.example.android_final_project.R;
-import com.example.android_final_project.UserTypeClasses.PlaceOwner;
-import com.example.android_final_project.UserTypeClasses.UserDJ;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +25,13 @@ import com.example.android_final_project.UserTypeClasses.UserDJ;
  */
 public class PlaceOwnerRegisterFragment extends Fragment {
 
-    private String[] profile;
+    private String placeName;
+    private String placeAddress;
+    private String placeType;
+
+    private Boolean boolPlaceName = false;
+    private HashMap<String,String> map;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,7 +92,7 @@ public class PlaceOwnerRegisterFragment extends Fragment {
         // Apply the adapter to the spinner
         placeTypeSpinner.setAdapter(staticAdapter);
 
-        LoginActivity loginActivity = (LoginActivity) getActivity();
+        RegisterActivity registerActivity = (RegisterActivity) getActivity();
 
         EditText editTextTextRegPlacePlaceName = view.findViewById(R.id.editTextTextRegPlacePlaceName);
         EditText editTextTextRegPlacePlaceAddress = view.findViewById(R.id.editTextTextRegPlacePlaceAddress);
@@ -98,14 +103,30 @@ public class PlaceOwnerRegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                profile = loginActivity.getRegisterProfile();
+                placeName = editTextTextRegPlacePlaceName.getText().toString();
+                placeType = spinnerRegPlaceType.getSelectedItem().toString();
+                placeAddress = editTextTextRegPlacePlaceAddress.getText().toString();
 
-                PlaceOwner placeOwner = new PlaceOwner(profile[0],profile[1],profile[2],profile[3],editTextTextRegPlacePlaceName.getText().toString(),
-                        spinnerRegPlaceType.getSelectedItem().toString(),editTextTextRegPlacePlaceAddress.getText().toString());
-
-                loginActivity.registerPlaceOwnerUser(placeOwner);
+                registerActivity.registerPlaceOwnerUser(placeName,placeType,placeAddress);
             }
         });
+
+        editTextTextRegPlacePlaceName.setOnFocusChangeListener((v, hasFocus) -> {
+            if(!hasFocus) {
+                placeName = editTextTextRegPlacePlaceName.getText().toString();
+                map = new HashMap<>();
+                map.put("placeName",placeName);
+
+                if (placeName.equals("") || !(registerActivity.checkFreePlaceName(map))) {
+                    editTextTextRegPlacePlaceName.setHintTextColor(R.color.red);
+                    boolPlaceName = false;
+                } else {
+                    boolPlaceName = true;
+                }
+            }
+        });
+
+
         return view;
     }
 }
