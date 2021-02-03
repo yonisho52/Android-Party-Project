@@ -6,10 +6,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.android_final_project.EventsClasses.EventResult;
 import com.example.android_final_project.R;
 import com.example.android_final_project.RetrofitInterace;
+import com.example.android_final_project.Utilities.CreateEventDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -98,6 +99,12 @@ public class CalendarFragment extends Fragment {
         Long currentDate = Calendar.getInstance().getTimeInMillis();
         mainCalendar.setDate(currentDate);
 
+        //Displaying output from DB of an event
+        TextView eventDate = view.findViewById(R.id.editTextEventDate);
+        TextView createdBy = view.findViewById(R.id.editTextCreatedBy);
+        TextView eventName = view.findViewById(R.id.editTextEventName);
+        TextView playingDj = view.findViewById(R.id.editTextPlayingDj);
+
         //Setting min date for calendar to support - 01/01/2020
         mainCalendar.setMinDate(1609452000000L);
 
@@ -112,17 +119,104 @@ public class CalendarFragment extends Fragment {
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
 
                 selectedDate = dayOfMonth + "/" + (month+1) + "/" + year;
+
+                //Testing display of an event after clicking on specific date
+
+                HashMap<String,String> map = new HashMap<>();
+                map.put("eventDate",selectedDate);
+
+                Call<EventResult> call = retrofitInterace.executeGetEvents(map);
+                call.enqueue(new Callback<EventResult>() {
+                    @Override
+                    public void onResponse(Call<EventResult> call, Response<EventResult> response) {
+                        if(response.code()==200)
+                        {
+                            EventResult result = response.body();
+                            eventDate.setText("Event Date:" +result.getEventDate());
+                            createdBy.setText("Created By:"+result.getCreatedBy());
+                            eventName.setText("Event name:"+result.getEventName());
+                            playingDj.setText("Whos playing:"+result.getPlayingDJ());
+                            //Toast.makeText(currContext,"Inside onResponse of EventResult",Toast.LENGTH_LONG).show();
+                        }
+                        else if(response.code()==404)
+                        {
+                            eventDate.setText("No events for this day");
+                            createdBy.setText("");
+                            eventName.setText("");
+                            playingDj.setText("");
+                            Toast.makeText(currContext,"No events on this day",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<EventResult> call, Throwable t) {
+                        Toast.makeText(currContext,t.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
 
-        TextView eventDate = view.findViewById(R.id.editTextEventDate);
-        TextView createdBy = view.findViewById(R.id.editTextCreatedBy);
-        TextView eventName = view.findViewById(R.id.editTextEventName);
-        TextView playingDj = view.findViewById(R.id.editTextPlayingDj);
-
-
         Button createEvent = view.findViewById(R.id.buttonAddEvent);
         createEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final CreateEventDialog mDialog = new CreateEventDialog(currContext);
+                mDialog.setTitle("Create a new event");
+                mDialog.setIcon(android.R.drawable.ic_input_add);
+                mDialog.setMessage("Please provide the following information about the event:");
+
+                //Positive and negative answers
+                mDialog.setPositveButton("Create event", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mDialog.dismiss();
+
+                        //Event insertion to DB here
+                        HashMap<String,String> map = new HashMap<>();
+                        map.put("createdBy","Kiril");
+                        //map.put("createdBy", getCurrentUser);
+
+                        map.put("eventDate",selectedDate);
+
+                        //map.put("eventName","La La Land");
+                        map.put("eventName",mDialog.getEventName());
+
+                       // map.put("playingDj","Efi Profus");
+                        map.put("playingDj",mDialog.getWhosPlaying());
+
+                        Call<Void> call = retrofitInterace.executeAddEvent(map);
+                        call.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if(response.code()==200)
+                                {
+                                    Toast.makeText(currContext,"Successfully created new event",Toast.LENGTH_LONG).show();
+                                }
+                                else if(response.code()==400)
+                                {
+                                    Toast.makeText(currContext,"Cannot create another event on the same date",Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Toast.makeText(currContext,t.getMessage(),Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                });
+                mDialog.setNegativeButton("Cancel", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mDialog.dismiss();
+                        //Closure if the window without adding the event
+                    }
+                });
+                mDialog.show();
+                Window window = mDialog.getWindow();
+                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            }
+        });
+
+       /* createEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -152,45 +246,10 @@ public class CalendarFragment extends Fragment {
                         Toast.makeText(currContext,t.getMessage(),Toast.LENGTH_LONG).show();
                     }
                 });
-            }
-        });
+           }
+    });*/
 
-        Button getEvents = view.findViewById(R.id.buttonGetEvents);
-        getEvents.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HashMap<String,String> map = new HashMap<>();
-                map.put("eventDate",selectedDate);
 
-                Call<EventResult> call = retrofitInterace.executeGetEvents(map);
-                call.enqueue(new Callback<EventResult>() {
-                    @Override
-                    public void onResponse(Call<EventResult> call, Response<EventResult> response) {
-                        if(response.code()==200)
-                        {
-                                EventResult result = response.body();
-                                eventDate.setText("Event Date:" +result.getEventDate());
-                                createdBy.setText("Created By:"+result.getCreatedBy());
-                                eventName.setText("Event name:"+result.getEventName());
-                                playingDj.setText("Whos playing:"+result.getPlayingDJ());
-                                //Toast.makeText(currContext,"Inside onResponse of EventResult",Toast.LENGTH_LONG).show();
-                        }
-                        else if(response.code()==404)
-                        {
-                            eventDate.setText("No events for this day");
-                            createdBy.setText("");
-                            eventName.setText("");
-                            playingDj.setText("");
-                            Toast.makeText(currContext,"No events on this day",Toast.LENGTH_LONG).show();
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<EventResult> call, Throwable t) {
-                        Toast.makeText(currContext,t.getMessage(),Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-        });
 
         return view;
     }
