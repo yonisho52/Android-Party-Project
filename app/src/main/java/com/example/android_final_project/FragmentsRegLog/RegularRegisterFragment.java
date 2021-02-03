@@ -1,5 +1,6 @@
 package com.example.android_final_project.FragmentsRegLog;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
@@ -148,7 +149,8 @@ public class RegularRegisterFragment extends Fragment {
                 int mYear = c.get(Calendar.YEAR);
                 int mMonth = c.get(Calendar.MONTH);
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog dateDialog = new DatePickerDialog(view.getContext(), datePickerListener, mYear, mMonth, mDay);
+                DatePickerDialog dateDialog = new DatePickerDialog(view.getContext(), AlertDialog.THEME_HOLO_LIGHT
+                        , datePickerListener, mYear, mMonth, mDay);
                 dateDialog.getDatePicker().setMaxDate(new Date().getTime());
                 dateDialog.show();
             }

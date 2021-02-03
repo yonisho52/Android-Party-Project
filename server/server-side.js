@@ -145,7 +145,8 @@ mongoClient.connect(url, (err, db) => {
                     const objToSend = 
                     {
                         name:result.name,
-                        email:result.email
+                        email:result.email,
+                        type:result.type
                     }
                     res.status(200).send(JSON.stringify(objToSend))
                 }
