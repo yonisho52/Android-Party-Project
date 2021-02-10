@@ -52,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
         //setContentView(R.layout.fragment_calendar);
 
 
-        retrofit = new Retrofit.Builder().baseUrl(BASEURL).addConverterFactory(GsonConverterFactory.create()).build();
-        retrofitInterace = retrofit.create(RetrofitInterace.class);
-        generateCode();
+//        retrofit = new Retrofit.Builder().baseUrl(BASEURL).addConverterFactory(GsonConverterFactory.create()).build();
+//        retrofitInterace = retrofit.create(RetrofitInterace.class);
+//        generateCode();
 
         sharedPreferencesLogin = getSharedPreferences("Login", MODE_PRIVATE);
         type = sharedPreferencesLogin.getString("type","REGULAR");

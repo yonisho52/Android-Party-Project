@@ -135,7 +135,7 @@ public class CalendarFragment extends Fragment {
                             eventDate.setText("Event Date:" +result.getEventDate());
                             createdBy.setText("Created By:"+result.getCreatedBy());
                             eventName.setText("Event name:"+result.getEventName());
-                            playingDj.setText("Whos playing:"+result.getPlayingDJ());
+                            playingDj.setText("Whos playing:"+result.getPlayingDj());
                             //Toast.makeText(currContext,"Inside onResponse of EventResult",Toast.LENGTH_LONG).show();
                         }
                         else if(response.code()==404)

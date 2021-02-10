@@ -34,8 +34,8 @@ public interface RetrofitInterace {
     Call<Void> executeAddEvent(@Body HashMap<String, String> map);
 
     //Get events request, receives existing event data
-    @GET("/getEventsByDate")
-    Call<List<EventResult>> executeGetEvents(@Body HashMap<String, String> map);
+    @POST("/getEventsByDate")
+    Call<EventResult> executeGetEvents(@Body HashMap<String, String> map);
 
     //Get Events By Email (for place owner and dj users)
     @GET("/getEventsByEmail")
@@ -54,7 +54,7 @@ public interface RetrofitInterace {
     Call<List<StageName>> getPosts();
 
     // Get all User details by Email
-    @GET("/getUserByEmail")
+    @POST("/getUserByEmail")
     Call<Details> getUser(@Body HashMap<String, String> map);
 
     // Check if the party Code is free
