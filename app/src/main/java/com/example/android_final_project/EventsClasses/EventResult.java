@@ -6,29 +6,26 @@ public class EventResult
     private String eventDate;
     private String eventName;
     private String playingDj;
+    private String partyCode;
 
-    public String getCreatedBy() { return this.createdBy; }
-
-    public String getEventDate() { return this.eventDate; }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setEventDate(String eventDate) {
-        this.eventDate = eventDate;
+    public String getEventDate() {
+        return eventDate;
     }
 
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+    public String getEventName() {
+        return eventName;
     }
 
-    public void setPlayingDJ(String playingDJ) {
-        this.playingDj = playingDJ;
+    public String getPlayingDj() {
+        return playingDj;
     }
 
-    public String getEventName() { return eventName; }
-
-    public String getPlayingDJ() { return playingDj; }
+    public String getPartyCode() {
+        return partyCode;
+    }
 }
 

@@ -6,14 +6,24 @@
     android:orientation="vertical"
     tools:context=".FragmentsMain.HomeMainFragment">
 
+    <Spinner
+        android:id="@+id/spinner_Dj"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text_view_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="Home Page"
         android:textSize="25sp" />
+
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
 

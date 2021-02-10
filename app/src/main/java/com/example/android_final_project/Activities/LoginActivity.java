@@ -8,6 +8,7 @@ import androidx.navigation.NavController;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,8 +16,10 @@ import android.widget.Toast;
 import com.example.android_final_project.LoginResult;
 import com.example.android_final_project.R;
 import com.example.android_final_project.RetrofitInterace;
+import com.example.android_final_project.StageName;
 
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,9 +75,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void buttonLogin(View view) {
 
-//        EditText editTextEmail = findViewById(R.id.editTextLoginEmailNew);
-//        EditText editTextPassword = findViewById(R.id.editTextLoginPasswordNew);
-
         String email = editTextEmail.getText().toString();
         String pass = editTextPassword.getText().toString();
 
@@ -89,11 +89,13 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.code()==200)
                 {
                     Toast.makeText(LoginActivity.this,"Login secusess",Toast.LENGTH_LONG).show();
+                    LoginResult loginResult = response.body();
 
                     // shared preferences
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("keyUser", email);
                     editor.putString("keyPass", pass);
+                    editor.putString("type", loginResult.getType());
                     editor.apply();
                     /// end preferences
 
@@ -112,6 +114,9 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
+
+
+
     }
 
     public void buttonRegister(View view) {

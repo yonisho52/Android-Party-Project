@@ -1,5 +1,6 @@
 package com.example.android_final_project.FragmentsMain;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,13 +8,23 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.example.android_final_project.StageName;
 import com.example.android_final_project.R;
+import com.example.android_final_project.RetrofitInterace;
 
-import java.sql.Time;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +32,12 @@ import java.util.Date;
  * create an instance of this fragment.
  */
 public class HomeMainFragment extends Fragment {
+
+    private TextView textViewResult;
+    private HashMap<String,String> map;
+    private Retrofit retrofit;
+    private RetrofitInterace retrofitInterace;
+    private String BASEURL="http://10.0.2.2:3000";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -68,6 +85,54 @@ public class HomeMainFragment extends Fragment {
     {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_main, container, false);
+
+        Context currContext = container.getContext();
+
+        textViewResult = view.findViewById(R.id.text_view_result);
+        Spinner spinner = view.findViewById(R.id.spinner_Dj);
+
+
+        retrofit = new Retrofit.Builder().baseUrl(BASEURL).addConverterFactory(GsonConverterFactory.create()).build();
+        retrofitInterace = retrofit.create(RetrofitInterace.class);
+
+
+        Call<List<StageName>> call = retrofitInterace.getPosts();
+        call.enqueue(new Callback<List<StageName>>() {
+            @Override
+            public void onResponse(Call<List<StageName>> call, Response<List<StageName>> response) {
+                if(!response.isSuccessful())
+                {
+                    textViewResult.setText("Code: "+ response.code());
+                    return;
+                }
+
+                List<StageName> posts = response.body();
+
+                List<String> categories = new ArrayList<String>();
+                for(StageName post : posts) {
+                    categories.add(post.getStageName());
+                }
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(currContext, android.R.layout.simple_spinner_item, categories);
+                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(dataAdapter);
+
+//                for(Post post : posts)
+//                {
+//                    String content= "";
+//                   // content += "Email:" + post.getEmail() + "\n";
+//                    //content += "Password: " + post.getPassword() + "\n";
+//                    content += "Stage Name: " + post.getStageName() + "\n\n";
+////
+//                    textViewResult.append(content);
+//                }
+            }
+
+            @Override
+            public void onFailure(Call<List<StageName>> call, Throwable t) {
+                textViewResult.setText(t.getMessage());
+            }
+        });
+
 
         return view;
     }

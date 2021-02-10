@@ -15,8 +15,7 @@ mongoClient.connect(url, (err, db) => {
     {
         const myDb = db.db('myDb') //If this DB doesnt exist, it will be create automatically
         const collection = myDb.collection('userTable') //Table name
-	const eventCollection = myDb.collection('Events')//Events table		
-
+	    const eventCollection = myDb.collection('Events')//Events table		
 
         // START REGISTER REGULAR
         app.post('/registerRegularUser', (req, res) => {
@@ -113,6 +112,86 @@ mongoClient.connect(url, (err, db) => {
             })
         })
 
+        
+        app.get('/getAllDjStageName',(req, res) => {
+            
+            collection.find({type:"DJ"}).toArray(function(err, dj)
+            {
+                if(err)
+                    res.send(err);
+                if(dj==null)
+                    res.status(400).send("there is no DJ registered")
+                else
+                {
+                    res.status(200).send(JSON.stringify(dj))
+                }
+            }
+            )
+        })
+
+        app.get('/getDjEmailByStageName',(req, res) => {
+
+            const query = {
+                stageName:req.body.stageName
+            }
+            
+            collection.findOne((query), (err, dj) =>
+            {
+                if(err)
+                    res.send(err);
+                if(dj==null)
+                    res.status(400).send("there is no DJ registered")
+                else
+                {
+                    res.status(200).send(JSON.stringify(dj.email))
+                }
+            })
+        })
+
+        app.post('/getUserByEmail',(req, res) => {
+            const query = {
+                email:req.body.email
+            }
+            collection.findOne(query, (err, result) =>
+            {
+                if(result != null)
+                {
+                    //console.log(JSON.stringify(result))
+                    res.status(200).send(JSON.stringify(result))
+                }
+                else
+                {
+                    res.status(404).send() //Object not found
+                }
+            }
+            )
+        })
+
+        app.post('/login',(req, res) => {
+            const query = {
+                email:req.body.email,
+                password:req.body.password
+            }
+
+            collection.findOne(query,{password:false}, (err, result) => {
+                if(result != null)
+                {
+                    const objToSend = 
+                    {
+                        email:result.email,
+                        type:result.type,
+                    }
+                    //console.log(JSON.stringify(objToSend))
+                    res.status(200).send(JSON.stringify(objToSend))
+                }
+                else
+                {
+                    res.status(404).send() //Object not found
+                }
+            })
+        })
+
+
 
 /////// START check register and ***SEND*** result
         function checkRegister(newUser,req,res)
@@ -133,29 +212,7 @@ mongoClient.connect(url, (err, db) => {
         }
 /////// END check register and ***SEND*** result
 
-        app.post('/login',(req, res) => {
-            const query = {
-                email:req.body.email,
-                password:req.body.password
-            }
 
-            collection.findOne(query, (err, result) => {
-                if(result != null)
-                {
-                    const objToSend = 
-                    {
-                        name:result.name,
-                        email:result.email,
-                        type:result.type
-                    }
-                    res.status(200).send(JSON.stringify(objToSend))
-                }
-                else
-                {
-                    res.status(404).send() //Object not found
-                }
-            })
-        })
 
 ////// kirill
 
@@ -164,12 +221,14 @@ mongoClient.connect(url, (err, db) => {
                 CreatedBy:req.body.createdBy,
                 Date:req.body.eventDate,
                 EventName:req.body.eventName,
-                WhosPlaying:req.body.playingDj
+                WhosPlaying:req.body.playingDj,
+                StartTime:req.body.startTime,
+                Endtime:req.body.endTime
             }
 
             //Check if email is unique
             const query = {CreatedBy:newEvent.CreatedBy, Date:newEvent.Date}
-            eventCollection.findOne(query, (err, result) =>
+            eventCollection.find(query, (err, result) =>
             {
                 if(result==null)
                 {
@@ -183,29 +242,115 @@ mongoClient.connect(url, (err, db) => {
             })
         })
 
-        app.post('/getEvents', (req, res) => {
+        app.post('/getEventsByDate', (req, res) => {
             const query = {
                 Date:req.body.eventDate
             }
-
-            eventCollection.findOne(query, (err, result) => {
+            eventCollection.find(query).toArray(function (err, result) {
                 if(result != null)
                 {
-                    const eventDetails = 
-                    {
-                        createdBy:result.CreatedBy,
-                        eventDate:result.Date,
-                        eventName:result.EventName,
-                        playingDj:result.WhosPlaying    
-                    }
-                    res.status(200).send(JSON.stringify(eventDetails))
+                    // const eventDetails = 
+                    // {
+                    //     createdBy:result.CreatedBy,
+                    //     eventDate:result.Date,
+                    //     eventName:result.EventName,
+                    //     playingDj:result.WhosPlaying,
+                    //     partyCode:result.PartyCode    
+                    // }
+                    res.status(200).send(JSON.stringify(result))
                     //res.status(200).send({createdBy:result.CreatedBy,eventDate:result.Date,playingDj:result.WhosPlaying})
                 }
                 else
                 {
-                    res.status(404).send() //Object not found
+                    res.status(400).send() //Object not found
                 }
             })
+        })
+
+        app.post('/getEventsByEmail', (req, res) => {
+            const query = {
+                email:req.body.email,
+            }
+
+            collection.findOne(query, (err, result) => {
+                if(result == null)
+                {
+                    res.status(400).send()
+                }
+
+                else if(result.type=="DJ")
+                {
+                    collection.findOne(query, (err, result) => {
+                        const query = {
+                            WhosPlaying:result.email
+                        }
+
+                        if(result==null)
+                        {
+                            res.status(400).send();
+                        }
+                        else
+                        {
+                            eventCollection.find({result:stageName}).toArray(function (err, result) {
+                                if(result != null)
+                                {
+                                    res.status(200).send(JSON.stringify(result))
+                                }
+                                else
+                                {
+                                    res.status(400).send() //Object not found
+                                }
+                            })
+                        }
+                    })
+                }
+
+                else if(result.type=="PLACE-OWNER")
+                {
+                    collection.findOne(query, (err, result) => {
+                        const query = {
+                            CreatedBy:result.email
+                        }
+
+                        if(result==null)
+                        {
+                            res.status(400).send();
+                        }
+                        else
+                        {
+                            eventCollection.find(query).toArray(function (err, result) {
+                                if(result != null)
+                                {
+                                    res.status(200).send(JSON.stringify(result))
+                                }
+                                else
+                                {
+                                    res.status(400).send() //Object not found
+                                }
+                            })
+                        }
+                    })
+                }
+        })
+    })
+
+
+        app.post('/checkValidPartyCode',(req, res) => {
+            const query = {
+                partyCode:req.body.partyCode
+            }
+            eventCollection.findOne(query, (err, result) =>
+            {
+                if(result == null)
+                {
+                    res.status(200).send()
+                }
+                else
+                {
+                    res.status(400).send() //Object not found
+                }
+            }
+            )
         })
 
 //// kirill
