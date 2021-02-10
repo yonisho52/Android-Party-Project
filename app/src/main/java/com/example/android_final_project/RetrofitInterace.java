@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface RetrofitInterace {
@@ -42,12 +41,5 @@ public interface RetrofitInterace {
     // Check if place Name is free
     @POST("/checkPlaceName")
     Call<Void> executeCheckPlaceName(@Body HashMap<String, String> map);
-
-    //Testing GET functions
-
-    @GET("/getEvents")
-    default Call<Void> executeTest() {
-        return null;
-    }
 
 }

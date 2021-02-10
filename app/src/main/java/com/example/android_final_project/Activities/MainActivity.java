@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    //// GENERATE CODE START
+    // GENERATE CODE START
     public String generateCode()
     {
         Random r = new Random();

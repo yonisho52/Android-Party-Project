@@ -99,8 +99,6 @@ public class CreateEventDialog extends Dialog
                         else if(hour>=10 && min<10)
                             editTextStartTime.setText(hour+":"+"0"+min);
                         else editTextStartTime.setText(hour+":"+min);
-
-
                     }
                 }, 21,0,true);
                 //timePickerDialog.updateTime(hour,min);

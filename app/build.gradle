@@ -42,7 +42,6 @@ dependencies {
     //mCalendar - custom
     implementation 'sun.bob:mcalendarview:1.0.0'
 
-
     //Calendar
     compile 'com.applandeo:material-calendar-view:1.4.0'
     //data-base
