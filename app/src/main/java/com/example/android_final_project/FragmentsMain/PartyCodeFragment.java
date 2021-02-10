@@ -1,13 +1,19 @@
 package com.example.android_final_project.FragmentsMain;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.android_final_project.Activities.MainActivity;
 import com.example.android_final_project.R;
 
 /**
@@ -16,6 +22,9 @@ import com.example.android_final_project.R;
  * create an instance of this fragment.
  */
 public class PartyCodeFragment extends Fragment {
+
+    public SharedPreferences sharedPreferencesParty;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +70,30 @@ public class PartyCodeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_party_code_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_party_code_main, container, false);
+
+        MainActivity mainActivity = (MainActivity) getActivity();
+
+        sharedPreferencesParty = getActivity().getSharedPreferences("Party", Context.MODE_PRIVATE);
+
+        if(sharedPreferencesParty.getString("partyCode", null) != null) // && Valid start time && valid end time
+        {
+            mainActivity.joinParty();
+            return null;
+        }
+
+
+        Button joinParty = view.findViewById(R.id.buttonJoinParty);
+        joinParty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // check if the code is right
+                // check if the party happing now
+                // if not send error
+            }
+        });
+
+
+        return view;
     }
 }

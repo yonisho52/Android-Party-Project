@@ -26,6 +26,27 @@ public class RegularUser extends GeneralUser
         else return false;
     }
 
+    @Override
+    public String getFirstName() {
+        return super.getFirstName();
+    }
+
+    @Override
+    public String getLastName() {
+        return super.getLastName();
+    }
+
+    @Override
+    public String getEmail() {
+        return super.getEmail();
+    }
+
+
+    @Override
+    public String getPassword() {
+        return super.getPassword();
+    }
+
     public int getAge()
     {
         return this.age;
