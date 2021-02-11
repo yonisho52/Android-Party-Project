@@ -170,7 +170,7 @@ public class CalendarFragment extends Fragment {
             @Override
             public void onDateClick(View view, DateData date) {
                 mainCalendar.unMarkDate(prevDate);
-                mainCalendar.markDate(date.setMarkStyle(MarkStyle.DOT, Color.RED));
+                mainCalendar.markDate(date.setMarkStyle(MarkStyle.BACKGROUND, Color.BLUE));
                 prevDate.setDay(date.getDay());
                 prevDate.setMonth(date.getMonth());
                 prevDate.setYear(date.getYear());
