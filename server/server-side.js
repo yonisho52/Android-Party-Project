@@ -16,10 +16,61 @@ client.connect(err => {
 
         const collection = client.db("myDb").collection("userTable");
         const eventCollection = client.db("myDb").collection("Events");
+        const messageCollection = client.db("myDb").collection("adsMessages");
         
         //   const myDb = db.db('myDb') //If this DB doesnt exist, it will be create automatically
         //   const collection = myDb.collection('userTable') //Table name
         //   const eventCollection = myDb.collection('Events')//Events table		
+
+
+        app.post('/addMessageToAds', (req, res) => {
+            const newAds = {
+                createdBy:req.body.createdBy,
+                date:req.body.date,
+                time:req.body.time,
+                text:req.body.text,
+            }
+            messageCollection.insertOne(newAds, (err, result) => {
+                if(!err)
+                    res.status(200).send() //If insertion was successful
+                else
+                    res.status(err).send()
+                })
+            })
+
+        app.get('/getAllMessages',(req, res) => {
+            
+            messageCollection.find().toArray(function(err, result)
+            {
+                if(err)
+                    res.send(err);
+                if(result==null)
+                    res.status(400).send("there is no DJ registered")
+                else
+                {
+                    res.status(200).send(JSON.stringify(result))
+                }
+            }
+            )
+        })
+
+
+        app.post('/getPlaceNameOrStageNameByEmail',(req, res) => {
+            const query = ({email:req.body.email})
+            collection.findOne(query, (err, result) => {               
+            {
+                if(result.stageName!=null)
+                    res.status(200).send(JSON.stringify(result.stageName))
+                else if(result.placeName!=null)
+                {
+                    res.status(200).send((result.placeName))
+                }
+                else
+                    res.status(400).send(err);
+            }
+        })
+    })
+
   
           // START REGISTER REGULAR
           app.post('/registerRegularUser', (req, res) => {
@@ -132,7 +183,6 @@ client.connect(err => {
               }
               )
           })
-  
           app.get('/getDjEmailByStageName',(req, res) => {
   
               const query = {
@@ -172,7 +222,6 @@ client.connect(err => {
           })
   
           app.post('/login',(req, res) => {
-            console.log("connect")
               const query = {
                   email:req.body.email,
                   password:req.body.password

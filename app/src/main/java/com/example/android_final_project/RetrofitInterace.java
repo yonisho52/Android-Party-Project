@@ -64,6 +64,17 @@ public interface RetrofitInterace {
     @GET("/getDjEmailByStageName")
     Call<Details> getDjEmailByStageName(@Body HashMap<String, String> map);
 
+    @POST("/addMessageToAds")
+    Call<Void> addMessageToAds(@Body HashMap<String,String> map);
+
+    @GET("/getAllMessages")
+    Call<List<Message>> getAllMessages();
+
+    ///
+
+    @POST("/getPlaceNameOrStageNameByEmail")
+    Call<String> getPlaceNameOrStageNameByEmail(@Body HashMap<String,String> map);
+
     //Testing GET functions
 
     @GET("/getEvents")
