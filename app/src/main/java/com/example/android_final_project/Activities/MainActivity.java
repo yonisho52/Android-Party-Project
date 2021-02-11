@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     String type;
     String email;
     Boolean flag;
+    String name;
 
     private Retrofit retrofit;
     private RetrofitInterace retrofitInterace;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         retrofit = new Retrofit.Builder().baseUrl(BASEURL).addConverterFactory(GsonConverterFactory.create()).build();
         retrofitInterace = retrofit.create(RetrofitInterace.class);
-        generateCode();
+
 
         sharedPreferencesLogin = getSharedPreferences("Login", MODE_PRIVATE);
         type = sharedPreferencesLogin.getString("type","REGULAR");
@@ -148,5 +149,25 @@ public class MainActivity extends AppCompatActivity {
         return flag;
     }
     /// GENERATE CODE END
+
+
+    public String getName(HashMap<String,String> map)
+    {
+        Call<String> call = retrofitInterace.getPlaceNameOrStageNameByEmail(map);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(response.code()==200)
+                {
+                    name = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+            }
+        });
+        return name;
+    }
 
 }
