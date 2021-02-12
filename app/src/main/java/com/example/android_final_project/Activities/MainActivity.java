@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     public void createEvent(Event details)
     {
         HashMap<String,String> map = new HashMap<>();
-       // map.put("partyCode",generateCode());
+        map.put("partyCode",generateCode());
         map.put("createdBy",details.getPlaceName());
         map.put("eventName",details.getEventName());
         map.put("eventDate",details.getEventDate());
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         HashMap<String,String> map = new HashMap<String, String>();
         map.put("partyCode",randomNumber);
 
-        while (!checkCode(map))
+        while (checkCode(map))
         {
             randomNumber = String.format("%05d", (Object) Integer.valueOf(r.nextInt(10001)));
             map = new HashMap<String, String>();
