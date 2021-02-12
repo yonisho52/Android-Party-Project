@@ -5,7 +5,7 @@ public class EventResult
     private String createdBy;
     private String eventDate;
     private String eventName;
-    private String playingDj;
+    private String whosPlaying;
     private String partyCode;
 
     public String getCreatedBy() {
@@ -21,7 +21,7 @@ public class EventResult
     }
 
     public String getPlayingDj() {
-        return playingDj;
+        return whosPlaying;
     }
 
     public String getPartyCode() {

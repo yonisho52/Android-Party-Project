@@ -19,10 +19,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android_final_project.Activities.MainActivity;
+import com.example.android_final_project.EventsClasses.Event;
 import com.example.android_final_project.EventsClasses.EventResult;
 import com.example.android_final_project.R;
 import com.example.android_final_project.RetrofitInterace;
 import com.example.android_final_project.Utilities.CreateEventDialog;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
@@ -30,12 +34,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import sun.bob.mcalendarview.listeners.OnMonthChangeListener;
 import sun.bob.mcalendarview.vo.DateData;
 import sun.bob.mcalendarview.MCalendarView;
 import sun.bob.mcalendarview.MarkStyle;
@@ -57,6 +64,9 @@ public class CalendarFragment extends Fragment {
     RetrofitInterace retrofitInterace;
     private String BASEURL="http://10.0.2.2:3000";
     String selectedDate;
+    int selectedDay;
+    int selectedMonth;
+    int selectedYear;
     SimpleDateFormat sdf;
     String dateToFill;
     private static int eventID = 1000;
@@ -107,23 +117,8 @@ public class CalendarFragment extends Fragment {
         retrofit = new Retrofit.Builder().baseUrl(BASEURL).addConverterFactory(GsonConverterFactory.create()).build();
         retrofitInterace = retrofit.create(RetrofitInterace.class);
 
-        //Set todays date at init for calendar
-        //CalendarView mainCalendar = view.findViewById(R.id.calendarHomepage);
-        //Long currentDate = Calendar.getInstance().getTimeInMillis();
-        //mainCalendar.setDate(currentDate);
-
-        //Displaying output from DB of an event
-
-
-        //Setting min date for calendar to support - 01/01/2020
-        //mainCalendar.setMinDate(1609452000000L);
-
-        //Setting max date for calendar to support - 31/12/2021
-        //mainCalendar.setMaxDate(1640988000000L);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        //selectedDate = sdf.format(new Date(mainCalendar.getDate()));
-        //CalendarView mainCalendar = view.findViewById(R.id.calendarHomepage);
         sun.bob.mcalendarview.MCalendarView mainCalendar = ((sun.bob.mcalendarview.MCalendarView) view.findViewById(R.id.calendarHomepage));
 
         //Adding layout and textviews for more than 1 event in the page
@@ -135,34 +130,64 @@ public class CalendarFragment extends Fragment {
         //Filling dates with events
         YearMonth yearMonthObj = YearMonth.of(calendar.YEAR,calendar.MONTH);
         int daysInMonth = yearMonthObj.lengthOfMonth();
-        ArrayList<DateData> markEvents = new ArrayList<>();
 
+        int dayToFill = calendar.get(Calendar.DAY_OF_MONTH);
         int monthToFill = calendar.get(Calendar.MONTH)+1;
-
         int yearToFill = calendar.get(Calendar.YEAR);
 
-        for(int i=0;i<10;i++)
+        for(int i=dayToFill;i<=daysInMonth;i++)
         {
-            dateToFill = (i+1)+"/"+monthToFill+"/"+yearToFill;
+            dateToFill = (i)+"/"+monthToFill+"/"+yearToFill;
             HashMap<String,String> map = new HashMap<>();
-            map.put("eventDate",dateToFill);
-            Call<EventResult> call = retrofitInterace.executeGetEvents(map);
+            map.put("Date",dateToFill);
+            Call<List<EventResult>> call = retrofitInterace.executeGetEvents(map);
 
             int finalI = i;
-            call.enqueue(new Callback<EventResult>() {
+            call.enqueue(new Callback<List<EventResult>>() {
                 @Override
-                public void onResponse(Call<EventResult> call, Response<EventResult> response) {
+                public void onResponse(Call<List<EventResult>> call, Response<List<EventResult>> response) {
                     if(response.code()==200)
                     {
-                        mainCalendar.markDate(new DateData(yearToFill,monthToFill,finalI+1).setMarkStyle(MarkStyle.DOT,Color.RED));
+                        mainCalendar.markDate(new DateData(yearToFill,monthToFill,finalI).setMarkStyle(MarkStyle.DOT,Color.RED));
                     }
                 }
                 @Override
-                public void onFailure(Call<EventResult> call, Throwable t) {
+                public void onFailure(Call<List<EventResult>> call, Throwable t) {
                     Toast.makeText(currContext,t.getMessage(),Toast.LENGTH_LONG).show();
                 }
             });
         }
+
+        //Month pick listener
+        mainCalendar.setOnMonthChangeListener(new OnMonthChangeListener() {
+            @Override
+            public void onMonthChange(int year, int month) {
+                YearMonth yearMonthObj = YearMonth.of(year,month);
+                int daysInMonth = yearMonthObj.lengthOfMonth();
+                for(int i=1;i<=daysInMonth;i++)
+                {
+                    dateToFill = (i)+"/"+month+"/"+year;
+                    HashMap<String,String> map = new HashMap<>();
+                    map.put("Date",dateToFill);
+                    Call<List<EventResult>> call = retrofitInterace.executeGetEvents(map);
+
+                    int finalI = i;
+                    call.enqueue(new Callback<List<EventResult>>() {
+                        @Override
+                        public void onResponse(Call<List<EventResult>> call, Response<List<EventResult>> response) {
+                            if(response.code()==200)
+                            {
+                                mainCalendar.markDate(new DateData(year,month,finalI).setMarkStyle(MarkStyle.DOT,Color.RED));
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<List<EventResult>> call, Throwable t) {
+                            Toast.makeText(currContext,t.getMessage(),Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }
+        });
 
         //Date pick listener
         DateData prevDate = new DateData(2000,1,1);
@@ -175,60 +200,43 @@ public class CalendarFragment extends Fragment {
                 prevDate.setMonth(date.getMonth());
                 prevDate.setYear(date.getYear());
                 selectedDate = date.getDay() + "/" + date.getMonth() + "/" + date.getYear();
+                selectedDay=date.getDay();
+                selectedMonth=date.getMonth();
+                selectedYear=date.getYear();
 
                 //Displaying events
                 HashMap<String,String> map = new HashMap<>();
-                map.put("eventDate",selectedDate);
+                map.put("Date",selectedDate);
 
-                Call<EventResult> call = retrofitInterace.executeGetEvents(map);
-                call.enqueue(new Callback<EventResult>() {
+                Call<List<EventResult>> call = retrofitInterace.executeGetEvents(map);
+                call.enqueue(new Callback<List<EventResult>>() {
                     @Override
-                    public void onResponse(Call<EventResult> call, Response<EventResult> response)
+                    public void onResponse(Call<List<EventResult>> call, Response<List<EventResult>> response)
                     {
                         if(response.code()==200)
                         {
-                            EventResult result = response.body();
-                            //Clean moreEvents
-                            moreEvents.removeAllViews();
-
-                            for(int i=0;i<5;i++)
+                            List<EventResult> result = response.body();
+                            for(EventResult eventResult : result)
                             {
-                                TextView eventCount = new TextView(currContext);
-                                eventCount.setText("Event No. "+(i+1));
-                                moreEvents.addView(eventCount);
+                                String content = "";
+                                moreEvents.removeAllViews();
+                                content+="Date: "+eventResult.getEventDate();
+                                content+=" Event name: "+eventResult.getEventName();
+                                content+=" PlayingDJ: "+eventResult.getPlayingDj();
 
-                                //Event date
-                                TextView textViewDate = new TextView(currContext);
-                                //Event No and date
-                                textViewDate.setText("Event Date:" +result.getEventDate());
-                                moreEvents.addView(textViewDate);
-
-                                //Created by
-                                TextView textViewCreatedBy = new TextView(currContext);
-                                textViewCreatedBy.setText("Created By" +result.getCreatedBy());
-                                moreEvents.addView(textViewCreatedBy);
-
-                                //Event name
-                                TextView textViewEventName = new TextView(currContext);
-                                textViewEventName.setText("Event Name" +result.getEventName());
-                                moreEvents.addView(textViewEventName);
-
-                                //Whos Playing
-                                TextView textViewWhosPlaying = new TextView(currContext);
-                                textViewWhosPlaying.setText("Whos playing:" +result.getPlayingDj());
-                                moreEvents.addView(textViewWhosPlaying);
+                                //moreEvents.removeAllViews();
+                                TextView date = new TextView(currContext);
+                                date.setText(content);
+                                moreEvents.addView(date);
                             }
                         }
-                        else if(response.code()==404)
+                        else if(response.code()==400)
                         {
-                            Toast.makeText(currContext,"No events on this day",Toast.LENGTH_LONG).show();
-
-                            //Clean moreEvents
                             moreEvents.removeAllViews();
                         }
                     }
                     @Override
-                    public void onFailure(Call<EventResult> call, Throwable t)
+                    public void onFailure(Call<List<EventResult>>call, Throwable t)
                     {
                         Toast.makeText(currContext,t.getMessage(),Toast.LENGTH_LONG).show();
                     }
@@ -236,7 +244,7 @@ public class CalendarFragment extends Fragment {
             }
         });
 
-
+        MainActivity mainActivity = (MainActivity) getActivity();
         Button createEvent = view.findViewById(R.id.buttonAddEvent);
         createEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,40 +258,12 @@ public class CalendarFragment extends Fragment {
                 mDialog.setPositveButton("Create event", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
                         mDialog.dismiss();
-
-                        //Event insertion to DB here
-                        HashMap<String,String> map = new HashMap<>();
-                        map.put("createdBy","Kiril");
-                        //map.put("createdBy", getCurrentUser);
-
-                        map.put("eventDate",selectedDate);
-
-                        //map.put("eventName","La La Land");
-                        map.put("eventName",mDialog.getEventName());
-
-                       // map.put("playingDj","Efi Profus");
-                        map.put("playingDj",mDialog.getWhosPlaying());
-
-                        Call<Void> call = retrofitInterace.executeAddEvent(map);
-                        call.enqueue(new Callback<Void>() {
-                            @Override
-                            public void onResponse(Call<Void> call, Response<Void> response) {
-                                if(response.code()==200)
-                                {
-                                    Toast.makeText(currContext,"Successfully created new event",Toast.LENGTH_LONG).show();
-                                    eventID++;
-                                }
-                                else if(response.code()==400)
-                                {
-                                    Toast.makeText(currContext,"Cannot create another event on the same date",Toast.LENGTH_LONG).show();
-                                }
-                            }
-                            @Override
-                            public void onFailure(Call<Void> call, Throwable t) {
-                                Toast.makeText(currContext,t.getMessage(),Toast.LENGTH_LONG).show();
-                            }
-                        });
+                        Event eventToCreate = new Event(selectedDate,mDialog.getEventName(),mainActivity.getEmail(),mDialog.getWhosPlaying(),mDialog.getStartTime(),mDialog.getEndTime());
+                        mainActivity.createEvent(eventToCreate);
+                        mainCalendar.markDate(new DateData(selectedYear,selectedMonth,selectedDay).setMarkStyle(MarkStyle.DOT,Color.RED));
+                        Toast.makeText(container.getContext(),"Successfully added event",Toast.LENGTH_LONG).show();
                     }
                 });
                 mDialog.setNegativeButton("Cancel", new View.OnClickListener() {
@@ -298,7 +278,6 @@ public class CalendarFragment extends Fragment {
                 window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             }
         });
-
         return view;
     }
 }

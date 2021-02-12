@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/homeMainFragment">
+    app:startDestination="@id/calendarFragment">
 
     <fragment
         android:id="@+id/homeMainFragment"
@@ -40,4 +40,9 @@
         android:name="com.example.android_final_project.FragmentsMain.NowEventMainFragment"
         android:label="Now Event"
         tools:layout="@layout/fragment_now_event_main" />
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.example.android_final_project.FragmentsMain.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar" />
 </navigation>

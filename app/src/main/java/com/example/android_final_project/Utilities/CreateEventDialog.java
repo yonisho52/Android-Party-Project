@@ -142,6 +142,8 @@ public class CreateEventDialog extends Dialog
     {
         return playingDj.getText().toString();
     }
+    public String getStartTime() {return editTextStartTime.getText().toString();}
+    public String getEndTime() {return editTextEndTime.getText().toString();}
 
     public void setTitle(String title) {
         this.title = title;

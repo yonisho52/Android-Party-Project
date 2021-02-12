@@ -272,17 +272,18 @@ client.connect(err => {
   
    app.post('/addEvent', (req, res) => {
               const newEvent = {
-                  CreatedBy:req.body.createdBy,
-                  Date:req.body.eventDate,
-                  EventName:req.body.eventName,
-                  WhosPlaying:req.body.playingDj,
-                  StartTime:req.body.startTime,
-                  Endtime:req.body.endTime
+                  partyCode:req.body.partyCode,
+                  createdBy:req.body.createdBy,
+                  eventDate:req.body.eventDate,
+                  eventName:req.body.eventName,
+                  whosPlaying:req.body.whosPlaying,
+                  startTime:req.body.startTime,
+                  endtime:req.body.endTime
               }
   
               //Check if email is unique
-              const query = {CreatedBy:newEvent.CreatedBy, Date:newEvent.Date}
-              eventCollection.find(query, (err, result) =>
+              const query = {createdBy:newEvent.createdBy, eventDate:newEvent.eventDate}
+              eventCollection.findOne(query, (err, result) =>
               {
                   if(result==null)
                   {
@@ -298,10 +299,10 @@ client.connect(err => {
   
           app.post('/getEventsByDate', (req, res) => {
               const query = {
-                  Date:req.body.eventDate
+                  eventDate:req.body.Date
               }
               eventCollection.find(query).toArray(function (err, result) {
-                  if(result != null)
+                  if(result.length!=0)
                   {
                       // const eventDetails = 
                       // {
