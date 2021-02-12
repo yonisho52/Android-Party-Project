@@ -11,7 +11,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.example.android_final_project.EventsClasses.Event;
 import com.example.android_final_project.FragmentsMain.NowEventMainFragment;
 import com.example.android_final_project.LoginResult;
 import com.example.android_final_project.R;
@@ -107,7 +109,40 @@ public class MainActivity extends AppCompatActivity {
     public String getEmail() { return  email;}
 
 
+    //Add event to DB function
+    public void createEvent(Event details)
+    {
+        HashMap<String,String> map = new HashMap<>();
+        map.put("partyCode",generateCode());
+        map.put("createdBy",details.getPlaceName());
+        map.put("eventName",details.getEventName());
+        map.put("eventDate",details.getEventDate());
+        map.put("whosPlaying",details.getPlayingDjName());
+        map.put("startTime",details.getStartHour());
+        map.put("endTime",details.getEndHour());
+        map.put("eventRating","0");
+        map.put("numOfRates","0");
 
+        Call<Void> call = retrofitInterace.executeAddEvent(map);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.code()==200)
+                {
+                    //Toast.makeText(currContext,"Successfully created new event",Toast.LENGTH_LONG).show();
+                    //eventID++;
+                }
+                else if(response.code()==400)
+                {
+                    //Toast.makeText(currContext,"Cannot create another event on the same date",Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                //Toast.makeText(currContext,t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
     // GENERATE CODE START
     public String generateCode()
@@ -117,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         HashMap<String,String> map = new HashMap<String, String>();
         map.put("partyCode",randomNumber);
 
-        while (!checkCode(map))
+        while (checkCode(map))
         {
             randomNumber = String.format("%05d", (Object) Integer.valueOf(r.nextInt(10001)));
             map = new HashMap<String, String>();

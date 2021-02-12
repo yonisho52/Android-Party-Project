@@ -34,7 +34,7 @@ public interface RetrofitInterace {
 
     //Get events request, receives existing event data
     @POST("/getEventsByDate")
-    Call<EventResult> executeGetEvents(@Body HashMap<String, String> map);
+    Call<List<EventResult>> executeGetEvents(@Body HashMap<String, String> map);
 
     //Get Events By Email (for place owner and dj users)
     @GET("/getEventsByEmail")
