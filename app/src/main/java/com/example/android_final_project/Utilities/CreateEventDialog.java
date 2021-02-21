@@ -1,24 +1,39 @@
 package com.example.android_final_project.Utilities;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.android_final_project.R;
+import com.example.android_final_project.RetrofitInterface;
+import com.example.android_final_project.ObjectsClasses.StageName;
 
 import org.w3c.dom.Text;
 
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CreateEventDialog extends Dialog
 {
@@ -35,8 +50,16 @@ public class CreateEventDialog extends Dialog
     private TextView editTextStartTime;
     private TextView editTextEndTime;
     private TextView eventName;
-    private TextView playingDj;
+    private Spinner playingDj;
     int hour, min;
+    private String djEmail;
+    private TextView editTextCreateDate;
+
+    private Retrofit retrofit;
+    private RetrofitInterface retrofitInterface;
+    private String BASEURL="http://10.0.2.2:3000";
+
+    private HashMap<String,String> djMaps;
 
 
     private int icon=0;
@@ -58,13 +81,28 @@ public class CreateEventDialog extends Dialog
         super(context, cancelable, cancelListener);
     }
 
+    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.YEAR, year);
+            c.set(Calendar.MONTH, month);
+            c.set(Calendar.DAY_OF_MONTH, day);
+            String format = new SimpleDateFormat("dd/M/YYYY").format(c.getTime());
+            editTextCreateDate.setText(format);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        setContentView(R.layout.create_event_dialog);
+        setContentView(R.layout.dialog_create_event);
         TextView tv = (TextView) findViewById(R.id.malertTitle);
+
+        retrofit = new Retrofit.Builder().baseUrl(BASEURL).addConverterFactory(GsonConverterFactory.create()).build();
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
 
         tv.setCompoundDrawablesWithIntrinsicBounds(icon,0,0,0);
         tv.setText(getTitle());
@@ -81,7 +119,10 @@ public class CreateEventDialog extends Dialog
         editTextStartTime = findViewById(R.id.editTextStartAt);
         editTextEndTime = findViewById(R.id.editTextEndAt);
         eventName = findViewById(R.id.editTextNewEventName);
-        playingDj = findViewById(R.id.editTextNewWhosPlaying);
+        playingDj = findViewById(R.id.spinner_Dj);
+
+
+
 
         editTextStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +170,51 @@ public class CreateEventDialog extends Dialog
                 timePickerDialog.show();
             }
         });
+
+        editTextCreateDate = findViewById(R.id.editTextCreateDate);
+        editTextCreateDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog dateDialog = new DatePickerDialog(getContext(), AlertDialog.THEME_HOLO_LIGHT
+                        , datePickerListener, mYear, mMonth, mDay);
+                dateDialog.getDatePicker().setMinDate(new Date(c.getTimeInMillis()).getTime());
+                dateDialog.show();
+            }
+        });
+
+
+
+        Spinner spinner = findViewById(R.id.spinner_Dj);
+
+        Call<List<StageName>> call = retrofitInterface.getStageNames();
+        call.enqueue(new Callback<List<StageName>>() {
+            @Override
+            public void onResponse(Call<List<StageName>> call, Response<List<StageName>> response) {
+                if(!response.isSuccessful())
+                {
+                    return;
+                }
+
+                List<StageName> posts = response.body();
+                djMaps = new HashMap<String, String>();
+
+                List<String> categories = new ArrayList<String>();
+                for(StageName post : posts) {
+                    djMaps.put(post.getStageName(),post.getEmail());
+                    categories.add(post.getStageName());
+                }
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categories);
+                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(dataAdapter);
+            }
+            @Override
+            public void onFailure(Call<List<StageName>> call, Throwable t) {
+            }
+        });
     }
 
     public String getTitle() {
@@ -138,9 +224,15 @@ public class CreateEventDialog extends Dialog
     {
         return eventName.getText().toString();
     }
-    public String getWhosPlaying()
+    public String getWhosPlayingEmail()
     {
-        return playingDj.getText().toString();
+        String djMail;
+        djMail = djMaps.get(playingDj.getSelectedItem().toString());
+        return djMail;
+    }
+    public String getWhosPlayingName()
+    {
+        return playingDj.getSelectedItem().toString();
     }
     public String getStartTime() {return editTextStartTime.getText().toString();}
     public String getEndTime() {return editTextEndTime.getText().toString();}
@@ -175,4 +267,8 @@ public class CreateEventDialog extends Dialog
         this.btNoText = no;
         this.bttnCancelListener = onClickListener;
     }
+
+    public String getDate() { return editTextCreateDate.getText().toString(); }
+
+
 }

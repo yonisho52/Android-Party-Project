@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.android_final_project.R;
-import com.example.android_final_project.RetrofitInterace;
+import com.example.android_final_project.RetrofitInterface;
 import com.example.android_final_project.UserTypeClasses.PlaceOwner;
 import com.example.android_final_project.UserTypeClasses.RegularUser;
 import com.example.android_final_project.UserTypeClasses.UserDJ;
@@ -51,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Boolean boolPassword = false;
 
     private Retrofit retrofit;
-    private RetrofitInterace retrofitInterace;
+    private RetrofitInterface retrofitInterface;
     private String BASEURL="http://10.0.2.2:3000";
 
     Boolean djStageNameFree = false;
@@ -76,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
         navController = Navigation.findNavController(findViewById(R.id.registerTypeFragment));
 
         retrofit = new Retrofit.Builder().baseUrl(BASEURL).addConverterFactory(GsonConverterFactory.create()).build();
-        retrofitInterace = retrofit.create(RetrofitInterace.class);
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
 
         //NAVIGATION CLICK
         NavHostFragment navHostFragment = (NavHostFragment)getSupportFragmentManager().findFragmentById(R.id.registerTypeFragment);
@@ -179,6 +179,7 @@ public class RegisterActivity extends AppCompatActivity {
         map.put("age",String.valueOf(userDJ.getAge()));
         map.put("placesCanBeFound",userDJ.getPlacesCanBeFound().stream().map(n -> String.valueOf(n)).collect(Collectors.joining(", ", "", "")).toString());
         map.put("rating",String.valueOf(userDJ.getRating()));
+        map.put("numOfRates",String.valueOf(userDJ.getNumOfRates()));
 
         intoDataBase(map,"executeDjUser");
     }
@@ -197,6 +198,7 @@ public class RegisterActivity extends AppCompatActivity {
         map.put("placeType",placeOwner.getPlaceType());
         map.put("placeAddress",placeOwner.getPlaceAddress());
         map.put("rating",String.valueOf(placeOwner.getPlaceRating()));
+        map.put("numOfRates",String.valueOf(placeOwner.getNumOfRates()));
 
         intoDataBase(map,"executeOwnerUser");
     }
@@ -205,9 +207,9 @@ public class RegisterActivity extends AppCompatActivity {
     {
         Call<Void> call = null;
 
-        if(type.equals("executeRegUser")) { call = retrofitInterace.executeRegUser(map); }
-        else if(type.equals("executeDjUser")) { call = retrofitInterace.executeDjUser(map); }
-        else if(type.equals("executeOwnerUser")) { call = retrofitInterace.executeOwnerUser(map); }
+        if(type.equals("executeRegUser")) { call = retrofitInterface.executeRegUser(map); }
+        else if(type.equals("executeDjUser")) { call = retrofitInterface.executeDjUser(map); }
+        else if(type.equals("executeOwnerUser")) { call = retrofitInterface.executeOwnerUser(map); }
         else { Log.d("1","intoDatabase function problem"); }
 
         call.enqueue(new Callback<Void>() {
@@ -231,7 +233,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public boolean checkFreeDjStageName(HashMap<String,String> map)
     {
-        Call<Void> call = retrofitInterace.executeCheckDjName(map);
+        Call<Void> call = retrofitInterface.executeCheckDjName(map);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -257,7 +259,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public boolean checkFreePlaceName(HashMap<String,String> map)
     {
-        Call<Void> call = retrofitInterace.executeCheckPlaceName(map);
+        Call<Void> call = retrofitInterface.executeCheckPlaceName(map);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

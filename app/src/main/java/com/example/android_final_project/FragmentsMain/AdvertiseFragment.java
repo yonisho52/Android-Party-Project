@@ -10,26 +10,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.android_final_project.Activities.LoginActivity;
 import com.example.android_final_project.Activities.MainActivity;
-import com.example.android_final_project.Details;
-import com.example.android_final_project.Message;
+import com.example.android_final_project.ObjectsClasses.Message;
+import com.example.android_final_project.Adapters.MessageAdapter;
+import com.example.android_final_project.Adapters.MyAds;
 import com.example.android_final_project.R;
-import com.example.android_final_project.RetrofitInterace;
+import com.example.android_final_project.RetrofitInterface;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.SimpleFormatter;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,10 +39,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AdvertiseFragment extends Fragment {
 
     Retrofit retrofit;
-    RetrofitInterace retrofitInterace;
+    RetrofitInterface retrofitInterface;
     private String BASEURL="http://10.0.2.2:3000";
 
     private String name;
+
+    private ListView listView;
+    MessageAdapter adapter;
+    MyAds myAds;
 
     static boolean flag=true;
 
@@ -100,15 +98,16 @@ public class AdvertiseFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_advertise_main, container, false);
 
+
+        listView = view.findViewById(R.id.listViewMessages);
+
         Context currContext = container.getContext();
         retrofit = new Retrofit.Builder().baseUrl(BASEURL).addConverterFactory(GsonConverterFactory.create()).build();
-        retrofitInterace = retrofit.create(RetrofitInterace.class);
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
 
         MainActivity mainActivity = (MainActivity) getActivity();
         String userType = mainActivity.getType();
-        String userEmail = mainActivity.getEmail();
-
-        TextView allMessages = view.findViewById(R.id.textViewAllMessages);
+        String name = mainActivity.getName();
 
         Button publishAds = view.findViewById(R.id.buttonAddAds);
         EditText editTextMessage = view.findViewById(R.id.textViewTextAds);
@@ -119,61 +118,50 @@ public class AdvertiseFragment extends Fragment {
             editTextMessage.setVisibility(view.INVISIBLE);
         }
 
-        Call<List<Message>> call = retrofitInterace.getAllMessages();
+        Call<List<Message>> call = retrofitInterface.getAllMessages();
         call.enqueue(new Callback<List<Message>>() {
                          @Override
                          public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
                             if(response.code()==200)
                             {
-                                HashMap<String,String> map;
+
                                 List<Message> messages = response.body();
 
-                                for(Message message : messages)
-                                {
-                                    String content= "";
-                                    map = new HashMap<>();
-                                    map.put("email",message.getCreatedBy());
-                                    name = mainActivity.getName(map);
+                                myAds = new MyAds(messages);
 
-                                    content += "Created By: " + name +"\n";
-                                    content += "Date: " + message.getDate() +"\n";
-                                    content += "Time: " + message.getTime() +"\n";
-                                    content += "Message: " + message.getText() +"\n\n";
+                                adapter = new MessageAdapter(currContext,myAds);
 
-                                    allMessages.append(content);
-                                }
+                                listView.setAdapter(adapter);
                             }
                             else
                             {
-                                allMessages.setText("Code: " + response.code());
+                                Toast.makeText(currContext,"Code: "+ response.code(),Toast.LENGTH_LONG).show();
                             }
                          }
                          @Override
                          public void onFailure(Call<List<Message>> call, Throwable t) {
-                             allMessages.setText(t.getMessage());
+                             Toast.makeText(currContext,"Code: "+ t.getMessage(),Toast.LENGTH_LONG).show();
                          }
                      });
 
         publishAds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Calendar calendar = Calendar.getInstance();
                 SimpleDateFormat format = new SimpleDateFormat("HH:mm");
                 String time = format.format(calendar.getTime());
 
                 SimpleDateFormat format2 = new SimpleDateFormat("dd/MM/yyyy");
                 String date = format2.format(calendar.getTime());
-
                 HashMap<String, String> map = new HashMap<String, String>();
-
-                map.put("createdBy", userEmail);
+                if(userType.equals("DJ")) { map.put("createdBy", ("DJ: " + name)); }
+                else  { map.put("createdBy", ("PLACE: " + name)); }
                 map.put("date", date);
                 map.put("time", time);
                 map.put("text", editTextMessage.getText().toString());
 
 
-                Call<Void> call = retrofitInterace.addMessageToAds(map);
+                Call<Void> call = retrofitInterface.addMessageToAds(map);
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
@@ -193,17 +181,6 @@ public class AdvertiseFragment extends Fragment {
             }
         });
 
-        if(flag==true)
-        {
-            try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            flag=false;
-            onCreateView(inflater,container,savedInstanceState);
-        }
         return view;
     }
 }

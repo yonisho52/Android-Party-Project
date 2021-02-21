@@ -8,18 +8,15 @@ import androidx.navigation.NavController;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.android_final_project.LoginResult;
+import com.example.android_final_project.ObjectsClasses.LoginResult;
 import com.example.android_final_project.R;
-import com.example.android_final_project.RetrofitInterace;
-import com.example.android_final_project.StageName;
+import com.example.android_final_project.RetrofitInterface;
 
 import java.util.HashMap;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private HashMap<String,String> map;
     private Retrofit retrofit;
-    private RetrofitInterace retrofitInterace;
+    private RetrofitInterface retrofitInterface;
     private String BASEURL="http://10.0.2.2:3000";
 
     @Override
@@ -50,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         retrofit = new Retrofit.Builder().baseUrl(BASEURL).addConverterFactory(GsonConverterFactory.create()).build();
-        retrofitInterace = retrofit.create(RetrofitInterace.class);
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
 
         getSupportActionBar().hide();
 
@@ -82,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         map.put("email",email);
         map.put("password",pass);
 
-        Call<LoginResult> call = retrofitInterace.executeLogin(map);
+        Call<LoginResult> call = retrofitInterface.executeLogin(map);
         call.enqueue(new Callback<LoginResult>() {
             @Override
             public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
@@ -96,6 +93,14 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("keyUser", email);
                     editor.putString("keyPass", pass);
                     editor.putString("type", loginResult.getType());
+                    if(loginResult.getType().equals("DJ"))
+                    {
+                        editor.putString("name", loginResult.getStageName());
+                    }
+                    else if(loginResult.getType().equals("PLACE-OWNER"))
+                    {
+                        editor.putString("name", loginResult.getPlaceName());
+                    }
                     editor.apply();
                     /// end preferences
 
