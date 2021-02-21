@@ -15,14 +15,11 @@ import android.widget.TextView;
 
 import com.example.android_final_project.Activities.LoginActivity;
 import com.example.android_final_project.Activities.MainActivity;
-import com.example.android_final_project.Details;
+import com.example.android_final_project.ObjectsClasses.Details;
 import com.example.android_final_project.R;
-import com.example.android_final_project.RetrofitInterace;
-import com.example.android_final_project.UserTypeClasses.RegularUser;
+import com.example.android_final_project.RetrofitInterface;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class EditProfileMainFragment extends Fragment {
 
     private Retrofit retrofit;
-    private RetrofitInterace retrofitInterace;
+    private RetrofitInterface retrofitInterface;
     private String BASEURL="http://10.0.2.2:3000";
 
     private SharedPreferences sharedPreferences;
@@ -92,18 +89,17 @@ public class EditProfileMainFragment extends Fragment {
         MainActivity mainActivity = (MainActivity) getActivity();
         String type = mainActivity.getType();
 
-        String ss = mainActivity.getEmail();
+        String email = mainActivity.getEmail();
 
         retrofit = new Retrofit.Builder().baseUrl(BASEURL).addConverterFactory(GsonConverterFactory.create()).build();
-        retrofitInterace = retrofit.create(RetrofitInterace.class);
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
 
         HashMap<String,String> map = new HashMap<>();
-        map.put("email","regular@gmail.com");
+        map.put("email",email);
 
         TextView textViewResult = view.findViewById(R.id.text_view_user_details);
 
-
-        Call<Details> call = retrofitInterace.getUser(map);
+        Call<Details> call = retrofitInterface.getUser(map);
         call.enqueue(new Callback<Details>() {
             @Override
             public void onResponse(Call<Details> call, Response<Details> response) {
@@ -118,7 +114,6 @@ public class EditProfileMainFragment extends Fragment {
                     content += "First Name: " + details.getFirstName() + "\n";
                     content += "Last Name: " + details.getLastName() + "\n";
                     content += "TYPE: " + details.getType() + "\n";
-                    content += "TYPE2: " + type + "\n";
 
                     if(type.equals("REGULAR"))
                     {
@@ -162,9 +157,15 @@ public class EditProfileMainFragment extends Fragment {
             public void onClick(View v) {
                 sharedPreferences = getActivity().getSharedPreferences("Login", Context.MODE_PRIVATE);
 
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear();
-                editor.commit();
+                SharedPreferences.Editor editorUser = sharedPreferences.edit();
+                editorUser.clear();
+                editorUser.commit();
+
+                sharedPreferences = getActivity().getSharedPreferences("Party", Context.MODE_PRIVATE);
+
+                SharedPreferences.Editor editorParty = sharedPreferences.edit();
+                editorParty.clear();
+                editorParty.commit();
 
                 Intent intent = new Intent(context, LoginActivity.class);
                 startActivity(intent);

@@ -17,7 +17,9 @@
         android:background="#94b5c0"
         android:dateTextAppearance="@style/TextAppearance.AppCompat.Body1"
         android:maxDate="12/31/2021"
-        android:minDate="01/01/2020" />
+        android:minDate="01/01/2020" >
+
+    </sun.bob.mcalendarview.MCalendarView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,31 +27,20 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <ScrollView
-            android:id="@+id/scrollEventsDisp"
+        <TextView
+            android:id="@+id/textViewTouchToSave"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:text="Touch on the event To save It !"
+            android:visibility="invisible" />
 
-
-            <LinearLayout
-                android:id="@+id/LinearScrollLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" />
-
-                <LinearLayout
-                    android:id="@+id/LinearEvents2toN"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" />
-
-            </LinearLayout>
-        </ScrollView>
+        <ListView
+            android:id="@+id/listViewCalendar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            />
 
     </LinearLayout>
 
@@ -63,13 +54,15 @@
             android:id="@+id/buttonAddEvent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add new event" />
+            android:text="Add new event"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/buttonGetEvents"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Get events for selected date" />
+            android:text="Get events for selected date"
+            android:visibility="invisible" />
     </LinearLayout>
 
 
