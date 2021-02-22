@@ -25,14 +25,19 @@
             android:text="All Ads Here !"
             android:textSize="30sp" />
 
-        <ListView
-            android:id="@+id/listViewMessages"
-            android:layout_width="388dp"
-            android:layout_height="488dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewMessages"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-        </ListView>
+        <!--        <ListView-->
+<!--            android:id="@+id/listViewMessages"-->
+<!--            android:layout_width="388dp"-->
+<!--            android:layout_height="488dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginTop="16dp">-->
+
+<!--        </ListView>-->
 
     </LinearLayout>
 
