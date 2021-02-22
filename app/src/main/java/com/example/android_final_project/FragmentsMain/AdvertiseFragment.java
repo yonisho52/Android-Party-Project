@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +16,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.android_final_project.Activities.MainActivity;
+import com.example.android_final_project.Adapters.MessageAdapterRecycler;
 import com.example.android_final_project.ObjectsClasses.Message;
-import com.example.android_final_project.Adapters.MessageAdapter;
 import com.example.android_final_project.Adapters.MyAds;
 import com.example.android_final_project.R;
 import com.example.android_final_project.RetrofitInterface;
@@ -45,7 +47,9 @@ public class AdvertiseFragment extends Fragment {
     private String name;
 
     private ListView listView;
-    MessageAdapter adapter;
+//    MessageAdapter adapter;
+    MessageAdapterRecycler adapter;
+    RecyclerView recyclerView;
     MyAds myAds;
 
     static boolean flag=true;
@@ -98,8 +102,9 @@ public class AdvertiseFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_advertise_main, container, false);
 
+        recyclerView = view.findViewById(R.id.recyclerViewMessages);
 
-        listView = view.findViewById(R.id.listViewMessages);
+//        listView = view.findViewById(R.id.listViewMessages);
 
         Context currContext = container.getContext();
         retrofit = new Retrofit.Builder().baseUrl(BASEURL).addConverterFactory(GsonConverterFactory.create()).build();
@@ -129,9 +134,11 @@ public class AdvertiseFragment extends Fragment {
 
                                 myAds = new MyAds(messages);
 
-                                adapter = new MessageAdapter(currContext,myAds);
+                                adapter = new MessageAdapterRecycler(myAds,getContext());
 
-                                listView.setAdapter(adapter);
+//                                listView.setAdapter(adapter);
+                                recyclerView.setAdapter(adapter);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(currContext));
                             }
                             else
                             {
