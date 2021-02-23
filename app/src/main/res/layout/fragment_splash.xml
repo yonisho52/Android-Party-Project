@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FragmentsMain.CalendarFragment$splashFragment"
-    android:background="@color/grey">
+    android:background="@color/gray">
 
     <TextView
         android:id="@+id/textView6"

@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         navController = Navigation.findNavController(findViewById(R.id.fragment));
 
         //Titles for each page
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.homeMainFragment,R.id.savedEventsMainFragment,R.id.advertiseMainFragment,
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.calendarFragment,R.id.savedEventsMainFragment,R.id.advertiseMainFragment,
                 R.id.editProfileMainFragment,R.id.eventSummaryMainFragment,R.id.nowEventMainFragment,R.id.partyCodeMainFragment).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 

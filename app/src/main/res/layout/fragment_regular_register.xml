@@ -1,32 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".FragmentsRegLog.RegularRegisterFragment">
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/editTextRegularUserDOB"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Date of Birth" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/buttonRegRegular"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRegularUserDOB"
+        app:layout_constraintVertical_bias="0.058"
+        tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,24 +27,24 @@
                 android:id="@+id/checkGenreHipHop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="false"
                 android:layout_weight="1"
+                android:checked="false"
                 android:text="HipHop" />
 
             <CheckBox
                 android:id="@+id/checkGenreDance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="false"
                 android:layout_weight="1"
+                android:checked="false"
                 android:text="Dance" />
 
             <CheckBox
                 android:id="@+id/checkGenreChill"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="false"
                 android:layout_weight="1"
+                android:checked="false"
                 android:text="Chill" />
         </LinearLayout>
 
@@ -69,24 +58,24 @@
                 android:id="@+id/checkBoxElectronic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="false"
                 android:layout_weight="1"
+                android:checked="false"
                 android:text="Electronic" />
 
             <CheckBox
                 android:id="@+id/checkBoxTechno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="false"
                 android:layout_weight="1"
+                android:checked="false"
                 android:text="Techno" />
 
             <CheckBox
                 android:id="@+id/checkBoxTrance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="false"
                 android:layout_weight="1"
+                android:checked="false"
                 android:text="Trance" />
         </LinearLayout>
 
@@ -95,8 +84,26 @@
 
     <Button
         android:id="@+id/buttonRegRegular"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:text="Register" />
-</LinearLayout>
+        android:layout_width="209dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/button_blue"
+        android:text="Register"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/editTextRegularUserDOB"
+        android:layout_width="120dp"
+        android:layout_height="26dp"
+        android:ems="10"
+        android:hint="Date of Birth"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.009" />
+</androidx.constraintlayout.widget.ConstraintLayout>
