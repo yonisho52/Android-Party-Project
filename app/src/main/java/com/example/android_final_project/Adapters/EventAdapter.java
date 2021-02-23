@@ -82,13 +82,13 @@ public class EventAdapter extends BaseAdapter {
 
         Event event = this.getItem(position);
 
-        textViewName.setText(event.getEventName());
-        textViewDate.setText(event.getEventDate());
-        textViewDj.setText(event.getWhosPlayingName());
-        textViewStart.setText(event.getStartTime());
-        textViewEnd.setText(event.getEndTime());
-        textViewRating.setText(Double.toString(event.getEventRating()));
-        textViewPartyCode.setText(event.getPartyCode());
+        textViewName.append(event.getEventName());
+        textViewDate.append(event.getEventDate());
+        textViewDj.append(event.getWhosPlayingName());
+        textViewStart.append(event.getStartTime());
+        textViewEnd.append(event.getEndTime());
+        textViewRating.append(Double.toString(event.getEventRating()));
+        textViewPartyCode.append(event.getPartyCode());
 
         MainActivity mainActivity = new MainActivity();
 
@@ -101,7 +101,8 @@ public class EventAdapter extends BaseAdapter {
 
         if(type!=null) //regular user
         {
-            textViewPartyCode.setVisibility(View.INVISIBLE);
+            textViewPartyCode.setVisibility(View.GONE);
+            textViewRating.setVisibility(View.GONE);
             buttonSavedEvent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

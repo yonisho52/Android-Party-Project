@@ -38,6 +38,6 @@
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.example.android_final_project.FragmentsMain.CalendarFragment"
-        android:label="fragment_calendar"
+        android:label="Calendar"
         tools:layout="@layout/fragment_calendar" />
 </navigation>

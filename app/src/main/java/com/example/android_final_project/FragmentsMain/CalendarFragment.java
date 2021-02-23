@@ -218,19 +218,7 @@ public class CalendarFragment extends Fragment {
                         if(response.code()==200)
                         {
                             List<Event> events = response.body();
-//                            for(Event event : events)
-//                            {
-//                                String content = "";
-//                                moreEvents.removeAllViews();
-//                                content+="Date: "+event.getEventDate();
-//                                content+=" Event name: "+event.getEventName();
-//                                content+=" PlayingDJ: "+event.getWhosPlayingName();
-//
-//                                //moreEvents.removeAllViews();
-//                                TextView date = new TextView(currContext);
-//                                date.setText(content);
-//                                moreEvents.addView(date);
-//                            }
+
                             myEvents = new MyEvents(events);
                             adapter = new EventAdapter(myEvents,currContext,"1","calendar");
                             listView.setAdapter(adapter);
