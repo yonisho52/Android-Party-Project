@@ -258,8 +258,8 @@ public class CalendarFragment extends Fragment {
 
         if(type.equals("PLACE-OWNER")) {
             Button createEvent = view.findViewById(R.id.buttonAddEvent);
-            Button buttonGetEvents = view.findViewById(R.id.buttonGetEvents);
-            buttonGetEvents.setVisibility(View.VISIBLE);
+//            Button buttonGetEvents = view.findViewById(R.id.buttonGetEvents);
+//            buttonGetEvents.setVisibility(View.VISIBLE);
             createEvent.setVisibility(View.VISIBLE);
             createEvent.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -294,7 +294,7 @@ public class CalendarFragment extends Fragment {
                     });
                     mDialog.show();
                     Window window = mDialog.getWindow();
-                    window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 }
             });
         }

@@ -1,18 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/cardview_light_background"
-    android:minHeight="600dp"
     android:minWidth="200dp"
+    android:minHeight="600dp"
     android:orientation="vertical">
+
+    <Button
+        android:id="@+id/aleartYes"
+        android:layout_width="106dp"
+        android:layout_height="44dp"
+
+        android:layout_marginStart="76dp"
+        android:autoText="false"
+        android:background="@drawable/button_gray"
+        android:text="Create event"
+        android:textAlignment="center"
+        android:textColor="@color/very_light_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/under"
+        app:layout_constraintVertical_bias="0.502" />
+
+    <Button
+        android:id="@+id/aleartNo"
+        android:layout_width="98dp"
+        android:layout_height="43dp"
+        android:background="@drawable/button_gray"
+        android:text="Cancel"
+        android:textAlignment="center"
+        android:textColor="@color/very_light_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.187"
+        app:layout_constraintStart_toEndOf="@+id/aleartYes"
+        app:layout_constraintTop_toBottomOf="@+id/under" />
 
     <LinearLayout
         android:id="@+id/under"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.9"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="30sp">
 
         <TextView
             android:id="@+id/malertTitle"
@@ -22,6 +54,7 @@
             android:padding="5dp"
             android:textColor="#ffffff"
             android:textSize="25sp"
+            android:visibility="gone"
 
             />
 
@@ -47,7 +80,7 @@
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:layout_weight="0.5"
-                    android:hint="Enter event name"
+                    android:hint="Event name"
                     android:inputType="text" />
 
             </LinearLayout>
@@ -96,6 +129,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center|right"
+                    android:paddingRight="10sp"
                     android:text="Date:" />
 
                 <TextView
@@ -104,14 +138,17 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center|left"
+                    android:paddingLeft="10sp"
                     android:text="--:--" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="5sp"
+                android:paddingRight="5sp">
 
                 <TextView
                     android:id="@+id/textViewStartTime"
@@ -145,49 +182,9 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="435dp"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/textView24"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="Additional information:"
-                    android:inputType="text" />
-
-            </LinearLayout>
-
         </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:layout_weight="0.001"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/aleartYes"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:autoText="false"
-            android:text="Create event" />
-
-        <Button
-            android:id="@+id/aleartNo"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="140dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginEnd="3dp"
-            android:text="Cancel" />
-
-
-    </LinearLayout>
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

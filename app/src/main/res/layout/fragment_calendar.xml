@@ -25,20 +25,35 @@
         android:layout_width="match_parent"
         android:layout_height="109dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="5sp"
+        >
+
+        <Button
+            android:id="@+id/buttonAddEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/button_gray"
+            android:textColor="@color/very_light_gray"
+            android:text="New event"
+            android:paddingBottom="5sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textViewTouchToSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Touch on the event To save It !"
-            android:visibility="invisible" />
+            android:visibility="gone"
+            android:paddingBottom="5sp" />
 
         <ListView
             android:id="@+id/listViewCalendar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusable="false"
+            android:paddingTop="5sp"
             android:focusableInTouchMode="false"
             />
 
@@ -50,19 +65,12 @@
         android:layout_weight="0.000000000005"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/buttonAddEvent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add new event"
-            android:visibility="invisible" />
-
-        <Button
-            android:id="@+id/buttonGetEvents"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Get events for selected date"
-            android:visibility="invisible" />
+        <!--        <Button-->
+<!--            android:id="@+id/buttonGetEvents"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:text="Get events for selected date"-->
+<!--            android:visibility="invisible" />-->
     </LinearLayout>
 
 
