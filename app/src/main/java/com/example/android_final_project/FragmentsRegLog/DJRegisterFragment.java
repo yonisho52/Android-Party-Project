@@ -2,6 +2,7 @@ package com.example.android_final_project.FragmentsRegLog;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -184,7 +185,7 @@ public class DJRegisterFragment extends Fragment {
                 map.put("stageName",stageName);
 
                 if (stageName.equals("") || !(registerActivity.checkFreeDjStageName(map))) {
-                    editTextStageName.setHintTextColor(R.color.red);
+                    editTextStageName.setHintTextColor(Color.RED);
                     boolDjName = false;
                 } else {
                     boolDjName = true;

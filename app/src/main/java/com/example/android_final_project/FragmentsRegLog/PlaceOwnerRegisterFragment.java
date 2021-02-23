@@ -1,6 +1,7 @@
 package com.example.android_final_project.FragmentsRegLog;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -117,10 +118,45 @@ public class PlaceOwnerRegisterFragment extends Fragment {
                 map = new HashMap<>();
                 map.put("placeName",placeName);
 
-                if (placeName.equals("") || !(registerActivity.checkFreePlaceName(map))) {
-                    editTextTextRegPlacePlaceName.setHintTextColor(R.color.red);
+//                if (placeName.isEmpty() || !(registerActivity.checkFreePlaceName(map)))
+//                {
+//                    editTextTextRegPlacePlaceName.setHintTextColor(Color.RED);
+//                    boolPlaceName = false;
+//                } else {
+//                    boolPlaceName = true;
+//                }
+
+                if(placeName.isEmpty())
+                {
+                    editTextTextRegPlacePlaceName.setHintTextColor(Color.RED);
+                    editTextTextRegPlacePlaceName.setError("Missing place name!");
+                    boolPlaceName = false;
+                }
+                else if((registerActivity.checkFreePlaceName(map)))
+                {
+                    editTextTextRegPlacePlaceName.setHintTextColor(Color.RED);
+                    editTextTextRegPlacePlaceName.setError("Name already taken!");
+                    boolPlaceName = false;
+                }
+                else
+                {
+                    boolPlaceName = true;
+                    editTextTextRegPlacePlaceName.setError(null);
+                }
+            }
+        });
+
+        editTextTextRegPlacePlaceAddress.setOnFocusChangeListener((v, hasFocus) -> {
+            if(!hasFocus) {
+                placeAddress = editTextTextRegPlacePlaceAddress.getText().toString();
+
+                if (placeAddress.isEmpty())
+                {
+                    editTextTextRegPlacePlaceName.setHintTextColor(Color.RED);
+                    editTextTextRegPlacePlaceAddress.setError("Missing place address!");
                     boolPlaceName = false;
                 } else {
+                    editTextTextRegPlacePlaceAddress.setError(null);
                     boolPlaceName = true;
                 }
             }

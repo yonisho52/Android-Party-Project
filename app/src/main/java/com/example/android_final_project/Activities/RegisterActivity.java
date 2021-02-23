@@ -9,9 +9,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,6 +29,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import retrofit2.Call;
@@ -42,6 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
     private String firstName = null;
     private String lastName = null;
     private String password = null;
+    private String confirmPassword = null;
 
     String[] generalProfile;
 
@@ -49,6 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Boolean boolFirstName = false;
     private Boolean boolLastName = false;
     private Boolean boolPassword = false;
+    private Boolean boolConfirmPassword = false;
 
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
@@ -86,16 +95,35 @@ public class RegisterActivity extends AppCompatActivity {
         EditText editTextFirstName = findViewById(R.id.editTextRegFirstName);
         EditText editTextLastName = findViewById(R.id.editTextRegLastName);
         EditText editTextPassword = findViewById(R.id.editTextRegPW);
+        EditText editTextConfirmPassword = findViewById(R.id.editTextRegConfirmPW);
+
 
         editTextEmail.setOnFocusChangeListener((v, hasFocus) -> {
             if(!hasFocus) {
                 email = editTextEmail.getText().toString();
                 setEmail(email);
-                if (email.equals("")) {
-                    editTextEmail.setHintTextColor(R.color.red);
+                 if(!isValidEmail(email))
+                {
+                    if(email.isEmpty())
+                    {
+                        editTextEmail.setError("Field cannot be empty");
+                        editTextEmail.setHintTextColor(Color.RED);
+                        enableRegisterButton();
+                    }
+                    else
+                    {
+                        editTextEmail.setError("Invalid email address");
+                        editTextEmail.setTextColor(Color.RED);
+                        enableRegisterButton();
+                    }
                     boolEmail = false;
                 } else {
                     boolEmail = true;
+                    editTextEmail.setError(null);
+                    editTextEmail.setTextColor(Color.BLACK);
+
+                    editTextEmail.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_spellcheck_24px,0);
+                     enableRegisterButton();
                 }
             }
         });
@@ -104,11 +132,25 @@ public class RegisterActivity extends AppCompatActivity {
             if(!hasFocus) {
                 firstName = editTextFirstName.getText().toString();
                 setFirstName(firstName);
-                if (firstName.equals("")) {
-                    editTextFirstName.setHintTextColor(R.color.red);
+                if (firstName.isEmpty())
+                {
+                    editTextFirstName.setHintTextColor(Color.RED);
+                    editTextFirstName.setError("Missing first name!");
                     boolFirstName = false;
-                } else {
+                    enableRegisterButton();
+                }
+                else if(!isValidName(firstName))
+                {
+                    editTextFirstName.setTextColor(Color.RED);
+                    editTextFirstName.setError("Name must start with a capital letter and contain letters only");
+                    enableRegisterButton();
+                }
+                else {
+                    editTextFirstName.setError(null);
+                    editTextFirstName.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_spellcheck_24px,0);
+                    editTextFirstName.setTextColor(Color.BLACK);
                     boolFirstName = true;
+                    enableRegisterButton();
                 }
             }
         });
@@ -117,12 +159,27 @@ public class RegisterActivity extends AppCompatActivity {
             if(!hasFocus) {
                 lastName = editTextLastName.getText().toString();
                 setLastName(lastName);
-                if (lastName.equals("")) {
-                    editTextLastName.setHintTextColor(R.color.red);
+                if (lastName.isEmpty())
+                {
+                    editTextLastName.setHintTextColor(Color.RED);
+                    editTextLastName.setError("Missing last name!");
                     boolLastName = false;
-                } else {
-                    boolLastName = true;
+                    enableRegisterButton();
                 }
+                else if(!isValidName(lastName))
+                {
+                    editTextLastName.setTextColor(Color.RED);
+                    editTextLastName.setError("Last name must start with a capital letter and contain letters only");
+                    enableRegisterButton();
+                }
+                else
+                    {
+                        editTextLastName.setError(null);
+                        editTextLastName.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_spellcheck_24px,0);
+                        editTextLastName.setTextColor(Color.BLACK);
+                        boolLastName = true;
+                        enableRegisterButton();
+                    }
             }
         });
 
@@ -130,16 +187,61 @@ public class RegisterActivity extends AppCompatActivity {
             if(!hasFocus) {
                 password = editTextPassword.getText().toString();
                 setPass(password);
-                if (password.equals("")) {
-                    editTextPassword.setHintTextColor(R.color.red);
+                if (password.isEmpty())
+                {
+                    editTextPassword.setHintTextColor(Color.RED);
+                    editTextPassword.setError("Missing password");
                     boolPassword = false;
-                } else {
-                    boolPassword = true;
+                    enableRegisterButton();
+                }
+                else if(!isValidPassword(password))
+                    {
+                       // editTextPassword.setError("Password must contain at least the following: \nOne capital letter A-Z\nOne number 0-9\nOne symbol: !@#$%^&+=\nAt least 8 characters long");
+                        editTextPassword.setError("Password must contain the following:\n" +
+                                "At least 1 digit\n" +
+                                "At least 1 upper case letter\n" +
+                                "At least 1 lower case letter'\n" +
+                                "At least 1 symbol: !@#$%^&*+=\n" +
+                                "No white spaces\n" +
+                                "Length must be 6-14 characters");
+                        enableRegisterButton();
+                    }
+                else
+                    {
+                        boolPassword = true;
+                        editTextPassword.setError(null);
+                        editTextPassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_spellcheck_24px,0);
+                        enableRegisterButton();
+                    }
+            }
+        });
+
+        editTextConfirmPassword.setOnFocusChangeListener((v, hasFocus) -> {
+            if(!hasFocus) {
+                confirmPassword = editTextConfirmPassword.getText().toString();
+                if (password.isEmpty())
+                {
+                    editTextConfirmPassword.setHintTextColor(Color.RED);
+                    editTextConfirmPassword.setError("Confirm password");
+                    boolConfirmPassword=false;
+                    enableRegisterButton();
+                }
+                else if(!confirmPassword(password,confirmPassword ))
+                {
+                    editTextConfirmPassword.setError("Password does not match");
+                    boolConfirmPassword=false;
+                    enableRegisterButton();
+                }
+                else
+                {
+                    editTextConfirmPassword.setError(null);
+                    editTextConfirmPassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_spellcheck_24px,0);
+                    boolConfirmPassword=true;
+                    enableRegisterButton();
                 }
             }
         });
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void registerRegularUser(List favouriteGenres, int age)
@@ -283,7 +385,50 @@ public class RegisterActivity extends AppCompatActivity {
         return placeNameFree;
     }
 
+    public boolean isValidEmail(String email)
+    {
+        return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
+    }
 
+    public boolean isValidPassword(String pw)
+    {
+        Pattern pattern;
+        Matcher matcher;
+
+        final String PASSWORD_PATTERN = "^" +
+                "(?=.*[0-9])" +                 //at least 1 digit
+                "(?=.*[a-z])" +                 //at least 1 lower case letter
+                "(?=.*[A-Z])" +                 //at least 1 upper case letter
+                "(?=.*[!@#$%^&*+=.])"+          //at least 1 special character
+                "(?=\\S+$)" +                   //no white spaces
+                ".{6,14}" +                     //length between 6-14
+                "$";
+
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(pw);
+
+        return matcher.matches();
+    }
+
+    public boolean isValidName(String name)
+    {
+        Pattern pattern;
+        Matcher matcher;
+
+        final String NAME_PATTERN = ("[A-Z][a-z]*");
+
+        pattern = Pattern.compile(NAME_PATTERN);
+        matcher = pattern.matcher(name);
+
+        return matcher.matches();
+    }
+
+    public boolean confirmPassword(String password, String confirmation)
+    {
+        if(password.equals(confirmation))
+            return true;
+        else return false;
+    }
 
     public void setEmail(String email){
         profile[2] = email;
@@ -296,6 +441,22 @@ public class RegisterActivity extends AppCompatActivity {
     }
     public void setPass(String pass){
         profile[3] = pass;
+    }
+
+    public boolean isRegDetailsValid()
+    {
+        if(boolEmail && boolFirstName && boolLastName && boolPassword && boolConfirmPassword)
+            return true;
+        else return false;
+    }
+
+    public void enableRegisterButton()
+    {
+        Button regButton = findViewById(R.id.buttonRegRegular);
+
+        if(isRegDetailsValid())
+            regButton.setEnabled(true);
+        else regButton.setEnabled(false);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.android_final_project.Activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -7,7 +8,10 @@ import androidx.navigation.NavController;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -55,6 +59,8 @@ public class LoginActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextLoginEmailNew);
         editTextPassword = findViewById(R.id.editTextLoginPasswordNew);
 
+
+
         if(sharedPreferences.getString("keyUser", null) != null
                 && sharedPreferences.getString("keyPass", null) != null )
         {
@@ -66,6 +72,24 @@ public class LoginActivity extends AppCompatActivity {
             String email = sharedPreferences.getString("keyUser",null);
             String pass = sharedPreferences.getString("keyPass",null);
         }
+
+        editTextEmail.setOnFocusChangeListener((v, hasFocus) -> {
+            if(!hasFocus) {
+                editTextEmail.getText().toString();
+                if(!isValidEmail(editTextEmail.toString()))
+                {
+                        editTextEmail.setError("Invalid email address");
+                        editTextEmail.setTextColor(Color.RED);
+
+                } else
+                    {
+                    editTextEmail.setError(null);
+                    editTextEmail.setTextColor(Color.BLACK);
+
+                    editTextEmail.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_spellcheck_24px,0);
+                }
+            }
+        });
 
 
     }
@@ -85,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
                 if(response.code()==200)
                 {
-                    Toast.makeText(LoginActivity.this,"Login secusess",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,"Welcome "+email.toString(),Toast.LENGTH_LONG).show();
                     LoginResult loginResult = response.body();
 
                     // shared preferences
@@ -109,9 +133,9 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     // ***
                 }
-                else if(response.code()==404)
+                else if(response.code()==400)
                 {
-                    Toast.makeText(LoginActivity.this,"there is a problem",Toast.LENGTH_LONG).show();
+                    new AlertDialog.Builder(LoginActivity.this).setTitle("Login Error!").setMessage("One or more of the login credentials you entered are incorrect").show();
                 }
             }
             @Override
@@ -130,4 +154,8 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public boolean isValidEmail(String email)
+    {
+        return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
+    }
 }
