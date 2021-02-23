@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,11 +19,7 @@
         android:background="@drawable/button_gray"
         android:text="Create event"
         android:textAlignment="center"
-        android:textColor="@color/very_light_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/under"
-        app:layout_constraintVertical_bias="0.502" />
+        android:textColor="@color/very_light_gray" />
 
     <Button
         android:id="@+id/aleartNo"
@@ -32,17 +28,12 @@
         android:background="@drawable/button_gray"
         android:text="Cancel"
         android:textAlignment="center"
-        android:textColor="@color/very_light_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.187"
-        app:layout_constraintStart_toEndOf="@+id/aleartYes"
-        app:layout_constraintTop_toBottomOf="@+id/under" />
+        android:textColor="@color/very_light_gray" />
 
     <LinearLayout
         android:id="@+id/under"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingTop="30sp">
 
@@ -187,4 +178,4 @@
     </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

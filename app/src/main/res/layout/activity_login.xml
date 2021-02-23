@@ -17,6 +17,7 @@
         android:textColor="@color/gray"
         android:textSize="18dp"
         android:textStyle="bold"
+        android:fontFamily="sans-serif"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -32,6 +33,7 @@
         android:textColor="@color/very_light_gray"
         android:textSize="30sp"
         android:textStyle="bold"
+        android:fontFamily="sans-serif"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +48,7 @@
         android:background="@drawable/input_field"
         android:ems="10"
         android:hint="Email"
+        android:fontFamily="sans-serif"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,6 +74,7 @@
         android:background="@drawable/input_field"
         android:ems="10"
         android:hint="Password"
+        android:fontFamily="sans-serif"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,6 +91,8 @@
         android:textAllCaps="false"
         android:textSize="20dp"
         android:onClick="buttonLogin"
+        android:fontFamily="sans-serif"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,6 +110,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="sans-serif"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.934" />
 
@@ -119,6 +126,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.07"
+        android:fontFamily="sans-serif"
         app:layout_constraintStart_toEndOf="@+id/textView8"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.935" />
