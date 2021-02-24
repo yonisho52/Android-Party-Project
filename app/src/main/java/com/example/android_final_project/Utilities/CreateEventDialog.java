@@ -207,7 +207,7 @@ public class CreateEventDialog extends Dialog
                     djMaps.put(post.getStageName(),post.getEmail());
                     categories.add(post.getStageName());
                 }
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categories);
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_djs, categories);
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setAdapter(dataAdapter);
             }

@@ -412,12 +412,12 @@ public class NowEventMainFragment extends Fragment {
         TextView playingDj = view.findViewById(R.id.textViewNowEventPlayingDj);
         TextView EventRating = view.findViewById(R.id.textViewNowEventRatingEvent);
 
-        code.setText(nowEvent.getPartyCode());
-        placeName.setText(nowEvent.getPlaceName());
-        startTime.setText(nowEvent.getStartTime());
-        endTime.setText(nowEvent.getEndTime());
-        playingDj.setText(nowEvent.getWhosPlayingName());
-        EventRating.setText(Double.toString(nowEvent.getEventRating()));
+        code.append(nowEvent.getPartyCode());
+        placeName.append(nowEvent.getPlaceName());
+        startTime.append(nowEvent.getStartTime());
+        endTime.append(nowEvent.getEndTime());
+        playingDj.append(nowEvent.getWhosPlayingName());
+        EventRating.append(Double.toString(nowEvent.getEventRating()));
     }
 
     public void checkExistSurvey(String partyCode)

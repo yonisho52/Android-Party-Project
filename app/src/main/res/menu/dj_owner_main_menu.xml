@@ -20,7 +20,7 @@
         android:icon="@drawable/ic_message" />
     <item
         android:id="@+id/editProfileMainFragment"
-        android:title="Edit Profile"
+        android:title="Profile"
         android:icon="@drawable/ic_person" />
 </menu>
 

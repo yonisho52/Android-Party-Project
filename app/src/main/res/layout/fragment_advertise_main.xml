@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingBottom="5sp"
     tools:context=".FragmentsMain.AdvertiseFragment">
 
 
@@ -17,57 +18,50 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
+            android:layout_weight="0.8"
             android:text="All Ads Here !"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewMessages"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:paddingHorizontal="15sp"
+            android:layout_weight="0.2"/>
 
-        <!--        <ListView-->
-<!--            android:id="@+id/listViewMessages"-->
-<!--            android:layout_width="388dp"-->
-<!--            android:layout_height="488dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginTop="16dp">-->
-
-<!--        </ListView>-->
 
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/linearLayout9"
         android:layout_width="match_parent"
         android:layout_height="59dp"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:background="@color/very_light_gray"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/textViewTextAds"
-            android:layout_width="324dp"
+            android:layout_width="match_parent"
             android:layout_height="57dp"
-            android:layout_marginStart="16dp"
+            android:layout_weight="0.4"
+            android:paddingRight="5sp"
+            android:paddingLeft="5sp"
+            android:background="@color/very_light_gray"
             android:hint="Your Message Here !"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.081" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/buttonAddAds"
             android:layout_width="39dp"
             android:layout_height="40dp"
             android:background="@drawable/send_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textViewTextAds"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.473" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:backgroundTint="@color/gray" />
+    </LinearLayout>
 
 </LinearLayout>

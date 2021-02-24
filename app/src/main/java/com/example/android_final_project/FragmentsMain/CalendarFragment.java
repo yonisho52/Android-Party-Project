@@ -197,7 +197,7 @@ public class CalendarFragment extends Fragment {
             @Override
             public void onDateClick(View view, DateData date) {
                 mainCalendar.unMarkDate(prevDate);
-                mainCalendar.markDate(date.setMarkStyle(MarkStyle.BACKGROUND, Color.BLUE));
+                mainCalendar.markDate(date.setMarkStyle(MarkStyle.BACKGROUND, R.color.very_light_gray));
                 prevDate.setDay(date.getDay());
                 prevDate.setMonth(date.getMonth());
                 prevDate.setYear(date.getYear());
@@ -273,7 +273,7 @@ public class CalendarFragment extends Fragment {
                             Toast.makeText(container.getContext(), "Successfully added event", Toast.LENGTH_LONG).show();
                         }
                     });
-                    mDialog.setNegativeButton("Cancel", new View.OnClickListener() {
+                    mDialog.setNegativeButton("X", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             mDialog.dismiss();
@@ -282,7 +282,7 @@ public class CalendarFragment extends Fragment {
                     });
                     mDialog.show();
                     Window window = mDialog.getWindow();
-                    window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 }
             });
         }

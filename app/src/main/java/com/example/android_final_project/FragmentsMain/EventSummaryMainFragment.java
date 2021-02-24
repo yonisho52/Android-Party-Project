@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -146,33 +147,9 @@ public class EventSummaryMainFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Event ev = myEvents.getMyEventsList().get(position);
-
                 Dialog dialog = new Dialog(currContext);
                 dialog.setContentView(R.layout.dialog_event_summary);
-                TextView textViewSummaryDialogPartyCode = dialog.findViewById(R.id.textViewSummaryDialogPartyCode);
-                TextView textViewSummaryDialogCreatedBy = dialog.findViewById(R.id.textViewSummaryDialogCreatedBy);
-                TextView textViewSummaryDialogPlaceName = dialog.findViewById(R.id.textViewSummaryDialogPlaceName);
-                TextView textViewSummaryDialogDjName = dialog.findViewById(R.id.textViewSummaryDialogDjName);
-                TextView textViewSummaryDialogWhoIsPlaying = dialog.findViewById(R.id.textViewSummaryDialogWhoIsPlaying);
-                TextView textViewSummaryDialogEndTime = dialog.findViewById(R.id.textViewSummaryDialogEndTime);
-                TextView textViewSummaryDialogStartTime = dialog.findViewById(R.id.textViewSummaryDialogStartTime);
-                TextView textViewSummaryDialogNumOfRating = dialog.findViewById(R.id.textViewSummaryDialogNumOfRating);
-                TextView textViewSummaryDialogEventRating = dialog.findViewById(R.id.textViewSummaryDialogEventRating);
-                TextView textViewSummaryDialogEventName = dialog.findViewById(R.id.textViewSummaryDialogEventName);
-                TextView textViewSummaryDialogEventDate = dialog.findViewById(R.id.textViewSummaryDialogEventDate);
-
-                textViewSummaryDialogPartyCode.setText("Party Code: " + ev.getPartyCode());
-                textViewSummaryDialogCreatedBy.setText("Place Owner Email: " + ev.getCreatedBy());
-                textViewSummaryDialogPlaceName.setText("Place Name: " + ev.getPlaceName());
-                textViewSummaryDialogDjName.setText("Dj Name: " + ev.getWhosPlayingName());
-                textViewSummaryDialogWhoIsPlaying.setText("Dj Email: " + ev.getWhosPlaying());
-                textViewSummaryDialogEndTime.setText("End Time: " + ev.getEndTime());
-                textViewSummaryDialogStartTime.setText("Start Time: " + ev.getStartTime());
-                textViewSummaryDialogNumOfRating.setText("Number Of Rates: " + ev.getNumOfRates());
-                textViewSummaryDialogEventRating.setText("Event Rating: " + ev.getEventRating());
-                textViewSummaryDialogEventName.setText("Name Of The Party: " + ev.getEventName());
-                textViewSummaryDialogEventDate.setText("Date: " + ev.getEventDate());
-
+                setEventDetails(dialog,ev);
                 Button closeDialog = dialog.findViewById(R.id.buttonSummaryDismiss);
                 closeDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -194,9 +171,9 @@ public class EventSummaryMainFragment extends Fragment {
                     }
                 });
 
-
                 dialog.show();
-
+                Window window = dialog.getWindow();
+                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             }
         });
 
@@ -214,15 +191,40 @@ public class EventSummaryMainFragment extends Fragment {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful())
                     Toast.makeText(getContext(),"Event Deleted!", Toast.LENGTH_SHORT).show();
-
                 else
                     Toast.makeText(getContext(),"SomeThing Went Wrong", Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(getContext(),"error: "+ t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void setEventDetails(Dialog dialog, Event ev)
+    {
+        TextView textViewSummaryDialogPartyCode = dialog.findViewById(R.id.textViewSummaryDialogPartyCode);
+        TextView textViewSummaryDialogCreatedBy = dialog.findViewById(R.id.textViewSummaryDialogCreatedBy);
+        TextView textViewSummaryDialogPlaceName = dialog.findViewById(R.id.textViewSummaryDialogPlaceName);
+        TextView textViewSummaryDialogDjName = dialog.findViewById(R.id.textViewSummaryDialogDjName);
+        TextView textViewSummaryDialogWhoIsPlaying = dialog.findViewById(R.id.textViewSummaryDialogWhoIsPlaying);
+        TextView textViewSummaryDialogEndTime = dialog.findViewById(R.id.textViewSummaryDialogEndTime);
+        TextView textViewSummaryDialogStartTime = dialog.findViewById(R.id.textViewSummaryDialogStartTime);
+        TextView textViewSummaryDialogNumOfRating = dialog.findViewById(R.id.textViewSummaryDialogNumOfRating);
+        TextView textViewSummaryDialogEventRating = dialog.findViewById(R.id.textViewSummaryDialogEventRating);
+        TextView textViewSummaryDialogEventName = dialog.findViewById(R.id.textViewSummaryDialogEventName);
+        TextView textViewSummaryDialogEventDate = dialog.findViewById(R.id.textViewSummaryDialogEventDate);
+
+        textViewSummaryDialogPartyCode.setText("Party Code: " + ev.getPartyCode());
+        textViewSummaryDialogCreatedBy.setText("Place Owner Email: " + ev.getCreatedBy());
+        textViewSummaryDialogPlaceName.setText("Place Name: " + ev.getPlaceName());
+        textViewSummaryDialogDjName.setText("Dj Name: " + ev.getWhosPlayingName());
+        textViewSummaryDialogWhoIsPlaying.setText("Dj Email: " + ev.getWhosPlaying());
+        textViewSummaryDialogEndTime.setText("End Time: " + ev.getEndTime());
+        textViewSummaryDialogStartTime.setText("Start Time: " + ev.getStartTime());
+        textViewSummaryDialogNumOfRating.setText("Number Of Rates: " + ev.getNumOfRates());
+        textViewSummaryDialogEventRating.setText("Event Rating: " + ev.getEventRating());
+        textViewSummaryDialogEventName.setText("Name Of The Party: " + ev.getEventName());
+        textViewSummaryDialogEventDate.setText("Date: " + ev.getEventDate());
     }
 }
