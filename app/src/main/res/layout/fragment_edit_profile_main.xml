@@ -4,36 +4,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingBottom="30dp"
     tools:context=".FragmentsMain.EditProfileMainFragment">
-
-    <Button
-        android:id="@+id/buttonLogOut"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Log Out" />
 
     <TextView
         android:id="@+id/text_view_2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:gravity="center"
-        android:text="Edit Profile"
-        android:textSize="25sp" />
+        android:text="Profile"
+        android:layout_weight="0.4"
+        android:padding="5dp"
+        android:paddingTop="10sp"
+        android:textSize="20sp" />
+
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="0.2">
 
         <TextView
             android:id="@+id/text_view_user_details"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="25sp" />
+            android:textSize="18sp" />
 
     </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/buttonLogOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log Out"
+        android:gravity="center"
+
+        android:layout_gravity="bottom"
+
+        android:textColor="@color/very_light_gray"
+        android:background="@drawable/button_gray"/>
 
 </LinearLayout>
 

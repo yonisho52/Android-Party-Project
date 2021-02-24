@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/editProfileMainFragment"
         android:name="com.example.android_final_project.FragmentsMain.EditProfileMainFragment"
-        android:label="Edit Profile"
+        android:label="Profile"
         tools:layout="@layout/fragment_edit_profile_main" />
     <fragment
         android:id="@+id/eventSummaryMainFragment"
