@@ -59,9 +59,9 @@ public class SurveyDialog extends Dialog {
     TextView textViewResultPrecent2;
     TextView textViewResultPrecent3;
 
-    boolean flagVoted;
+    boolean flagSurveyVoted;
 
-    private RadioButton radioSexButton;
+    private RadioButton radioAnsButton;
 
 
     public SurveyDialog(@NonNull Context context,String chooseWindow,String partyCode) {
@@ -93,7 +93,8 @@ public class SurveyDialog extends Dialog {
         retrofitInterface = retrofit.create(RetrofitInterface.class);
 
         map = new HashMap<>();
-        flagVoted = false;
+        flagSurveyVoted = false;
+
         if(chooseWindow.equals("2"))  // make survey for dj
         {
             setContentView(R.layout.dialog_make_survey);
@@ -175,18 +176,18 @@ public class SurveyDialog extends Dialog {
             radioButtonAns2 = findViewById(R.id.radioButtonAns2);
             radioButtonAns3 = findViewById(R.id.radioButtonAns3);
             RadioGroup radioGroupVote = findViewById(R.id.radioGroupVote);
-            Button buttonVote = findViewById(R.id.buttonVote);
+            Button buttonSurveyVote = findViewById(R.id.buttonVote);
 
 
             loadSurveyForVote();
 
-            buttonVote.setOnClickListener(new View.OnClickListener() {
+            buttonSurveyVote.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int radioId = radioGroupVote.getCheckedRadioButtonId();
-                    radioSexButton = findViewById(radioId);
-                    voteSurvey(radioSexButton.getTag().toString());
-                    flagVoted =true;
+                    radioAnsButton = findViewById(radioId);
+                    voteSurvey(radioAnsButton.getTag().toString());
+                    flagSurveyVoted =true;
                     dismiss();
                 }
             });
@@ -195,11 +196,10 @@ public class SurveyDialog extends Dialog {
         }
     }
 
-    public boolean getFlagVoted()
+    public boolean getFlagSurveyVoted()
     {
-        return flagVoted;
+        return flagSurveyVoted;
     }
-
 
     private HashMap<String,String> makeMap(Survey surveyToSend) {
         map = new HashMap<>();
@@ -226,15 +226,15 @@ public class SurveyDialog extends Dialog {
         textViewResultAns3.setText(survey.getAns3());
 
         progressBar1.setProgress((int) survey.getAns1Rate());
-        textViewNumOfVote1.setText(String.valueOf(survey.getAns1NumOfRate()));
+        textViewNumOfVote1.append(String.valueOf(survey.getAns1NumOfRate()));
         textViewResultPrecent1.setText((int) survey.getAns1Rate()+"%");
 
         progressBar2.setProgress((int) survey.getAns2Rate());
-        textViewNumOfVote2.setText(String.valueOf(survey.getAns2NumOfRate()));
+        textViewNumOfVote2.append(String.valueOf(survey.getAns2NumOfRate()));
         textViewResultPrecent2.setText((int) survey.getAns2Rate()+"%");
 
         progressBar3.setProgress((int) survey.getAns3Rate());
-        textViewNumOfVote3.setText(String.valueOf(survey.getAns3NumOfRate()));
+        textViewNumOfVote3.append(String.valueOf(survey.getAns3NumOfRate()));
         textViewResultPrecent3.setText((int) survey.getAns3Rate()+"%");
 
     }

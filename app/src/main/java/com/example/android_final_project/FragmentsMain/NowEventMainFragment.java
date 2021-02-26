@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -206,7 +207,7 @@ public class NowEventMainFragment extends Fragment {
                     mDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
-                            if(mDialog.getFlagVoted()) {
+                            if(mDialog.getFlagSurveyVoted()) {
                                 buttonSurvey.setEnabled(false);
                                 buttonSurvey.setText("Voted!");
                                 mainActivity.votedAddSharedPref();
@@ -220,6 +221,8 @@ public class NowEventMainFragment extends Fragment {
                         final SurveyDialog mDialog = new SurveyDialog(getContext(),"1",nowEvent.getPartyCode(),survey);
                         mDialog.setTitle("Create a new event");
                         mDialog.show();
+                        Window window = mDialog.getWindow();
+                        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
                     }
                 else if(type.equals("DJ")) // no survey
@@ -259,8 +262,7 @@ public class NowEventMainFragment extends Fragment {
                     String djEmail = nowEvent.getWhosPlaying();
                     rateType = "DJ";
                     rateDjOrOwner(djEmail, rateType);
-                    mainActivity.djRatedAddSharedPref();
-
+//                    mainActivity.djRatedAddSharedPref();
                 }
             });
 
@@ -275,7 +277,7 @@ public class NowEventMainFragment extends Fragment {
                 String ownerEmail = nowEvent.getCreatedBy();
                 rateType = "Place";
                 rateDjOrOwner(ownerEmail, rateType);
-                mainActivity.onwerRatedAddSharedPref();
+//                mainActivity.onwerRatedAddSharedPref();
             }
         });
 
@@ -295,7 +297,7 @@ public class NowEventMainFragment extends Fragment {
                 AlertDialog dialog = mBuilder.create();
                 dialog.show();
 
-                mainActivity.eventRatedAddSharedPref();
+//                mainActivity.eventRatedAddSharedPref();
 
                 RatingBar ratingBar = mView.findViewById(R.id.ratingBarRatingDialog);
                 TextView textViewRating = mView.findViewById(R.id.textViewRating);
@@ -311,6 +313,9 @@ public class NowEventMainFragment extends Fragment {
                 buttonSendRate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        rateEvent.setText("Voted!");
+                        mainActivity.eventRatedAddSharedPref();
                         rateEvent.setEnabled(false);
                         Log.d("rating",String.valueOf(ratingBar.getRating()));
                         map.put("partyCode",partyCode);
@@ -368,13 +373,15 @@ public class NowEventMainFragment extends Fragment {
                 {
                     buttonRateDj.setEnabled(false);
                     buttonRateDj.setText("Voted!");
+                    mainActivity.djRatedAddSharedPref();
                 }
                 else
                 {
                     buttonRateOwner.setEnabled(false);
                     buttonRateOwner.setText("Voted!");
+                    mainActivity.onwerRatedAddSharedPref();
                 }
-                Log.d("rating",String.valueOf(ratingBar.getRating()));
+//                Log.d("rating",String.valueOf(ratingBar.getRating()));
                 map.put("email",email);
                 map.put("rating",String.valueOf(ratingBar.getRating()));
 
