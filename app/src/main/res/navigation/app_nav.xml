@@ -2,4 +2,15 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/app_nav"/>
+    android:id="@+id/app_nav"
+    app:startDestination="@id/splashFragment2">
+    <fragment
+        android:id="@+id/splashFragment2"
+        android:name="com.example.android_final_project.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" />
+    <fragment
+        android:id="@+id/fragmentLogin2"
+        android:name="com.example.android_final_project.FragmentLogin"
+        android:label="FragmentLogin" />
+</navigation>

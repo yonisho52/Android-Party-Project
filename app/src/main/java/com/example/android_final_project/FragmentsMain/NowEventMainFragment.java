@@ -291,7 +291,7 @@ public class NowEventMainFragment extends Fragment {
                 String partyCode = nowEvent.getPartyCode();
                 HashMap<String,String> map = new HashMap<>();
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
-                View mView = getLayoutInflater().inflate(R.layout.dialog_rate_dj, null);
+                View mView = getLayoutInflater().inflate(R.layout.dialog_rate_dj_event_place, null);
 
                 mBuilder.setView(mView);
                 AlertDialog dialog = mBuilder.create();
@@ -346,7 +346,7 @@ public class NowEventMainFragment extends Fragment {
     {
         HashMap<String,String> map = new HashMap<>();
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getContext());
-        View mView = getLayoutInflater().inflate(R.layout.dialog_rate_dj, null);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_rate_dj_event_place, null);
 
         mBuilder.setView(mView);
         AlertDialog dialog = mBuilder.create();

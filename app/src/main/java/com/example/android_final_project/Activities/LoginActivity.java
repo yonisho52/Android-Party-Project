@@ -5,14 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -50,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         retrofit = new Retrofit.Builder().baseUrl(BASEURL).addConverterFactory(GsonConverterFactory.create()).build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
 
@@ -60,17 +65,20 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextLoginPasswordNew);
 
 
-
         if(sharedPreferences.getString("keyUser", null) != null
                 && sharedPreferences.getString("keyPass", null) != null )
         {
-            // write on the login page the details of the user
+            // Move To MainActivity
+            Intent intent = new Intent(this,MainActivity.class);
+            startActivity(intent);
+
+            //write on the login page the details of the user
             editTextEmail.setText(sharedPreferences.getString("keyUser",null));
             editTextPassword.setText(sharedPreferences.getString("keyPass",null));
 
-            //auto log-in
-            String email = sharedPreferences.getString("keyUser",null);
-            String pass = sharedPreferences.getString("keyPass",null);
+//            //auto log-in
+//            String email = sharedPreferences.getString("keyUser",null);
+//            String pass = sharedPreferences.getString("keyPass",null);
         }
 
         editTextEmail.setOnFocusChangeListener((v, hasFocus) -> {
@@ -128,9 +136,17 @@ public class LoginActivity extends AppCompatActivity {
                     editor.apply();
                     /// end preferences
 
+                    setContentView(R.layout.fragment_splash);
                     //Intent to MainActivity ***
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(intent);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                            startActivity(intent);
+                        }
+                    }, 2000);
+
                     // ***
                 }
                 else if(response.code()==400)

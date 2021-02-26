@@ -47,8 +47,9 @@
         android:layout_height="36dp"
         android:background="@drawable/input_field"
         android:ems="10"
-        android:hint="Email"
         android:fontFamily="sans-serif"
+        android:hint="Email"
+
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
