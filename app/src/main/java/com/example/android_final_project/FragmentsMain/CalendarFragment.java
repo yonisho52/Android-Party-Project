@@ -270,15 +270,22 @@ public class CalendarFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
 
-                            String whosPlayingEmail = mDialog.getWhosPlayingEmail();
-                            String whosPlayingName = mDialog.getWhosPlayingName();
-                            String placeName = mainActivity.getName();
-                            String createdBy = mainActivity.getEmail();
-                            mDialog.dismiss();
-                            Event eventToCreate = new Event(mDialog.getDate(), mDialog.getEventName(), mainActivity.getEmail(), whosPlayingEmail, mDialog.getStartTime(), mDialog.getEndTime(), whosPlayingName, placeName, createdBy);
-                            mainActivity.createEvent(eventToCreate);
-                            mainCalendar.markDate(new DateData(selectedYear, selectedMonth, selectedDay).setMarkStyle(MarkStyle.DOT, Color.RED));
-                            Toast.makeText(container.getContext(), "Successfully added event", Toast.LENGTH_LONG).show();
+                            if(mDialog.getStartTime().isEmpty() || mDialog.getEndTime().isEmpty() || mDialog.getEventName().isEmpty() || mDialog.getDate().isEmpty())
+                            {
+                                Toast.makeText(container.getContext(), "One or more of the required details are missing.", Toast.LENGTH_LONG).show();
+                            }
+                            else
+                            {
+                                String whosPlayingEmail = mDialog.getWhosPlayingEmail();
+                                String whosPlayingName = mDialog.getWhosPlayingName();
+                                String placeName = mainActivity.getName();
+                                String createdBy = mainActivity.getEmail();
+                                mDialog.dismiss();
+                                Event eventToCreate = new Event(mDialog.getDate(), mDialog.getEventName(), mainActivity.getEmail(), whosPlayingEmail, mDialog.getStartTime(), mDialog.getEndTime(), whosPlayingName, placeName, createdBy);
+                                mainActivity.createEvent(eventToCreate);
+                                mainCalendar.markDate(new DateData(selectedYear, selectedMonth, selectedDay).setMarkStyle(MarkStyle.DOT, Color.RED));
+                                Toast.makeText(container.getContext(), "Successfully added event", Toast.LENGTH_LONG).show();
+                            }
                         }
                     });
                     mDialog.setNegativeButton("X", new View.OnClickListener() {
