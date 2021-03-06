@@ -19,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android_final_project.Activities.RegisterActivity;
 import com.example.android_final_project.R;
@@ -43,7 +44,11 @@ public class DJRegisterFragment extends Fragment {
     private String apple;
     private String youtube;
     private String playingGenre;
-    private List<String> placesCanBeFound = new ArrayList<String>();;
+    private List<String> placesCanBeFound = new ArrayList<String>();
+    RegisterActivity registerActivity;
+
+    private String djDOB = null;
+    private String djGenre = null;
     private Boolean boolDjName = false;
 
     TextView regDjDOB;
@@ -138,7 +143,7 @@ public class DJRegisterFragment extends Fragment {
         // Apply the adapter to the spinner
         genreSpinner.setAdapter(staticAdapter);
 
-        RegisterActivity registerActivity = (RegisterActivity) getActivity();
+        registerActivity = (RegisterActivity) getActivity();
 
         EditText editTextStageName = view.findViewById(R.id.editTextRegDjStagename);
         EditText editTextSpotify = view.findViewById(R.id.editTextRegDjSpotifyLink);
@@ -154,13 +159,20 @@ public class DJRegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                stageName = editTextStageName.getText().toString();
-                playingGenre = spinnerPlayingGenreList.getSelectedItem().toString();
-                youtube = editTextYouTube.getText().toString();
-                spotify = editTextSpotify.getText().toString();
-                apple = editTextApple.getText().toString();
+                if(isDjRegDetailsValid()==true)
+                {
+                    stageName = editTextStageName.getText().toString();
+                    playingGenre = spinnerPlayingGenreList.getSelectedItem().toString();
+                    youtube = editTextYouTube.getText().toString();
+                    spotify = editTextSpotify.getText().toString();
+                    apple = editTextApple.getText().toString();
 
-                registerActivity.registerDjUser(stageName,playingGenre,youtube,spotify,apple,age,placesCanBeFound);
+                    registerActivity.registerDjUser(stageName,playingGenre,youtube,spotify,apple,age,placesCanBeFound);
+                }
+                else
+                {
+                    Toast.makeText(getContext(),"Please verify registration form",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -186,16 +198,38 @@ public class DJRegisterFragment extends Fragment {
                 map = new HashMap<>();
                 map.put("stageName",stageName);
 
-                if (stageName.equals("") || !(registerActivity.checkFreeDjStageName(map))) {
-                    editTextStageName.setHintTextColor(Color.RED);
+                if(!(registerActivity.checkFreeDjStageName(map)))
+                {
+                    editTextStageName.setTextColor(Color.RED);
+                    editTextStageName.setError("Stage name already taken");
                     boolDjName = false;
-                } else {
+                }
+                else if(stageName.isEmpty())
+                {
+                    editTextStageName.setHintTextColor(Color.RED);
+                    editTextStageName.setError("Stage name cannot be empty");
+                    boolDjName = false;
+                }
+                else
+                {
+                    editTextStageName.setTextColor(Color.BLACK);
+                    editTextStageName.setHintTextColor(Color.BLACK);
+                    editTextStageName.setError(null);
                     boolDjName = true;
                 }
             }
         });
 
         return view;
+    }
+
+    public boolean isDjRegDetailsValid()
+    {
+        if(boolDjName==true && registerActivity.isRegDetailsValid())
+        {
+            return true;
+        }
+        return false;
     }
 
 }

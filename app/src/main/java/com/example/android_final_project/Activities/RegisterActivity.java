@@ -107,13 +107,13 @@ public class RegisterActivity extends AppCompatActivity {
                     {
                         editTextEmail.setError("Field cannot be empty");
                         editTextEmail.setHintTextColor(Color.RED);
-                        enableRegisterButton();
+                        //enableRegularRegisterButton();
                     }
                     else
                     {
                         editTextEmail.setError("Invalid email address");
                         editTextEmail.setTextColor(Color.RED);
-                        enableRegisterButton();
+                        //enableRegularRegisterButton();
                     }
                     boolEmail = false;
                 } else {
@@ -122,7 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
                     editTextEmail.setTextColor(Color.BLACK);
 
                     editTextEmail.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_spellcheck_24px,0);
-                     enableRegisterButton();
+                     //enableRegularRegisterButton();
                 }
             }
         });
@@ -136,20 +136,20 @@ public class RegisterActivity extends AppCompatActivity {
                     editTextFirstName.setHintTextColor(Color.RED);
                     editTextFirstName.setError("Missing first name!");
                     boolFirstName = false;
-                    enableRegisterButton();
+                    //enableRegularRegisterButton();
                 }
                 else if(!isValidName(firstName))
                 {
                     editTextFirstName.setTextColor(Color.RED);
                     editTextFirstName.setError("Name must start with a capital letter and contain letters only");
-                    enableRegisterButton();
+                    //enableRegularRegisterButton();
                 }
                 else {
                     editTextFirstName.setError(null);
                     editTextFirstName.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_spellcheck_24px,0);
                     editTextFirstName.setTextColor(Color.BLACK);
                     boolFirstName = true;
-                    enableRegisterButton();
+                    //enableRegularRegisterButton();
                 }
             }
         });
@@ -163,13 +163,13 @@ public class RegisterActivity extends AppCompatActivity {
                     editTextLastName.setHintTextColor(Color.RED);
                     editTextLastName.setError("Missing last name!");
                     boolLastName = false;
-                    enableRegisterButton();
+                    //enableRegularRegisterButton();
                 }
                 else if(!isValidName(lastName))
                 {
                     editTextLastName.setTextColor(Color.RED);
                     editTextLastName.setError("Last name must start with a capital letter and contain letters only");
-                    enableRegisterButton();
+                    //enableRegularRegisterButton();
                 }
                 else
                     {
@@ -177,7 +177,7 @@ public class RegisterActivity extends AppCompatActivity {
                         editTextLastName.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_spellcheck_24px,0);
                         editTextLastName.setTextColor(Color.BLACK);
                         boolLastName = true;
-                        enableRegisterButton();
+                        //enableRegularRegisterButton();
                     }
             }
         });
@@ -191,7 +191,7 @@ public class RegisterActivity extends AppCompatActivity {
                     editTextPassword.setHintTextColor(Color.RED);
                     editTextPassword.setError("Missing password");
                     boolPassword = false;
-                    enableRegisterButton();
+                    //enableRegularRegisterButton();
                 }
                 else if(!isValidPassword(password))
                     {
@@ -203,14 +203,14 @@ public class RegisterActivity extends AppCompatActivity {
                                 "At least 1 symbol: !@#$%^&*+=\n" +
                                 "No white spaces\n" +
                                 "Length must be 6-14 characters");
-                        enableRegisterButton();
+                        //enableRegularRegisterButton();
                     }
                 else
                     {
                         boolPassword = true;
                         editTextPassword.setError(null);
                         editTextPassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_spellcheck_24px,0);
-                        enableRegisterButton();
+                        //enableRegularRegisterButton();
                     }
             }
         });
@@ -223,20 +223,20 @@ public class RegisterActivity extends AppCompatActivity {
                     editTextConfirmPassword.setHintTextColor(Color.RED);
                     editTextConfirmPassword.setError("Confirm password");
                     boolConfirmPassword=false;
-                    enableRegisterButton();
+                    enableRegularRegisterButton();
                 }
                 else if(!confirmPassword(password,confirmPassword ))
                 {
                     editTextConfirmPassword.setError("Password does not match");
                     boolConfirmPassword=false;
-                    enableRegisterButton();
+                    enableRegularRegisterButton();
                 }
                 else
                 {
                     editTextConfirmPassword.setError(null);
                     editTextConfirmPassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_spellcheck_24px,0);
                     boolConfirmPassword=true;
-                    enableRegisterButton();
+                    //enableRegularRegisterButton();
                 }
             }
         });
@@ -247,16 +247,24 @@ public class RegisterActivity extends AppCompatActivity {
     {
         RegularUser regularUser = new RegularUser(profile[0],profile[1],profile[2],profile[3],favouriteGenres,age);
 
-        map = new HashMap<>();
-        map.put("type","REGULAR");
-        map.put("email",regularUser.getEmail());
-        map.put("firstName",regularUser.getFirstName());
-        map.put("lastName",regularUser.getLastName());
-        map.put("password",regularUser.getPassword());
-        map.put("favouriteGenres",regularUser.getFavouriteGenres().stream().map(n -> String.valueOf(n)).collect(Collectors.joining(", ", "", "")).toString());
-        map.put("age",String.valueOf(regularUser.getAge()));
+        if(isRegDetailsValid()==true) {
 
-        intoDataBase(map,"executeRegUser");
+
+            map = new HashMap<>();
+            map.put("type", "REGULAR");
+            map.put("email", regularUser.getEmail());
+            map.put("firstName", regularUser.getFirstName());
+            map.put("lastName", regularUser.getLastName());
+            map.put("password", regularUser.getPassword());
+            map.put("favouriteGenres", regularUser.getFavouriteGenres().stream().map(n -> String.valueOf(n)).collect(Collectors.joining(", ", "", "")).toString());
+            map.put("age", String.valueOf(regularUser.getAge()));
+
+            intoDataBase(map, "executeRegUser");
+        }
+        else
+        {
+            Toast.makeText(RegisterActivity.this,"Please verify registration form" ,Toast.LENGTH_LONG).show();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -318,11 +326,11 @@ public class RegisterActivity extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.code()==200)
                 {
-                    Toast.makeText(RegisterActivity.this,"Register secusess",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(RegisterActivity.this,"Registered successfully",Toast.LENGTH_LONG).show();
                 }
                 else if(response.code()==400)
                 {
-                    Toast.makeText(RegisterActivity.this,"allready regiester",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(RegisterActivity.this,"User already exists",Toast.LENGTH_LONG).show();
                 }
             }
             @Override
@@ -340,12 +348,12 @@ public class RegisterActivity extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.code()==200)
                 {
-                    Toast.makeText(RegisterActivity.this,"Dj Name Free",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(RegisterActivity.this,"Dj Name Free",Toast.LENGTH_LONG).show();
                     djStageNameFree = true;
                 }
                 else if(response.code()==400)
                 {
-                    Toast.makeText(RegisterActivity.this,"Dj Name notfree",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(RegisterActivity.this,"Dj Name is taken",Toast.LENGTH_LONG).show();
                     djStageNameFree = false;
                 }
             }
@@ -366,12 +374,12 @@ public class RegisterActivity extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.code()==200)
                 {
-                    Toast.makeText(RegisterActivity.this,"Place Name Free",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(RegisterActivity.this,"Place Name Free",Toast.LENGTH_LONG).show();
                    placeNameFree = true;
                 }
                 else if(response.code()==400)
                 {
-                    Toast.makeText(RegisterActivity.this,"Place Name notfree",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(RegisterActivity.this,"Place Name is taken",Toast.LENGTH_LONG).show();
                     placeNameFree = false;
                 }
             }
@@ -449,13 +457,26 @@ public class RegisterActivity extends AppCompatActivity {
         else return false;
     }
 
-    public void enableRegisterButton()
+
+    public void enableRegularRegisterButton()
     {
         Button regButton = findViewById(R.id.buttonRegRegular);
 
         if(isRegDetailsValid())
             regButton.setEnabled(true);
         else regButton.setEnabled(false);
+    }
+
+    public boolean  isDjRegDetailsValid()
+    {
+
+        return false;
+    }
+
+    public void enableDjRegisterButton()
+    {
+        Button regDjButton = findViewById(R.id.buttonRegDj);
+
     }
 
 }
