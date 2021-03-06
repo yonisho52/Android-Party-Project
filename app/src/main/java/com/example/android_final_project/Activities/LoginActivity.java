@@ -76,15 +76,12 @@ public class LoginActivity extends AppCompatActivity {
             editTextEmail.setText(sharedPreferences.getString("keyUser",null));
             editTextPassword.setText(sharedPreferences.getString("keyPass",null));
 
-//            //auto log-in
-//            String email = sharedPreferences.getString("keyUser",null);
-//            String pass = sharedPreferences.getString("keyPass",null);
         }
 
         editTextEmail.setOnFocusChangeListener((v, hasFocus) -> {
             if(!hasFocus) {
                 editTextEmail.getText().toString();
-                if(!isValidEmail(editTextEmail.toString()))
+                if(isValidEmail(editTextEmail.toString()))
                 {
                         editTextEmail.setError("Invalid email address");
                         editTextEmail.setTextColor(Color.RED);

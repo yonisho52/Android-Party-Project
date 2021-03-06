@@ -12,10 +12,13 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.example.android_final_project.Activities.RegisterActivity;
 import com.example.android_final_project.R;
 import com.example.android_final_project.RetrofitInterface;
 import com.example.android_final_project.ObjectsClasses.StageName;
@@ -41,15 +44,11 @@ public class CreateEventDialog extends Dialog
     private String title;
     private String btYesText;
     private String btNoText;
-    private String selectedTime;
-
-    private TextView textViewStartTime;
-    private Text textViewEndTime;
-
 
     private TextView editTextStartTime;
     private TextView editTextEndTime;
-    private TextView eventName;
+    private EditText eventName;
+    private boolean boolEventName=false;
     private Spinner playingDj;
     int hour, min;
     private String djEmail;
@@ -61,13 +60,10 @@ public class CreateEventDialog extends Dialog
 
     private HashMap<String,String> djMaps;
 
-
     private int icon=0;
-
 
     private View.OnClickListener bttnCreateEventListener=null;
     private View.OnClickListener bttnCancelListener=null;
-    //private View.OnClickListener txtStartTime=null;
 
 
     public CreateEventDialog(Context context) {
@@ -120,9 +116,6 @@ public class CreateEventDialog extends Dialog
         editTextEndTime = findViewById(R.id.editTextEndAt);
         eventName = findViewById(R.id.editTextNewEventName);
         playingDj = findViewById(R.id.spinner_Dj);
-
-
-
 
         editTextStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,7 +179,24 @@ public class CreateEventDialog extends Dialog
             }
         });
 
-
+        eventName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus)
+                {
+                    if(eventName.getText().toString().isEmpty())
+                    {
+                        eventName.setError("Event name cannot be empty");
+                        boolEventName=false;
+                    }
+                    else
+                    {
+                        eventName.setError(null);
+                        boolEventName=true;
+                    }
+                }
+            }
+        });
 
         Spinner spinner = findViewById(R.id.spinner_Dj);
 
@@ -270,5 +280,16 @@ public class CreateEventDialog extends Dialog
 
     public String getDate() { return editTextCreateDate.getText().toString(); }
 
-
+    public void enableCreateEventButton()
+    {
+        Button btYes = (Button) findViewById(R.id.aleartYes);
+        if(boolEventName==true)
+        {
+            btYes.setEnabled(true);
+        }
+        else
+        {
+            btYes.setEnabled(false);
+        }
+    }
 }

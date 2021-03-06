@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.android_final_project.Activities.RegisterActivity;
 import com.example.android_final_project.R;
@@ -29,8 +30,10 @@ public class PlaceOwnerRegisterFragment extends Fragment {
     private String placeName;
     private String placeAddress;
     private String placeType;
+    RegisterActivity registerActivity;
 
-    private Boolean boolPlaceName = false;
+    private boolean boolPlaceName = false;
+    private boolean boolPlaceAddress = false;
     private HashMap<String,String> map;
 
 
@@ -93,7 +96,7 @@ public class PlaceOwnerRegisterFragment extends Fragment {
         // Apply the adapter to the spinner
         placeTypeSpinner.setAdapter(staticAdapter);
 
-        RegisterActivity registerActivity = (RegisterActivity) getActivity();
+        registerActivity = (RegisterActivity) getActivity();
 
         EditText editTextTextRegPlacePlaceName = view.findViewById(R.id.editTextTextRegPlacePlaceName);
         EditText editTextTextRegPlacePlaceAddress = view.findViewById(R.id.editTextTextRegPlacePlaceAddress);
@@ -104,11 +107,18 @@ public class PlaceOwnerRegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                placeName = editTextTextRegPlacePlaceName.getText().toString();
-                placeType = spinnerRegPlaceType.getSelectedItem().toString();
-                placeAddress = editTextTextRegPlacePlaceAddress.getText().toString();
+                if(isPlaceOwnerRegDetailsValid()==true)
+                {
+                    placeName = editTextTextRegPlacePlaceName.getText().toString();
+                    placeType = spinnerRegPlaceType.getSelectedItem().toString();
+                    placeAddress = editTextTextRegPlacePlaceAddress.getText().toString();
 
-                registerActivity.registerPlaceOwnerUser(placeName,placeType,placeAddress);
+                    registerActivity.registerPlaceOwnerUser(placeName,placeType,placeAddress);
+                }
+                else
+                {
+                    Toast.makeText(getContext(),"Please verify registration form",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -118,28 +128,25 @@ public class PlaceOwnerRegisterFragment extends Fragment {
                 map = new HashMap<>();
                 map.put("placeName",placeName);
 
-//                if (placeName.isEmpty() || !(registerActivity.checkFreePlaceName(map)))
-//                {
-//                    editTextTextRegPlacePlaceName.setHintTextColor(Color.RED);
-//                    boolPlaceName = false;
-//                } else {
-//                    boolPlaceName = true;
-//                }
 
                 if(placeName.isEmpty())
                 {
+                    editTextTextRegPlacePlaceName.setTextColor(Color.BLACK);
                     editTextTextRegPlacePlaceName.setHintTextColor(Color.RED);
                     editTextTextRegPlacePlaceName.setError("Missing place name!");
                     boolPlaceName = false;
                 }
                 else if((registerActivity.checkFreePlaceName(map)))
                 {
-                    editTextTextRegPlacePlaceName.setHintTextColor(Color.RED);
+                    editTextTextRegPlacePlaceName.setHintTextColor(Color.BLACK);
+                    editTextTextRegPlacePlaceName.setTextColor(Color.RED);
                     editTextTextRegPlacePlaceName.setError("Name already taken!");
                     boolPlaceName = false;
                 }
                 else
                 {
+                    editTextTextRegPlacePlaceName.setTextColor(Color.BLACK);
+                    editTextTextRegPlacePlaceName.setHintTextColor(Color.BLACK);
                     boolPlaceName = true;
                     editTextTextRegPlacePlaceName.setError(null);
                 }
@@ -152,17 +159,26 @@ public class PlaceOwnerRegisterFragment extends Fragment {
 
                 if (placeAddress.isEmpty())
                 {
-                    editTextTextRegPlacePlaceName.setHintTextColor(Color.RED);
+                    editTextTextRegPlacePlaceAddress.setHintTextColor(Color.RED);
                     editTextTextRegPlacePlaceAddress.setError("Missing place address!");
-                    boolPlaceName = false;
-                } else {
+                    boolPlaceAddress = false;
+                }
+                else
+                {
                     editTextTextRegPlacePlaceAddress.setError(null);
-                    boolPlaceName = true;
+                    boolPlaceAddress = true;
                 }
             }
         });
 
-
         return view;
+    }
+    public boolean isPlaceOwnerRegDetailsValid()
+    {
+        if(boolPlaceAddress==true && boolPlaceName==true && registerActivity.isRegDetailsValid()==true)
+        {
+            return true;
+        }
+        return false;
     }
 }

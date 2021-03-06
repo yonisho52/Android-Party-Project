@@ -156,7 +156,6 @@ public class RegularRegisterFragment extends Fragment {
             }
         });
 
-
         return view;
     }
 

@@ -123,10 +123,6 @@ public class CalendarFragment extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sun.bob.mcalendarview.MCalendarView mainCalendar = ((sun.bob.mcalendarview.MCalendarView) view.findViewById(R.id.calendarHomepage));
 
-        //Adding layout and textviews for more than 1 event in the page
-//        LinearLayout moreEvents = view.findViewById(R.id.LinearScrollLayout);
-
-        //Testing mCalendarView - Date highlight
         Calendar calendar = Calendar.getInstance();
 
         //Filling dates with events
@@ -168,7 +164,15 @@ public class CalendarFragment extends Fragment {
                 int daysInMonth = yearMonthObj.lengthOfMonth();
                 for(int i=1;i<=daysInMonth;i++)
                 {
-                    dateToFill = (i)+"/"+month+"/"+year;
+                    if(i<10)
+                    {
+                        dateToFill = "0"+(i)+"/"+month+"/"+year;
+                    }
+                    else
+                    {
+                        dateToFill = (i)+"/"+month+"/"+year;
+                    }
+
                     HashMap<String,String> map = new HashMap<>();
                     map.put("Date",dateToFill);
                     Call<List<Event>> call = retrofitInterface.executeGetEvents(map);
@@ -201,7 +205,15 @@ public class CalendarFragment extends Fragment {
                 prevDate.setDay(date.getDay());
                 prevDate.setMonth(date.getMonth());
                 prevDate.setYear(date.getYear());
-                selectedDate = date.getDay() + "/" + date.getMonth() + "/" + date.getYear();
+
+                if(date.getDay()<10)
+                {
+                    selectedDate = "0"+date.getDay() + "/" + date.getMonth() + "/" + date.getYear();
+                }
+                else
+                {
+                    selectedDate = date.getDay() + "/" + date.getMonth() + "/" + date.getYear();
+                }
                 selectedDay=date.getDay();
                 selectedMonth=date.getMonth();
                 selectedYear=date.getYear();
@@ -222,8 +234,6 @@ public class CalendarFragment extends Fragment {
                             myEvents = new MyEvents(events);
                             adapter = new EventAdapter(myEvents,currContext,"1","calendar");
                             listView.setAdapter(adapter);
-
-
                         }
                         else if(response.code()==400)
                         {
