@@ -332,7 +332,7 @@ public class CalendarFragment extends Fragment {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(getContext(),"add",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Saved event to your list",Toast.LENGTH_SHORT).show();
                 }
 
             }

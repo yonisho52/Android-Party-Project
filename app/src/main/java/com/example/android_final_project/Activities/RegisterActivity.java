@@ -9,6 +9,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -107,13 +108,11 @@ public class RegisterActivity extends AppCompatActivity {
                     {
                         editTextEmail.setError("Field cannot be empty");
                         editTextEmail.setHintTextColor(Color.RED);
-                        //enableRegularRegisterButton();
                     }
                     else
                     {
                         editTextEmail.setError("Invalid email address");
                         editTextEmail.setTextColor(Color.RED);
-                        //enableRegularRegisterButton();
                     }
                     boolEmail = false;
                 } else {
@@ -122,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity {
                     editTextEmail.setTextColor(Color.BLACK);
 
                     editTextEmail.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_spellcheck_24px,0);
-                     //enableRegularRegisterButton();
+
                 }
             }
         });
@@ -136,20 +135,17 @@ public class RegisterActivity extends AppCompatActivity {
                     editTextFirstName.setHintTextColor(Color.RED);
                     editTextFirstName.setError("Missing first name!");
                     boolFirstName = false;
-                    //enableRegularRegisterButton();
                 }
                 else if(!isValidName(firstName))
                 {
                     editTextFirstName.setTextColor(Color.RED);
                     editTextFirstName.setError("Name must start with a capital letter and contain letters only");
-                    //enableRegularRegisterButton();
                 }
                 else {
                     editTextFirstName.setError(null);
                     editTextFirstName.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_spellcheck_24px,0);
                     editTextFirstName.setTextColor(Color.BLACK);
                     boolFirstName = true;
-                    //enableRegularRegisterButton();
                 }
             }
         });
@@ -163,13 +159,11 @@ public class RegisterActivity extends AppCompatActivity {
                     editTextLastName.setHintTextColor(Color.RED);
                     editTextLastName.setError("Missing last name!");
                     boolLastName = false;
-                    //enableRegularRegisterButton();
                 }
                 else if(!isValidName(lastName))
                 {
                     editTextLastName.setTextColor(Color.RED);
                     editTextLastName.setError("Last name must start with a capital letter and contain letters only");
-                    //enableRegularRegisterButton();
                 }
                 else
                     {
@@ -177,7 +171,6 @@ public class RegisterActivity extends AppCompatActivity {
                         editTextLastName.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_spellcheck_24px,0);
                         editTextLastName.setTextColor(Color.BLACK);
                         boolLastName = true;
-                        //enableRegularRegisterButton();
                     }
             }
         });
@@ -191,7 +184,6 @@ public class RegisterActivity extends AppCompatActivity {
                     editTextPassword.setHintTextColor(Color.RED);
                     editTextPassword.setError("Missing password");
                     boolPassword = false;
-                    //enableRegularRegisterButton();
                 }
                 else if(!isValidPassword(password))
                     {
@@ -203,14 +195,12 @@ public class RegisterActivity extends AppCompatActivity {
                                 "At least 1 symbol: !@#$%^&*+=\n" +
                                 "No white spaces\n" +
                                 "Length must be 6-14 characters");
-                        //enableRegularRegisterButton();
                     }
                 else
                     {
                         boolPassword = true;
                         editTextPassword.setError(null);
                         editTextPassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_spellcheck_24px,0);
-                        //enableRegularRegisterButton();
                     }
             }
         });
@@ -223,20 +213,17 @@ public class RegisterActivity extends AppCompatActivity {
                     editTextConfirmPassword.setHintTextColor(Color.RED);
                     editTextConfirmPassword.setError("Confirm password");
                     boolConfirmPassword=false;
-                    enableRegularRegisterButton();
                 }
                 else if(!confirmPassword(password,confirmPassword ))
                 {
                     editTextConfirmPassword.setError("Password does not match");
                     boolConfirmPassword=false;
-                    enableRegularRegisterButton();
                 }
                 else
                 {
                     editTextConfirmPassword.setError(null);
                     editTextConfirmPassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_spellcheck_24px,0);
                     boolConfirmPassword=true;
-                    //enableRegularRegisterButton();
                 }
             }
         });
@@ -326,11 +313,13 @@ public class RegisterActivity extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.code()==200)
                 {
-                    //Toast.makeText(RegisterActivity.this,"Registered successfully",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(RegisterActivity.this,"Registered successfully",Toast.LENGTH_LONG).show();
                 }
                 else if(response.code()==400)
                 {
-                    //Toast.makeText(RegisterActivity.this,"User already exists",Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this,"User with the same email already exists",Toast.LENGTH_LONG).show();
                 }
             }
             @Override
@@ -353,7 +342,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 else if(response.code()==400)
                 {
-                    //Toast.makeText(RegisterActivity.this,"Dj Name is taken",Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this,"DJ Name is already taken",Toast.LENGTH_LONG).show();
                     djStageNameFree = false;
                 }
             }
@@ -379,7 +368,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 else if(response.code()==400)
                 {
-                    //Toast.makeText(RegisterActivity.this,"Place Name is taken",Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this,"Place name is already taken",Toast.LENGTH_LONG).show();
                     placeNameFree = false;
                 }
             }
@@ -457,26 +446,14 @@ public class RegisterActivity extends AppCompatActivity {
         else return false;
     }
 
-
-    public void enableRegularRegisterButton()
-    {
-        Button regButton = findViewById(R.id.buttonRegRegular);
-
-        if(isRegDetailsValid())
-            regButton.setEnabled(true);
-        else regButton.setEnabled(false);
-    }
-
     public boolean  isDjRegDetailsValid()
     {
-
         return false;
     }
 
     public void enableDjRegisterButton()
     {
         Button regDjButton = findViewById(R.id.buttonRegDj);
-
     }
 
 }
