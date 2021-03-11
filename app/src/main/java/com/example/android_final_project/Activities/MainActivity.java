@@ -221,11 +221,6 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat format = new SimpleDateFormat("dd/M/yyyy");
         String date = format.format(calendar.getTime());
 
-//        Log.d("sharedPreference!",sharedPreferencesParty.getString("Date", null));
-//        Log.d("sharedPreference!",date);
-//        Log.d("sharedPreference!",flag.toString());
-        //
-
         if(sharedPreferencesParty.getString("Date", null)!=null) {
             String s = sharedPreferencesParty.getString("Date", null);
             if (s.compareTo(date) != 0 || flag) {
@@ -326,33 +321,4 @@ public class MainActivity extends AppCompatActivity {
         });
         return flag;
     }
-
-
-    /// GENERATE CODE END
-
-
-//    public String getName(HashMap<String,String> map)
-//    {
-//        Call<String> call = retrofitInterace.getPlaceNameOrStageNameByEmail(map);
-//        call.enqueue(new Callback<String>() {
-//            @Override
-//            public void onResponse(Call<String> call, Response<String> response) {
-//                if(response.code()==200)
-//                {
-//                    name = response.body();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<String> call, Throwable t) {
-//            }
-//        });
-//        return name;
-//    }
-
-
-
-
-
-
 }

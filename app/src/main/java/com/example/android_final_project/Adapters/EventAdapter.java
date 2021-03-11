@@ -113,14 +113,14 @@ public class EventAdapter extends BaseAdapter {
                         buttonSavedEvent.setBackgroundResource(R.drawable.thumb_down_alt_24);
                         buttonSavedEvent.setTag("false");
                         addToCancelSavingList(event.getPartyCode());
-                        Toast.makeText(mContext,"remove", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext,"Deleted event from your saved list", Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
                         buttonSavedEvent.setBackgroundResource(R.drawable.thumb_up_alt_24);
                         buttonSavedEvent.setTag("true");
                         removeFromCancelSavigList(event.getPartyCode());
-                        Toast.makeText(mContext,"add", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext,"Added event to your saved list", Toast.LENGTH_SHORT).show();
                     }
 
                 }

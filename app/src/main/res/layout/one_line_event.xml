@@ -29,6 +29,16 @@
             android:textColor="@color/very_light_gray" />
 
         <TextView
+            android:id="@+id/textViewEventStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="148dp"
+            android:text="Start: "
+            android:textColor="@color/very_light_gray"
+            android:textSize="16dp" />
+
+        <TextView
             android:id="@+id/textViewEventEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,15 +48,6 @@
             android:text="End: "
             android:textColor="@color/very_light_gray" />
 
-        <TextView
-            android:id="@+id/textViewEventStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="148dp"
-            android:textSize="16dp"
-            android:text="Start: "
-            android:textColor="@color/very_light_gray" />
     </LinearLayout>
 
     <View

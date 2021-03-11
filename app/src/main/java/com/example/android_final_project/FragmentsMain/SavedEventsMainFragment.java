@@ -169,10 +169,7 @@ public class SavedEventsMainFragment extends Fragment {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.code()==200)
-                {
-                    Toast.makeText(getContext(),"Deleted", Toast.LENGTH_LONG).show();
-                }
+                if(response.code()==200) { }
             }
 
             @Override
