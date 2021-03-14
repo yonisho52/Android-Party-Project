@@ -47,9 +47,4 @@ public class PlaceOwner extends GeneralUser
         this.placeAddress = placeAddress;
     }
 
-    public void addRating(double rate)
-    {
-        this.placeRating = ((this.placeRating * this.numOfRates++)+rate)/(this.numOfRates);
-        //this.numOfRates++;
-    }
 }

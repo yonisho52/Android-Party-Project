@@ -20,6 +20,7 @@ import com.example.android_final_project.Adapters.MyEvents;
 import com.example.android_final_project.R;
 import com.example.android_final_project.RetrofitInterface;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -155,31 +156,35 @@ public class SavedEventsMainFragment extends Fragment {
         super.onPause();
 
         HashMap<String,String[]> map = new HashMap<>();
+        List<String> cancelingList = new ArrayList<>();
+        if(adapter!=null)
+        {
+            cancelingList = adapter.getCancelSaving();
 
-        List<String> cancelingList = adapter.getCancelSaving();
 
-        MainActivity mainActivity = (MainActivity) getActivity();
-        String[] arr = {mainActivity.getEmail()};
-        map.put("email",arr);
-        map.put("partyCode", cancelingList.toArray(new String[0]));
+            MainActivity mainActivity = (MainActivity) getActivity();
+            String[] arr = {mainActivity.getEmail()};
+            map.put("email", arr);
+            map.put("partyCode", cancelingList.toArray(new String[0]));
 
-        Log.d("mapping",map.toString());
+            Log.d("mapping", map.toString());
 
-        Call<Void> call = retrofitInterface.removeSavedEvents(map);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.code()==200) { }
-            }
+            Call<Void> call = retrofitInterface.removeSavedEvents(map);
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (response.code() == 200) {
+                    }
+                }
 
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
 
-            }
-        });
-        mainActivity.getType();
+                }
+            });
+            mainActivity.getType();
 
-        adapter.setCancelSaving();
-
+            adapter.setCancelSaving();
+        }
     }
 }

@@ -13,8 +13,8 @@ import com.example.android_final_project.R;
 
 public class MessageAdapterRecycler extends RecyclerView.Adapter<MessageAdapterRecycler.MyViewHolder> {
 
-    MyAds myAds;
-    Context mContext;
+    private MyAds myAds;
+    private Context mContext;
 
     public MessageAdapterRecycler(MyAds myAds, Context mContext) {
         this.myAds = myAds;

@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     public SharedPreferences sharedPreferencesLogin;
     public SharedPreferences sharedPreferencesParty;
-    private FragmentManager fragmentManager;
-    private FragmentTransaction fragmentTransaction;
     String type;
     String email;
     Boolean flag;
@@ -66,11 +64,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         retrofit = new Retrofit.Builder().baseUrl(BASEURL).addConverterFactory(GsonConverterFactory.create()).build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
-
 
         sharedPreferencesLogin = getSharedPreferences("Login", MODE_PRIVATE);
         type = sharedPreferencesLogin.getString("type","REGULAR");
@@ -87,13 +82,7 @@ public class MainActivity extends AppCompatActivity {
             bottomNavigationView.inflateMenu(R.menu.regular_user_main_menu);
         else {
             bottomNavigationView.inflateMenu(R.menu.dj_owner_main_menu);
-
-            if(type.equals("DJ"))
-            {
-                //checkPartyForTheDay();
-            }
         }
-
 
         navController = Navigation.findNavController(findViewById(R.id.fragment));
 

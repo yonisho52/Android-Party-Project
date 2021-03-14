@@ -136,7 +136,6 @@ public class AdvertiseFragment extends Fragment {
 
                                 adapter = new MessageAdapterRecycler(myAds,getContext());
 
-//                                listView.setAdapter(adapter);
                                 recyclerView.setAdapter(adapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(currContext));
                             }

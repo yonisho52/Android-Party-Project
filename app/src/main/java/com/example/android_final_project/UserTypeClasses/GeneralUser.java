@@ -23,11 +23,7 @@ public abstract class GeneralUser
     {
         return this.email;
     }
-    public String getFullname()
-    {
-        String fullName = this.firstName + this.lastName;
-        return fullName;
-    }
+
     public String getPassword() { return this.password; }
 
     public void setFirstName(String firstName) {
