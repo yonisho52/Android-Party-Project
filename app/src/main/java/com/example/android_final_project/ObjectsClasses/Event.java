@@ -20,8 +20,6 @@ public class Event
         return partyCode;
     }
 
-
-
     public String getWhosPlayingName() {
         return whosPlayingName;
     }
@@ -30,11 +28,9 @@ public class Event
         this.whosPlayingName = whosPlayingName;
     }
 
-
     public String getCreatedBy() {
         return createdBy;
     }
-
 
     public int getNumOfRates() {
         return numOfRates;
@@ -42,7 +38,6 @@ public class Event
 
     public Event(String eventDate, String eventName, String placeOwner, String playingDjEmail, String startTime, String endTime,String playingDjName, String placeName, String createdBy )
     {
-//        this.eventCode=statEventId++;
         this.eventDate=eventDate;
         this.placeName=placeOwner;
         this.eventName=eventName;

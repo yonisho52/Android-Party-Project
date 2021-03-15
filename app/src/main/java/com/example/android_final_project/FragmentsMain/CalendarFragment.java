@@ -56,20 +56,20 @@ public class CalendarFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    Retrofit retrofit;
-    RetrofitInterface retrofitInterface;
+    private Retrofit retrofit;
+    private RetrofitInterface retrofitInterface;
     private String BASEURL="http://10.0.2.2:3000";
-    String selectedDate;
-    int selectedDay;
-    int selectedMonth;
-    int selectedYear;
-    SimpleDateFormat sdf;
-    String dateToFill;
+    private String selectedDate;
+    private int selectedDay;
+    private int selectedMonth;
+    private int selectedYear;
+    private SimpleDateFormat sdf;
+    private String dateToFill;
     private static int eventID = 1000;
 
     private ListView listView;
-    EventAdapter adapter;
-    MyEvents myEvents;
+    private EventAdapter adapter;
+    private MyEvents myEvents;
 
     // TODO: Rename and change types of parameters
     private String mParam1;

@@ -6,7 +6,7 @@ public class PlaceOwner extends GeneralUser
     private String placeType;
     private String placeAddress;
     private double placeRating;
-    private int numOfRates=0;
+    private int numOfRates;
 
     public PlaceOwner(String firstName, String lastName, String email, String password, String placeName, String placeType, String placeAddress) {
         super(firstName, lastName, email, password);

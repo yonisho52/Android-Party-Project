@@ -40,19 +40,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class AdvertiseFragment extends Fragment {
 
-    Retrofit retrofit;
-    RetrofitInterface retrofitInterface;
+    private Retrofit retrofit;
+    private RetrofitInterface retrofitInterface;
     private String BASEURL="http://10.0.2.2:3000";
 
     private String name;
 
     private ListView listView;
 //    MessageAdapter adapter;
-    MessageAdapterRecycler adapter;
-    RecyclerView recyclerView;
-    MyAds myAds;
+    private MessageAdapterRecycler adapter;
+    private RecyclerView recyclerView;
+    private MyAds myAds;
 
-    static boolean flag=true;
+    private static boolean flag=true;
 
 
     // TODO: Rename parameter arguments, choose names that match

@@ -41,9 +41,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NowEventMainFragment extends Fragment {
 
 
-    View view;
-    MainActivity mainActivity;
-    String userType;
+    private View view;
+    private MainActivity mainActivity;
+    private String userType;
 
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
@@ -52,11 +52,11 @@ public class NowEventMainFragment extends Fragment {
     private Event nowEvent;
 
     private String rateType;
-    Button buttonRateDj;
-    Button buttonRateOwner;
+    private Button buttonRateDj;
+    private Button buttonRateOwner;
 
     private Survey survey;
-    Button buttonSurvey;
+    private Button buttonSurvey;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

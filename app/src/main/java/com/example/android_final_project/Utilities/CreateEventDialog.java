@@ -50,7 +50,7 @@ public class CreateEventDialog extends Dialog
     private EditText eventName;
     private boolean boolEventName=false;
     private Spinner playingDj;
-    int hour, min;
+    private int hour, min;
     private String djEmail;
     private TextView editTextCreateDate;
 

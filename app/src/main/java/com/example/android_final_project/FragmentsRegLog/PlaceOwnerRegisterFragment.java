@@ -30,7 +30,7 @@ public class PlaceOwnerRegisterFragment extends Fragment {
     private String placeName;
     private String placeAddress;
     private String placeType;
-    RegisterActivity registerActivity;
+    private RegisterActivity registerActivity;
 
     private boolean boolPlaceName = false;
     private boolean boolPlaceAddress = false;

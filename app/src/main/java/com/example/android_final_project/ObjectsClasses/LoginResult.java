@@ -9,9 +9,7 @@ public class LoginResult {
     private String email;
     private String type;
 
-    public String getType() {
-
-        return type; }
+    public String getType() { return type; }
 
     public String getStageName() {
         return stageName;

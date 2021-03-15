@@ -5,11 +5,6 @@ public class Details {
     private String firstName;
     private String lastName;
     private String type;
-
-    public String getType() {
-        return type;
-    }
-
     private String favouriteGenres;
     private String age;
     private String stageName;
@@ -18,6 +13,14 @@ public class Details {
     private String spotifyLink;
     private String appleMusicLink;
     private String placesCanBeFound;
+    private String placeName;
+    private String placeType;
+    private String placeAddress;
+    private String rating;
+
+    public String getType() {
+        return type;
+    }
 
     public String getFavouriteGenres() {
         return favouriteGenres;
@@ -66,11 +69,6 @@ public class Details {
     public String getRating() {
         return rating;
     }
-
-    private String placeName;
-    private String placeType;
-    private String placeAddress;
-    private String rating;
 
     public String getEmail() {
         return email;

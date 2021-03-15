@@ -45,13 +45,13 @@ public class DJRegisterFragment extends Fragment {
     private String youtube;
     private String playingGenre;
     private List<String> placesCanBeFound = new ArrayList<String>();
-    RegisterActivity registerActivity;
+    private RegisterActivity registerActivity;
 
     private String djDOB = null;
     private String djGenre = null;
     private Boolean boolDjName = false;
 
-    TextView regDjDOB;
+    private TextView regDjDOB;
     private int age;
 
     private HashMap<String,String> map;

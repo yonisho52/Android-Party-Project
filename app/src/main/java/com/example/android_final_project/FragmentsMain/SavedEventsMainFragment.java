@@ -37,15 +37,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class SavedEventsMainFragment extends Fragment {
 
-    boolean flag;
+    private boolean flag;
     private ListView listView;
-    EventAdapter adapter;
-    MyEvents myEvents;
+    private EventAdapter adapter;
+    private MyEvents myEvents;
     private HashMap<String,String> map;
-    String userEmail;
+    private String userEmail;
 
-    Retrofit retrofit;
-    RetrofitInterface retrofitInterface;
+    private Retrofit retrofit;
+    private RetrofitInterface retrofitInterface;
     private String BASEURL="http://10.0.2.2:3000";
 
     // TODO: Rename parameter arguments, choose names that match

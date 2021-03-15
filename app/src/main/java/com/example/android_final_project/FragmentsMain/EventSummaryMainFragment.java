@@ -40,12 +40,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class EventSummaryMainFragment extends Fragment {
 
     private ListView listView;
-    EventAdapter adapter;
-    MyEvents myEvents;
+    private EventAdapter adapter;
+    private MyEvents myEvents;
 
 
-    Retrofit retrofit;
-    RetrofitInterface retrofitInterface;
+    private Retrofit retrofit;
+    private RetrofitInterface retrofitInterface;
     private String BASEURL="http://10.0.2.2:3000";
 
     private HashMap<String,String> map;

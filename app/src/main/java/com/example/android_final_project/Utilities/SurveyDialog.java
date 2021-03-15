@@ -40,24 +40,24 @@ public class SurveyDialog extends Dialog {
 
     private HashMap<String,String> map;
 
-    TextView textViewResultQuestion;
-    TextView textViewResultAns1;
-    TextView textViewResultAns2;
-    TextView textViewResultAns3;
-    ProgressBar progressBar1;
-    ProgressBar progressBar2;
-    ProgressBar progressBar3;
+    private TextView textViewResultQuestion;
+    private TextView textViewResultAns1;
+    private TextView textViewResultAns2;
+    private TextView textViewResultAns3;
+    private ProgressBar progressBar1;
+    private ProgressBar progressBar2;
+    private ProgressBar progressBar3;
 
-    TextView textViewVoteQuestion;
-    RadioButton radioButtonAns1;
-    RadioButton radioButtonAns2;
-    RadioButton radioButtonAns3;
-    TextView textViewNumOfVote1;
-    TextView textViewNumOfVote2;
-    TextView textViewNumOfVote3;
-    TextView textViewResultPrecent1;
-    TextView textViewResultPrecent2;
-    TextView textViewResultPrecent3;
+    private TextView textViewVoteQuestion;
+    private RadioButton radioButtonAns1;
+    private RadioButton radioButtonAns2;
+    private RadioButton radioButtonAns3;
+    private TextView textViewNumOfVote1;
+    private TextView textViewNumOfVote2;
+    private TextView textViewNumOfVote3;
+    private TextView textViewResultPrecent1;
+    private TextView textViewResultPrecent2;
+    private TextView textViewResultPrecent3;
 
     boolean flagSurveyVoted;
 
@@ -153,8 +153,6 @@ public class SurveyDialog extends Dialog {
             textViewResultPrecent1 = findViewById(R.id.textViewResultPrecent1);
             textViewResultPrecent2 = findViewById(R.id.textViewResultPrecent2);
             textViewResultPrecent3 = findViewById(R.id.textViewResultPrecent3);
-
-
 
             setSurveyResult();
 

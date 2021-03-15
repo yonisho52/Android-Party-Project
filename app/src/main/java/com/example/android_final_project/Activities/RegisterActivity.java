@@ -43,15 +43,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private NavController navController;
-    private FragmentManager fragmentManager;
 
     private String email = null;
     private String firstName = null;
     private String lastName = null;
     private String password = null;
     private String confirmPassword = null;
-
-    String[] generalProfile;
 
     private Boolean boolEmail = false;
     private Boolean boolFirstName = false;
@@ -63,11 +60,8 @@ public class RegisterActivity extends AppCompatActivity {
     private RetrofitInterface retrofitInterface;
     private String BASEURL="http://10.0.2.2:3000";
 
-    Boolean djStageNameFree = false;
-    Boolean placeNameFree = false;
-
-
-    FragmentTransaction fragmentTransaction;
+    private Boolean djStageNameFree = false;
+    private Boolean placeNameFree = false;
 
     private String[] profile = new String[4];
 

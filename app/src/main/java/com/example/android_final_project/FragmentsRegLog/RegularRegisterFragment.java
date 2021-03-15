@@ -37,7 +37,7 @@ public class RegularRegisterFragment extends Fragment {
     private int age;
     private List<String> favouriteGenres = new ArrayList<String>();;
 
-    TextView regularUserDOB;
+    private TextView regularUserDOB;
 
 
     // TODO: Rename parameter arguments, choose names that match

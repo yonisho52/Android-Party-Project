@@ -784,9 +784,15 @@ client.connect(err => {
                             }
                         }
                     })
+                    
                     promise.then(() => {
                         res.status(200).send()
+                        try{
                         reject();
+                        }
+                        catch{
+                            res.status(400).send()
+                        }
                     })
                 }
                 else

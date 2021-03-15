@@ -37,21 +37,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    NavController navController;
-    BottomNavigationView bottomNavigationView;
-    public SharedPreferences sharedPreferencesLogin;
-    public SharedPreferences sharedPreferencesParty;
-    String type;
-    String email;
-    Boolean flag;
-    String name;
+    private NavController navController;
+    private BottomNavigationView bottomNavigationView;
+    private SharedPreferences sharedPreferencesLogin;
+    private SharedPreferences sharedPreferencesParty;
+    private String type;
+    private String email;
+    private Boolean flag;
+    private String name;
 
     private Event nowEvent;
     private Survey survey;
 
     private List<Message> messages;
 
-    NavHostFragment navHostFragment;
+    private NavHostFragment navHostFragment;
 
 
     private Retrofit retrofit;

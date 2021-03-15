@@ -41,7 +41,7 @@ public class PartyCodeFragment extends Fragment {
 
     public SharedPreferences sharedPreferencesParty;
 
-    MainActivity mainActivity;
+    private MainActivity mainActivity;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
