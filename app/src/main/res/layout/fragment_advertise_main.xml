@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="5sp"
-    tools:context=".FragmentsMain.AdvertiseFragment">
+    tools:context="com.example.android_party_project.FragmentsMain.AdvertiseFragment">
 
 
     <LinearLayout

@@ -14,7 +14,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".Activities.LoginActivity"
+            android:name="com.example.android_party_project.Activities.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,9 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.RegisterActivity" />
+        <activity android:name="com.example.android_party_project.Activities.RegisterActivity" />
         <activity
-            android:name=".Activities.MainActivity"
+            android:name="com.example.android_party_project.Activities.MainActivity"
             android:screenOrientation="portrait">
         </activity>
     </application>

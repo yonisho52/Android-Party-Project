@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:divider="@drawable/ic_event"
     android:orientation="vertical"
-    tools:context=".FragmentsMain.CalendarFragment">
+    tools:context="com.example.android_party_project.FragmentsMain.CalendarFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

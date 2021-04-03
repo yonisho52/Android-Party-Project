@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_weight="1"
     android:orientation="vertical"
-    tools:context=".FragmentsMain.EventSummaryMainFragment">
+    tools:context="com.example.android_party_project.FragmentsMain.EventSummaryMainFragment">
 
     <TextView
         android:id="@+id/textViewTitle"
