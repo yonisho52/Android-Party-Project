@@ -17,9 +17,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.android_party_app.ObjectsClasses.LoginResult;
+import com.example.android_party_app.Model.ObjectsClasses.LoginResult;
 import com.example.android_party_app.R;
-import com.example.android_party_app.RetrofitInterface;
+import com.example.android_party_app.Service.RetrofitInterface;
 
 import java.util.HashMap;
 

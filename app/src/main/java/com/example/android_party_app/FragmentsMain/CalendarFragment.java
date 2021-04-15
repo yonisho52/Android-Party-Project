@@ -21,10 +21,10 @@ import android.widget.Toast;
 
 import com.example.android_party_app.Activities.MainActivity;
 import com.example.android_party_app.Adapters.EventAdapter;
-import com.example.android_party_app.ObjectsClasses.Event;
+import com.example.android_party_app.Model.ObjectsClasses.Event;
 import com.example.android_party_app.Adapters.MyEvents;
 import com.example.android_party_app.R;
-import com.example.android_party_app.RetrofitInterface;
+import com.example.android_party_app.Service.RetrofitInterface;
 import com.example.android_party_app.Utilities.CreateEventDialog;
 
 import java.text.SimpleDateFormat;

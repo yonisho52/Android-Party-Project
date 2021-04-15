@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 import com.example.android_party_app.Activities.LoginActivity;
 import com.example.android_party_app.Activities.MainActivity;
-import com.example.android_party_app.ObjectsClasses.Details;
+import com.example.android_party_app.Model.ObjectsClasses.Details;
 import com.example.android_party_app.R;
-import com.example.android_party_app.RetrofitInterface;
+import com.example.android_party_app.Service.RetrofitInterface;
 
 import java.util.HashMap;
 

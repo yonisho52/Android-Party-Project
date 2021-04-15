@@ -1,4 +1,4 @@
-package com.example.android_party_app.ObjectsClasses;
+package com.example.android_party_app.Model.ObjectsClasses;
 
 public class StageName {
 

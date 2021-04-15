@@ -17,8 +17,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.android_party_app.R;
-import com.example.android_party_app.RetrofitInterface;
-import com.example.android_party_app.ObjectsClasses.StageName;
+import com.example.android_party_app.Service.RetrofitInterface;
+import com.example.android_party_app.Model.ObjectsClasses.StageName;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

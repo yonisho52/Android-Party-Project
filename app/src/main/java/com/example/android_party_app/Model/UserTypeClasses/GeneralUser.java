@@ -1,4 +1,4 @@
-package com.example.android_party_app.UserTypeClasses;
+package com.example.android_party_app.Model.UserTypeClasses;
 
 public abstract class GeneralUser
 {

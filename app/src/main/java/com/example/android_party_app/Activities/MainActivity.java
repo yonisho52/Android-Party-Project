@@ -11,14 +11,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import com.example.android_party_app.ObjectsClasses.Event;
+import com.example.android_party_app.Model.ObjectsClasses.Event;
 import com.example.android_party_app.FragmentsMain.NoEventTodayFragment;
 import com.example.android_party_app.FragmentsMain.NowEventMainFragment;
 import com.example.android_party_app.FragmentsMain.PartyCodeFragment;
-import com.example.android_party_app.ObjectsClasses.Message;
+import com.example.android_party_app.Model.ObjectsClasses.Message;
 import com.example.android_party_app.R;
-import com.example.android_party_app.RetrofitInterface;
-import com.example.android_party_app.ObjectsClasses.Survey;
+import com.example.android_party_app.Service.RetrofitInterface;
+import com.example.android_party_app.Model.ObjectsClasses.Survey;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.SimpleDateFormat;

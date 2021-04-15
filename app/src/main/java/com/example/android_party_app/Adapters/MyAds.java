@@ -1,6 +1,6 @@
 package com.example.android_party_app.Adapters;
 
-import com.example.android_party_app.ObjectsClasses.Message;
+import com.example.android_party_app.Model.ObjectsClasses.Message;
 
 import java.util.List;
 

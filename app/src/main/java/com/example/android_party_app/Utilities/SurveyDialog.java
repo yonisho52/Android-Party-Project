@@ -16,8 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.android_party_app.R;
-import com.example.android_party_app.RetrofitInterface;
-import com.example.android_party_app.ObjectsClasses.Survey;
+import com.example.android_party_app.Service.RetrofitInterface;
+import com.example.android_party_app.Model.ObjectsClasses.Survey;
 
 import java.util.HashMap;
 

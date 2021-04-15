@@ -1,6 +1,6 @@
 package com.example.android_party_app.Adapters;
 
-import com.example.android_party_app.ObjectsClasses.Event;
+import com.example.android_party_app.Model.ObjectsClasses.Event;
 
 import java.util.List;
 

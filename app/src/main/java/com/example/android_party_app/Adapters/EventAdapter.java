@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android_party_app.Activities.MainActivity;
-import com.example.android_party_app.ObjectsClasses.Event;
+import com.example.android_party_app.Model.ObjectsClasses.Event;
 import com.example.android_party_app.R;
 import java.util.ArrayList;
 import java.util.List;

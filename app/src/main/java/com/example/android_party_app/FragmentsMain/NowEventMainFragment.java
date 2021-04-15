@@ -17,10 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android_party_app.Activities.MainActivity;
-import com.example.android_party_app.ObjectsClasses.Event;
+import com.example.android_party_app.Model.ObjectsClasses.Event;
 import com.example.android_party_app.R;
-import com.example.android_party_app.RetrofitInterface;
-import com.example.android_party_app.ObjectsClasses.Survey;
+import com.example.android_party_app.Service.RetrofitInterface;
+import com.example.android_party_app.Model.ObjectsClasses.Survey;
 import com.example.android_party_app.Utilities.SurveyDialog;
 
 import java.text.SimpleDateFormat;

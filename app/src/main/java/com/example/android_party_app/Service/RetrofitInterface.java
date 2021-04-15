@@ -1,11 +1,11 @@
-package com.example.android_party_app;
+package com.example.android_party_app.Service;
 
-import com.example.android_party_app.ObjectsClasses.StageName;
-import com.example.android_party_app.ObjectsClasses.Details;
-import com.example.android_party_app.ObjectsClasses.Event;
-import com.example.android_party_app.ObjectsClasses.LoginResult;
-import com.example.android_party_app.ObjectsClasses.Message;
-import com.example.android_party_app.ObjectsClasses.Survey;
+import com.example.android_party_app.Model.ObjectsClasses.StageName;
+import com.example.android_party_app.Model.ObjectsClasses.Details;
+import com.example.android_party_app.Model.ObjectsClasses.Event;
+import com.example.android_party_app.Model.ObjectsClasses.LoginResult;
+import com.example.android_party_app.Model.ObjectsClasses.Message;
+import com.example.android_party_app.Model.ObjectsClasses.Survey;
 
 import java.util.HashMap;
 import java.util.List;

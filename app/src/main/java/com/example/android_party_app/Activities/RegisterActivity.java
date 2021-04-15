@@ -19,10 +19,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.android_party_app.R;
-import com.example.android_party_app.RetrofitInterface;
-import com.example.android_party_app.UserTypeClasses.PlaceOwner;
-import com.example.android_party_app.UserTypeClasses.RegularUser;
-import com.example.android_party_app.UserTypeClasses.UserDJ;
+import com.example.android_party_app.Service.RetrofitInterface;
+import com.example.android_party_app.Model.UserTypeClasses.PlaceOwner;
+import com.example.android_party_app.Model.UserTypeClasses.RegularUser;
+import com.example.android_party_app.Model.UserTypeClasses.UserDJ;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.HashMap;

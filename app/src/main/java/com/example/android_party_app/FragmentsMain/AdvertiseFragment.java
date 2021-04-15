@@ -17,10 +17,10 @@ import android.widget.Toast;
 
 import com.example.android_party_app.Activities.MainActivity;
 import com.example.android_party_app.Adapters.MessageAdapterRecycler;
-import com.example.android_party_app.ObjectsClasses.Message;
+import com.example.android_party_app.Model.ObjectsClasses.Message;
 import com.example.android_party_app.Adapters.MyAds;
 import com.example.android_party_app.R;
-import com.example.android_party_app.RetrofitInterface;
+import com.example.android_party_app.Service.RetrofitInterface;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
