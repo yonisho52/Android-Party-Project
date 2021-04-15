@@ -17,8 +17,8 @@
 
 <p align="center">
 
-| Main Page - All Countries  | Main Page - All Countries | Borders Page |
-| ------------- | ------------- | ------------- |
-| Showing all the countries  | Search Functionality  | Showing Border of the clicked country  |
-| <img src="https://github.com/yonisho52/Android-API-Challenge2/blob/main/Result%20Images/home-screen.jpg" width="250" >  | <img src="https://github.com/yonisho52/Android-API-Challenge2/blob/main/Result%20Images/search.jpg" width="250" >  | <img src="https://github.com/yonisho52/Android-API-Challenge2/blob/main/Result%20Images/borders.jpg" width="250" >  |
+| Main Page - Login  | Register - Regular User | Register - DJ User | Register - Place Onwer User |
+| ------------- | ------------- | ------------- | ------------- |
+| detailes  | detailes  | detailes  | detailes  |
+| <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/login.jpg" width="250" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/regular-user.jpg" width="250" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/dj-user.jpg" width="250" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/owner-user.jpg" width="250" >  
 </p>
