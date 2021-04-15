@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/regularRegFragment"
-        android:name="com.example.android_party_project.FragmentsRegLog.RegularRegisterFragment"
+        android:name="com.example.android_party_app.FragmentsRegLog.RegularRegisterFragment"
         android:label="Regular User registration"
         tools:layout="@layout/fragment_regular_register" />
     <fragment
         android:id="@+id/djRegFragment"
-        android:name="com.example.android_party_project.FragmentsRegLog.DJRegisterFragment"
+        android:name="com.example.android_party_app.FragmentsRegLog.DJRegisterFragment"
         android:label="DJ registration"
         tools:layout="@layout/fragment_d_j_register" />
     <fragment
         android:id="@+id/placeOwnerRegFragment"
-        android:name="com.example.android_party_project.FragmentsRegLog.PlaceOwnerRegisterFragment"
+        android:name="com.example.android_party_app.FragmentsRegLog.PlaceOwnerRegisterFragment"
         android:label="Place owner registration"
         tools:layout="@layout/fragment_place_owner_register" />
 </navigation>

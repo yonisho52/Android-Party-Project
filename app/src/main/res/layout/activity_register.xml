@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@drawable/register"
     android:paddingTop="5dp"
-    tools:context="com.example.android_party_project.Activities.RegisterActivity">
+    tools:context="com.example.android_party_app.Activities.RegisterActivity">
 
 <com.google.android.material.bottomnavigation.BottomNavigationView
     android:id="@+id/bottomNavigationViewRegister"

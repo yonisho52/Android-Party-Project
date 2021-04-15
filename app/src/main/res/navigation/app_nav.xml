@@ -6,11 +6,11 @@
     app:startDestination="@id/splashFragment2">
     <fragment
         android:id="@+id/splashFragment2"
-        android:name="com.example.android_party_project.SplashFragment"
+        android:name="com.example.android_party_app.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" />
     <fragment
         android:id="@+id/fragmentLogin2"
-        android:name="com.example.android_final_project.FragmentLogin"
+        android:name="com.example.android_party_app.FragmentLogin"
         android:label="FragmentLogin" />
 </navigation>

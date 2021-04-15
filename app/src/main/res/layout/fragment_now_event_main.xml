@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/register"
-    tools:context="com.example.android_party_project.FragmentsMain.NowEventMainFragment">
+    tools:context="com.example.android_party_app.FragmentsMain.NowEventMainFragment">
 
     <TextView
         android:id="@+id/textViewNowEventTitle"
