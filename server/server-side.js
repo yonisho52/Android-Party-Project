@@ -17,10 +17,6 @@ client.connect(err => {
         const messageCollection = client.db("myDb").collection("adsMessages");
         const surevyCollection = client.db("myDb").collection("survey");
         
-        //   const myDb = db.db('myDb') //If this DB doesnt exist, it will be create automatically
-        //   const collection = myDb.collection('userTable') //Table name
-        //   const eventCollection = myDb.collection('Events')//Events table		
-
 
         app.post('/rateDjOrPlaceByEmail',(req, res) => {
             const query = ({ email:req.body.email })
