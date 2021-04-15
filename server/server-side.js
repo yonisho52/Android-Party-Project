@@ -4,9 +4,7 @@ const MongoClient = require('mongodb').MongoClient
 
 //const url = "mongodb://localhost:27017"
 //const url = "cluster-android-project-shard-00-02.pykq3.mongodb.net:27017"
-//const url = "mongodb+srv://cluster-android-project-shard-00-00.pykq3.mongodb.net:27017/?poolSize=20&writeConcern=majority"
 
-//const url = "mongodb+srv://admin:4321@cluster-android-project.pykq3.mongodb.net/Cluster-Android-Project?retryWrites=true&w=majority"
 const url = "mongodb+srv://admin:4321@cluster-android-project.pykq3.mongodb.net/myDb?retryWrites=true&w=majority"
 const client = new MongoClient(url, { useNewUrlParser: true });
 client.connect(err => {
