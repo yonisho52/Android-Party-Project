@@ -25,15 +25,15 @@ The application includes the following features:
 | Main Page - Login  | Register - Regular User | Register - DJ User | Register - Place Owner User |
 | ------------- | ------------- | ------------- | ------------- |
 | Main page of the application  | Registration form of a regular user  | Registration form of a DJ type user  | Registration form of a place owner type user  |
-| <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/login.jpg" width="200" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/regular-user.jpg" width="200" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/dj-user.jpg" width="200" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/owner-user.jpg" width="200" >  
+| <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/login.jpg" width="180" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/regular-user.jpg" width="180" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/dj-user.jpg" width="180" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/owner-user.jpg" width="180" >  
 </p>
 
 <p align="center">
 
 | Home - Calendar | Calendar - Add New Event | Event Summary | Profile |
 | ------------- | ------------- | ------------- | ------------- |
-| All Users  | For Place Owner Only  | Regiesters Events Of Owner/DJ  | All Users  |
-| <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/calendar.jpg" width="200" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/calendar-add-new-event.jpg" width="200" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/event summary.jpg" width="200" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/profile.jpg" width="200" >  
+| Similar page to all 3 types of users  | Page relevant for  Place Owners only  | Event registration by a DJ/Place owner type user  | Similar page to all 3 types of users  |
+| <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/calendar.jpg" width="180" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/calendar-add-new-event.jpg" width="180" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/event summary.jpg" width="180" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/profile.jpg" width="180" >  
 </p>
 
 
@@ -41,16 +41,16 @@ The application includes the following features:
 
 | Advertisement  | Saved Events | Enter Party | Now Event |
 | ------------- | ------------- | ------------- | ------------- |
-| DJ/Place Owner - ads  | Regular User  | Regular User, Dj/Place Owner Have Automatic Enter  | DJ / Place Owner, DJ Can Add Survey To The Audience  |
-| <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/ads.jpg" width="200" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/saved-event-regular.jpg" width="200" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/insert-partCode-regular.jpg" width="200" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/now-event-dj.jpg" width="200" >  
+| Promotion page (call it a chat lobby) | Saved events page, for regular users  | Event PIN code for regular users, DJ/Place owner users wont need code  | Current events options provided to regular users  |
+| <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/ads.jpg" width="180" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/saved-event-regular.jpg" width="180" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/insert-partCode-regular.jpg" width="180" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/now-event-regular.jpg" width="180" >  
 </p>
 
-<p align="center">
+<p >
 
-| Now Event | Now Event - Make Survey | Now Event - Survey Result | Now Event - Voting | Now Event - Voting |
+| Now Event - Make Survey | Now Event - Survey Result | Now Event - Voting | Now Event - Voting |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-| Regular User  | DJ  | Plce Owner / DJ  | Regular Users  | Regular Users  |
-| <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/now-event-regular.jpg" width="200" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/now-event-dj-survey.jpg" width="200" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/now-event-live-survey-result.jpg" width="200" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/party-survey-vote.jpg" width="200" >  |  <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/now-event-rating.jpg" width="200" >  
+| Survey creation page  | Survey results page  | Event rating to provide feedback by regular users  | Event rating to provide feedback by regular users  |
+| <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/now-event-dj-survey.jpg" width="150" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/now-event-live-survey-result.jpg" width="150" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/party-survey-vote.jpg" width="150" >  |  <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/now-event-rating.jpg" width="150" >  
 </p>
 
 
