@@ -22,9 +22,9 @@ The application includes the following features:
 
 <p align="center">
 
-| Main Page - Login  | Register - Regular User | Register - DJ User | Register - Place Onwer User |
+| Main Page - Login  | Register - Regular User | Register - DJ User | Register - Place Owner User |
 | ------------- | ------------- | ------------- | ------------- |
-| details  | details  | details  | details  |
+| Main page of the application  | Registration form of a regular user  | Registration form of a DJ type user  | Registration form of a place owner type user  |
 | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/login.jpg" width="200" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/regular-user.jpg" width="200" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/dj-user.jpg" width="200" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/owner-user.jpg" width="200" >  
 </p>
 
