@@ -48,7 +48,7 @@ The application includes the following features:
 <p >
 
 | Now Event - Make Survey | Now Event - Survey Result | Now Event - Voting | Now Event - Voting |
-| ------------- | ------------- | ------------- | ------------- | ------------- |
+| ------------- | ------------- | ------------- | ------------- |
 | Survey creation page  | Survey results page  | Event rating to provide feedback by regular users  | Event rating to provide feedback by regular users  |
 | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/now-event-dj-survey.jpg" width="150" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/now-event-live-survey-result.jpg" width="150" >  | <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/party-survey-vote.jpg" width="150" >  |  <img src="https://github.com/yonisho52/Android-Party-Project/blob/main/Result%20Images/now-event-rating.jpg" width="150" >  
 </p>
