@@ -2,7 +2,7 @@
 
 Our final project in Android 1 Development class, Holon Institute of Technology. 
 
-The project includes the application itself, which was written in Java in Android Studio, 
+The project includes the application itself, which was written in Android Studio using Java, 
 and the server, which was written in Node.js to act as the middle man between our application and MongoDB database. 
 
 The server includes POST/GET HTTP requests to support the necessary functions of the application. 
